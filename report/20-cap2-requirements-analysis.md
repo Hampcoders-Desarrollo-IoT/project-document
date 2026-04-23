@@ -1,5 +1,4 @@
 
-=======
 ## Capítulo II: Requirements Elicitation & Analysis
 
 ### 2.1. Competidores
@@ -77,9 +76,6 @@ Competidor indirecto, ya que aborda el mantenimiento preventivo mediante tecnolo
 - Detecta fallas o ineficiencias energéticas.  
 - Permite optimizar el uso de energía mediante análisis de datos.  
 
-**Relación con ElectroLink**  
-Competidor indirecto, enfocado en tecnología avanzada IoT, pero sin un modelo de marketplace para servicios técnicos.  
-
 ---
 
 ###  Conclusión del análisis
@@ -112,7 +108,6 @@ Identificar el posicionamiento de ElectroLink frente a sus competidores y detect
 
 Para enfrentar a los competidores directos e indirectos identificados, ElectroLink plantea un conjunto de estrategias y tácticas enfocadas en la diferenciación, la confianza, la innovación tecnológica y la especialización en el sector eléctrico.
 
----
 
 **Estrategia de diferenciación mediante especialización en sistemas eléctricos e IoT**  
 A diferencia de plataformas generalistas como HomeAdvisor y Angi, que abarcan múltiples categorías de servicios, ElectroLink se enfocará específicamente en servicios de mantenimiento eléctrico preventivo y correctivo, integrando tecnologías IoT. Esta especialización permitirá posicionar la plataforma como una solución confiable y experta en el sector.  
@@ -122,7 +117,6 @@ A diferencia de plataformas generalistas como HomeAdvisor y Angi, que abarcan m�
 - Generación de alertas predictivas ante posibles fallas eléctricas.  
 - Recomendaciones inteligentes para mantenimiento preventivo.  
 
----
 
 **Estrategia de integración de servicios y tecnología**  
 Frente a competidores como Schneider Electric, que ofrecen soluciones tecnológicas sin intermediación de servicios, ElectroLink propone integrar en una sola plataforma el monitoreo IoT y la conexión con técnicos especializados, cubriendo todo el ciclo de atención.  
@@ -132,7 +126,6 @@ Frente a competidores como Schneider Electric, que ofrecen soluciones tecnológi
 - Integración de datos IoT con solicitudes automáticas de servicio.  
 - Plataforma web y móvil para gestión integral del servicio.  
 
----
 
 **Estrategia de garantía de seguridad y cumplimiento normativo**  
 ElectroLink buscará generar confianza en los usuarios mediante el aseguramiento de la calidad y legalidad de los servicios ofrecidos, superando una de las principales debilidades del mercado informal.  
@@ -142,8 +135,6 @@ ElectroLink buscará generar confianza en los usuarios mediante el aseguramiento
 - Verificación de licencias y cumplimiento de normativas eléctricas.  
 - Implementación de sistemas de calificación y reputación.  
 
----
-
 **Estrategia de precios transparentes y accesibles**  
 A diferencia de modelos como los de HomeAdvisor, basados en generación de leads, ElectroLink adoptará un enfoque de precios claros y accesibles para clientes y proveedores.  
 
@@ -152,7 +143,6 @@ A diferencia de modelos como los de HomeAdvisor, basados en generación de leads
 - Implementación de planes de suscripción para mantenimiento preventivo.  
 - Tarifas competitivas orientadas a hogares y PYMES.  
 
----
 
 **Estrategia de posicionamiento en nichos específicos (hogares y PYMES)**  
 ElectroLink enfocará sus esfuerzos en segmentos con alta necesidad de mantenimiento eléctrico, pero baja adopción de soluciones tecnológicas avanzadas.  
