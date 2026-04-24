@@ -71,8 +71,40 @@ Para detallar los antecedentes de la solución y presentar correctamente la desc
 | ¿Cuánto?(Cuánto) - ¿Cuánto dinero está implicado? |           |
 
 ### 1.2.3 Lean UX Process
+En esta sección el equipo aplica la metodología Lean UX para definir el problema, las suposiciones y las hipotesis.
+
 #### 1.2.3.1 Lean UX Problem Statement
+
 #### 1.2.3.2 Lean UX Assumptions
+
+**Bussiness Outcomes (Resultados de Negocio)**:
+
+1. **Creo que nuestros clientes necesitan** una forma de prevenir fallas eléctricas críticas en sus hogares, negocios o empresas y una conexión rápida con técnicos certificados.
+
+2. **Estas necesidades se pueden resolver mediante** una plataforma que combine el monitoreo en tiempo real mediante dispositivos IoT con una marketplace de servicios técnicos.
+
+3. **Mis clientes iniciales son** propietarios de viviendas y administradores de PYMES preocupados por la seguridad y la continuidad operativa.
+
+4. **El valor #1 que un cliente quiere de mi servicio es** la tranquilidad de saber que su red eléctrica está monitoreada y que recibirá atención técnica inmediata ante una anomalía.
+
+5. **El cliente también puede obtener estos beneficios adicionales** como ahorro energético al detectar consumos ineficientes y reportes detallados para seguros de hogar.
+
+6. **Vamos a adquirir la mayoría de mis clientes a través de** alianzas con ferreterías especializadas, empresas de seguros y marketing digital enfocado en prevención de riesgos.
+
+7. **Haremos dinero a través de** comisiones por servicios técnicos contratados y una suscripción mensual por el servicio de monitoreo IoT avanzado.
+
+8. **Nuestra competencia principal en el mercado será** plataformas de servicios generales como Angi o HomeAdvisor, y empresas de domótica como Google Nest.
+
+9. **Los venceremos debido a** que integramos el diagnóstico preventivo por hardware (IoT) con la solución correctiva inmediata del técnico especializado.
+
+10. **Nuestro mayor riesgo de producto es** que el costo de los dispositivos IoT sea percibido como una barrera de entrada muy alta para el cliente promedio.
+
+11. **Resolveremos esto a través de** un modelo de comodato (alquiler) del dispositivo incluido en la suscripción mensual del servicio.
+
+12. **¿Qué otras suposiciones tenemos?:** Creemos que los técnicos eléctricos están dispuestos a pagar una comisión por recibir trabajos que ya vienen con un pre-diagnóstico digital.
+
+
+
 #### 1.2.3.3 Lean UX Hypothesis
 #### 1.2.3.4 Lean UX Canvas
 
