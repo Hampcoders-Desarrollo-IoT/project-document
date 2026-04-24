@@ -27,7 +27,7 @@ Soy Ethan Matias Aliaga Aguirre, estudiante de 7mo ciclo de Ingeniería de Softw
 \end{minipage}
 
 \vspace{1cm}
-<!-- Imitar esto-->                                                                                                                                                                                                                                                                                                                                                                                        |
+<!-- Imitar esto-->
 
 ## 1.2. Solution Profile 
 
@@ -35,27 +35,157 @@ En esta sección el equipo describe el perfil de la solución, inluyendo el aná
 
 ### 1.2.1 Nombre del producto
 
-Tras la pandemia en Perú, notamos una oportunidad al juntar tres problemas actuales. Por una parte, muchos jóvenes tienen dificultades para relacionarse cara a cara, mientras que miles de estudiantes de idiomas se quedan en la teoría por falta de espacios para conversar. A esto se le suma que los pequeños negocios, como cafeterías, buscan constantemente nuevas formas de generar tráfico de clientes. 
+Después de la pandemia, muchas cosas cambiaron en cómo vivimos y manejamos nuestros espacios. Hoy en día, tanto en casas como en negocios, dependemos mucho más de la electricidad, pero la mayoría de personas no tiene claro cuánto consume, si hay fallas en su instalación o cuándo algo podría salir mal. Normalmente, los problemas eléctricos se detectan recién cuando ya ocurrió una falla. 
 
-Así nace Glottia, una iniciativa para incentivar la práctica presencial de idiomas. Lo que hacemos es conectar a personas que quieren soltarse al hablar con restaurantes y cafés locales, dándoles a los usuarios un lugar cómodo para practicar y a los negocios un flujo constante de público.
+Al mismo tiempo, muchos técnicos eléctricos trabajan de forma independiente y les cuesta conseguir clientes de manera constante, teniendo ingresos inestables y poco organizados. Por otro lado, empresas y administradores de edificios buscan reducir costos eléctricos, pero no cuentan con herramientas simples que les permitan entender y optimizar su consumo.
+
+ElectroLink es una plataforma que conecta a personas y empresas con técnicos eléctricos confiables, permitiendo monitorear el consumo eléctrico en tiempo real mediante dispositivos inteligentes. Esto ayuda a detectar problemas antes de que se conviertan en fallas, facilitando un mantenimiento más preventivo que reactivo.
 
 ### 1.2.2 Antecedentes y problemática
 
 Para detallar los antecedentes de la solución y presentar correctamente la descripción de la problemática, se ha utilizado la herramienta 5 'W' s y 2 'H' s.
 
-| Pregunta                                          | Respuesta |
-| ------------------------------------------------- | --------- |
-| ¿Qué?(What) - ¿Cuál es el problema?               |           |
-| ¿Quién?(Who) - ¿Quiénes son los beneficiarios?    |           |
-| ¿Cuando?(When) - ¿Cuándo se origina el problema?  |           |
-| ¿Por qué?(Why) - ¿Por qué se origina el problema? |           |
-| ¿Dónde?(Where) - ¿Dónde ocurre el problema?       |           |
-| ¿Cómo?(How) - ¿Cómo se origina el problema?       |           |
-| ¿Cuánto?(Cuánto) - ¿Cuánto dinero está implicado? |           |
+\begin{longtable}{|p{6cm}|p{9cm}|}
+\hline
+\textbf{Pregunta} & \textbf{Respuesta} \\
+\hline
 
-### 1.2.3 Lean UX Process
-#### 1.2.3.1 Lean UX Problem Statement
+¿Qué (What) - ¿Cuál es el problema?
+& Muchas personas y empresas no tienen visibilidad sobre su consumo eléctrico ni el estado de sus instalaciones, lo que hace que los problemas se detecten recién cuando ocurre una falla. Además, encontrar técnicos confiables y disponibles no siempre es sencillo. \\
+\hline
+
+¿Quién (Who) - ¿Quiénes son los beneficiarios?
+& Propietarios de viviendas, pequeños negocios, empresas y administradores de edificios que necesitan gestionar su consumo eléctrico, así como técnicos eléctricos independientes que buscan más oportunidades de trabajo y mejor organización. \\
+\hline
+
+¿Cuándo (When) - ¿Cuándo se origina el problema?
+& El problema aparece cuando ocurre una falla eléctrica inesperada o cuando los usuarios intentan entender o reducir su consumo sin contar con información clara o herramientas adecuadas. \\
+\hline
+
+¿Por qué (Why) - ¿Por qué se origina el problema?
+& Se origina por la falta de herramientas accesibles para monitorear el consumo en tiempo real, la ausencia de mantenimiento preventivo y la desconexión entre los usuarios y técnicos eléctricos confiables. \\
+\hline
+
+¿Dónde (Where) - ¿Dónde ocurre el problema?
+& Ocurre en hogares, locales comerciales y edificios, principalmente en entornos urbanos donde el consumo eléctrico es constante y crítico para las actividades diarias. \\
+\hline
+
+¿Cómo (How) - ¿Cómo se origina el problema?
+& Se da porque la mayoría de sistemas eléctricos no cuentan con monitoreo continuo, lo que impide detectar anomalías a tiempo. A esto se suma la falta de plataformas que integren diagnóstico, contacto con técnicos y seguimiento del servicio en un solo lugar. \\
+\hline
+
+¿Cuánto (How much) - ¿Cuánto dinero está implicado?
+& Los problemas eléctricos pueden generar gastos imprevistos en reparaciones, así como pérdidas económicas por interrupciones en negocios o consumo ineficiente de energía. Diversos estudios señalan que el mantenimiento correctivo suele implicar mayores costos debido a reparaciones de emergencia y tiempos de inactividad, mientras que el mantenimiento preventivo permite reducir estos gastos al anticipar fallas y planificar intervenciones. \cite{maintenance_costs} \\
+\hline
+
+\end{longtable}
+
+### 1.2.3 Lean UX Process 
+
+En esta sección el equipo aplica la metodología Lean UX para definir el problema, las suposiciones y las hipotesis.
+
+#### 1.2.3.1 Lean UX Problem Statement 
+\
+
+**Problem Statement #1**
+
+Nuestra plataforma busca ayudar a propietarios de viviendas y empresas a gestionar sus sistemas eléctricos de manera más segura y eficiente, pasando de un enfoque reactivo a uno preventivo.
+
+Hemos identificado que actualmente los usuarios no tienen visibilidad sobre su consumo eléctrico ni sobre el estado de sus instalaciones, lo que hace que los problemas se detecten recién cuando ocurre una falla. Esta situación genera riesgos en la seguridad, interrupciones en sus actividades y costos elevados por reparaciones de emergencia.
+
+Ante este desafío, surge la pregunta:¿Cómo podemos permitir a los usuarios monitorear su consumo eléctrico y detectar anomalías a tiempo para prevenir fallas y reducir riesgos?
+
+**Problem Statement #2**
+
+Nuestra plataforma busca optimizar la forma en que los técnicos eléctricos gestionan su trabajo, integrándolos en un sistema más inteligente basado en datos y monitoreo en tiempo real.
+
+Hemos identificado que muchos técnicos eléctricos trabajan de manera reactiva, sin información previa sobre el estado de las instalaciones, lo que dificulta la planificación de sus servicios y reduce su eficiencia. Además, enfrentan dificultades para acceder a una demanda constante y organizada de trabajos.
+
+Ante este desafío, surge la pregunta clave: ¿Cómo podemos proporcionar a los técnicos información relevante en tiempo real y un flujo constante de servicios para mejorar su eficiencia y calidad de trabajo?
+
 #### 1.2.3.2 Lean UX Assumptions
+
+#### Business Outcomes:
+\
+
+**Creemos que nuestros usuarios necesitan** una solución que les permita monitorear y entender su consumo eléctrico en tiempo real, además de prevenir fallas antes de que ocurran, ya que actualmente solo reaccionan cuando el problema ya es crítico.
+
+**Estas necesidades se pueden resolver mediante** el desarrollo de una plataforma que integre monitoreo IoT con una red de técnicos eléctricos verificados, permitiendo detectar anomalías, generar alertas y facilitar la gestión de servicios eléctricos de forma proactiva y eficiente.
+
+**Nuestros clientes iniciales son** propietarios de viviendas, pequeñas y medianas empresas, y administradores de edificios que buscan mejorar la seguridad y eficiencia de sus instalaciones eléctricas, así como técnicos eléctricos que desean acceder a una demanda constante y organizada de servicios.
+
+**El valor #1 que los clientes quiere de nuestro servicio** es tener visibilidad y control sobre su sistema eléctrico para evitar fallas inesperadas, reducir riesgos y tomar decisiones informadas basadas en datos reales.
+
+**El cliente también puede obtener estos beneficios adicionales** como reducción de costos por mantenimiento correctivo, alertas tempranas ante anomalías, optimización del consumo energético, acceso a técnicos certificados y seguimiento en tiempo real de los servicios realizados.
+
+**Vamos a adquirir la mayoría de los clientes a través de** estrategias de marketing digital, alianzas con empresas del sector eléctrico, campañas educativas sobre eficiencia energética y demostraciones del valor del monitoreo preventivo en hogares y negocios.
+
+**Haremos dinero a través de** un modelo de suscripciones para propietarios y empresas basado en el acceso a funcionalidades premium de monitoreo y analítica, así como servicios asociados a la instalación y mantenimiento de dispositivos IoT.
+
+**Nuestra competencia de mercado serán** plataformas que conectan clientes con técnicos como marketplaces tradicionales, así como soluciones de monitoreo energético independientes que no integran servicios técnicos ni gestión operativa.
+
+**Los venceremos debido a** nuestro enfoque integral que combina monitoreo en tiempo real, análisis de datos y conexión directa con técnicos certificados, permitiendo no solo detectar problemas sino también solucionarlos de forma eficiente dentro de la misma plataforma.
+
+**Nuestro mayor riesgo de producto es** que los usuarios no perciban el valor del monitoreo preventivo o no estén dispuestos a adoptar dispositivos IoT en sus instalaciones eléctricas.
+
+**Resolveremos esto a través de** pruebas piloto, planes iniciales accesibles, demostraciones del ahorro generado y educación del usuario sobre los beneficios del mantenimiento predictivo frente al correctivo.
+
+**Qué otras suposiciones tenemos que, de probarse falsas, pueden causar que nuestro proyecto fracase:**
+
+- Creemos que los usuarios estarán dispuestos a instalar dispositivos IoT en sus propiedades para obtener beneficios a largo plazo.
+
+- Creemos que los técnicos adoptarán la plataforma como su principal canal de trabajo.
+
+- Creemos que los usuarios valorarán la prevención por encima de la reacción ante fallas.
+
+- Creemos que las empresas estarán interesadas en invertir en soluciones de eficiencia energética basadas en datos.
+
+#### User Outcomes:
+
+1. ¿Quién será el usuario?
+    - Propietarios de viviendas
+    - Dueños de PYMES y empresas
+    - Técnicos eléctricos certificados
+
+2. ¿Dónde encaja nuestro producto en su trabajo o vida?
+    - Para propietarios y empresas, el sistema se integra en la gestión diaria de sus instalaciones eléctricas, permitiéndoles monitorear consumo, recibir alertas y tomar decisiones informadas.
+    - Para técnicos, se convierte en una herramienta de trabajo que les proporciona contexto previo, organización de servicios y acceso a clientes.
+
+3. ¿Qué problemas busca resolver nuestro producto?
+    - Falta de visibilidad del consumo eléctrico
+    - Detección tardía de fallas eléctricas
+    - Costos elevados por mantenimiento correctivo
+    - Dificultad para gestionar servicios eléctricos de manera eficiente
+    - Falta de acceso a demanda constante por parte de técnicos
+
+4. ¿Cuándo y cómo es usado nuestro producto?
+
+    Cuándo:
+    - De forma continua para monitoreo
+    - Cuando se detecta una anomalía
+    - Al solicitar o gestionar un servicio eléctrico
+    
+    Cómo:
+    - A través de una aplicación web o móvil
+    - Visualizando dashboards de consumo
+    - Recibiendo alertas automáticas
+    - Gestionando solicitudes de servicio
+
+5. ¿Qué características son importantes?
+    - Monitoreo en tiempo real del consumo eléctrico
+    - Detección de anomalías y alertas automáticas
+    - Dashboard de analítica y consumo
+    - Asignación automática de técnicos
+    - Historial de servicios y mantenimiento
+    - Interfaz clara e intuitiva
+
+6. ¿Cómo debe comportarse y verse nuestro producto?
+    - Interfaz simple, clara y orientada a datos
+    - Visualización intuitiva del consumo eléctrico
+    - Respuesta rápida ante eventos críticos
+    - Experiencia fluida tanto en web como en móvil
+    - Diferenciación de interfaces según tipo de usuario
+
 #### 1.2.3.3 Lean UX Hypothesis
 #### 1.2.3.4 Lean UX Canvas
 

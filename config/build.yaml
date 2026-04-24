@@ -8,7 +8,7 @@ input-files:
   #- report/30-cap3-ui-ux-design.md
   #- report/40-cap4-implementation.md
   #- report/90-conclusiones.md
-  #- report/91-bibliografia.md
+  - report/91-bibliografia.md
   #- report/99-anexos.md
 
 output-file: dist/glottia-report.pdf
@@ -40,3 +40,5 @@ variables:
   titlepage-color: "FFFFFF"
   header-includes:
     - \usepackage{graphicx}
+    - \usepackage{longtable}
+    - \usepackage{array}
