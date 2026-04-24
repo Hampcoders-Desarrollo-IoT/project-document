@@ -103,7 +103,19 @@ En esta sección el equipo aplica la metodología Lean UX para definir el proble
 
 12. **¿Qué otras suposiciones tenemos?:** Creemos que los técnicos eléctricos están dispuestos a pagar una comisión por recibir trabajos que ya vienen con un pre-diagnóstico digital.
 
+**User Outcomes (Resultados de Usuario)**
 
+1. **¿Quién será el usuario?:** Propietarios de casas y técnicos electricistas independientes o de empresas.
+
+2. **¿Dónde encaja el producto en su vida?:** En el panel eléctrico del hogar (dispositivo) y en el móvil del usuario para recibir alertas de emergencia.
+
+3. **¿Qué problemas busca resolver?:** El miedo a incendios eléctricos, la dificultad de encontrar técnicos de confianza y la falta de mantenimiento preventivo.
+
+4. **¿Cómo es usado el producto?:** De forma pasiva (monitoreo) y activa cuando el usuario recibe una alerta de sobrecarga y agenda una revisión técnica.
+
+5. **¿Qué características son importantes?:** Alertas en tiempo real, validación de certificados de técnicos y pagos seguros dentro de la app.
+
+6. **Como debe comportarse y verse nuestro producto?:** Cada usuario debe tener secciones diferentes para realizar sus operaciones acorde a sus necesidades y requisitos. Contar con un diseño fácil de usar (intuitivo) y minimalista permitiendo un flujo adecuado para el uso de nuestro producto.
 
 #### 1.2.3.3 Lean UX Hypothesis
 #### 1.2.3.4 Lean UX Canvas
