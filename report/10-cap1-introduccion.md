@@ -27,7 +27,26 @@ Soy Ethan Matias Aliaga Aguirre, estudiante de 7mo ciclo de Ingeniería de Softw
 \end{minipage}
 
 \vspace{1cm}
-<!-- Imitar esto-->
+<!-- Imitar esto-->                                                                                                                                                                                                                                                                                                                                                                                        |
+
+<!-- Imitar esto-->                                                                                                                                                                                                                                                                                                                                                                               
+---
+
+\begin{minipage}{0.3\textwidth}
+\includegraphics[width=\linewidth]{assets/img/cap1/team/leandro.png}
+\end{minipage}
+\hfill
+\begin{minipage}{0.65\textwidth}
+
+\textbf{Leandro Saúl Contreras López} \\
+**Código:** U20231E215
+
+Mucho gusto, soy Leandro Contreras, estudiante de la carrera de Ingeniería de Software en la UPC, sede San Miguel. Tengo 20 años y estoy cursando el séptimo ciclo académico. Me considero una persona adaptativa, perseverante y comprometida con lo que me propongo. En este proyecto tengo como objetivo buscar múltiples soluciones que beneficien a todo el grupo. Por experiencia propia, suelo trabajar de manera colaborativa y eficaz. Al terminar la carrera de ingeniería, me gustaría estudiar una segunda carrera: Gastronomía y Gestión Culinaria.
+\end{minipage}
+
+\vspace{1cm}
+
+---
 
 ## 1.2. Solution Profile 
 
@@ -187,6 +206,21 @@ Ante este desafío, surge la pregunta clave: ¿Cómo podemos proporcionar a los 
     - Diferenciación de interfaces según tipo de usuario
 
 #### 1.2.3.3 Lean UX Hypothesis
+
+Transformamos los supuestos anteriores en declaraciones de prueba para definir un contexto más acorde a nuestros usuarios.
+
+- **Hipótesis 1: Sobre el Monitoreo Preventivo**.
+**Creemos que** la implementación de sensores IoT reducirá las reparaciones de emergencia costosas para los usuarios.
+**Sabremos que** estamos [bien] **cuando veamos** los siguientes comentarios del mercado: un aumento del 40% en solicitudes de mantenimiento preventivo programado antes de que ocurra una falla crítica en un periodo de 6 meses.
+
+- **Hipótesis 2: Sobre la Confianza en Técnicos**.
+**Creemos que** mostrar las certificaciones oficiales y reseñas verificadas de los técnicos incrementará la tasa de contratación en la plataforma.
+**Sabremos que** hemos tenido éxito **cuando veamos** un aumento del 25% en la tasa de conversión de usuarios que revisan perfiles técnicos y proceden a reservar el servicio.
+
+- **Hipótesis 3: Sobre el Valor para el Partner (Técnico)**.
+**Creemos que** los técnicos preferirán ElectroLink porque los trabajos incluyen un pre-diagnóstico del sensor IoT que les ahorra tiempo.
+**Sabremos que** esto es cierto **cuando veamos** que el 60% de los técnicos registrados aceptan trabajos pre-diagnosticados en menos de 15 minutos.
+
 #### 1.2.3.4 Lean UX Canvas
 
 ## 1.3 Segmentos objetivo
