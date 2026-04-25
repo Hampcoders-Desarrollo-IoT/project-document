@@ -1,5 +1,3 @@
-# Bibliografía
-
 \begin{thebibliography}{9}
 
 \bibitem{maintenance_costs}
