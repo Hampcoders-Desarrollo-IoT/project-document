@@ -3,10 +3,10 @@
 ## 2.1. Competidores
 En esta sección se identifican y analizan los principales competidores directos e indirectos dentro del mercado de servicios y soluciones eléctricas, considerando plataformas digitales y modelos de intermediación similares.
 
-
 #### Competidores Directos
 
 #### HomeAdvisor
+\
 
 **¿Qué ofrece?**  
 - Servicios para el hogar: electricidad, plomería, remodelación, limpieza, HVAC, entre otros.  
@@ -24,7 +24,7 @@ Es un competidor directo, ya que conecta clientes con técnicos; sin embargo, no
 
 
 #### Angi
-
+\
 
 **¿Qué ofrece?**  
 - Servicios del hogar: electricidad, mantenimiento, remodelación, limpieza, entre otros.  
@@ -44,7 +44,7 @@ Compite directamente en la intermediación de servicios, destacando en confianza
 #### Competidores Indirectos (IoT)
 
 #### Google Nest
-
+\
 
 **¿Qué ofrece?**  
 - Dispositivos inteligentes: sensores, termostatos, cámaras.  
@@ -62,7 +62,7 @@ Competidor indirecto, ya que aborda el mantenimiento preventivo mediante tecnolo
 
 
 #### Schneider Electric
-
+\
 
 **¿Qué ofrece?**  
 - Soluciones eléctricas inteligentes.  
@@ -89,8 +89,8 @@ Identificar el posicionamiento de ElectroLink frente a sus competidores y detect
 
 ---
 
-| Categoría | Subcategoría | ElectroLink (Startup) | HomeAdvisor | Angi | Schneider Electric |
-|----------|-------------|----------------------|-------------|------|--------------------|
+| Categoría | Sub categoría | ElectroLink | HomeAdvisor | Angi | Schneider Electric |
+|-------|---------|----------|----------|----------|----------|
 | **Perfil** | Overview | Plataforma que conecta proveedores eléctricos con clientes, integrando IoT para mantenimiento preventivo. | Marketplace de servicios del hogar con profesionales verificados. | Plataforma basada en reputación para contratar servicios del hogar. | Empresa de soluciones eléctricas inteligentes con enfoque en IoT. |
 | **Perfil** | Ventaja competitiva / Valor al cliente | Integración de IoT + servicios técnicos → mantenimiento preventivo y correctivo. | Amplia red de profesionales y sistema de validación. | Alta confianza basada en reseñas verificadas. | Tecnología avanzada para monitoreo y eficiencia energética. |
 | **Perfil de Marketing** | Mercado objetivo | Hogares y PYMES que requieren mantenimiento eléctrico. | Propietarios de viviendas. | Usuarios que buscan servicios confiables del hogar. | Empresas y hogares con enfoque en eficiencia energética. |
@@ -158,7 +158,7 @@ ElectroLink enfocará sus esfuerzos en segmentos con alta necesidad de mantenimi
 En esta sección, el equipo de Hampcoders realiza el diseño de las entrevistas a realizar por segmento objetivo
 
 #### Segmento #1: Propietarios de hogares urbanos
-
+\
 **Preguntas Principales (Enfoque en Valor IoT y Prevención)**
 
 1. ¿Cómo te sientes normalmente cuando surge un problema eléctrico inesperado y qué tanto te preocupa que una falla invisible pueda causar un incendio o dañar tus electrodomésticos?
@@ -192,7 +192,7 @@ En esta sección, el equipo de Hampcoders realiza el diseño de las entrevistas 
 14. ¿Te sentirías cómodo pagando una suscripción mensual mínima si esto te garantiza monitoreo 24/7 y prioridad de atención ante emergencias eléctricas?
 
 #### Segmento #2: Técnicos Electricistas Certificados
-
+\
 **Preguntas Principales (Enfoque en Eficiencia y Pre-diagnóstico)**
 
 1. ¿Cómo te sientes con la forma actual en que captas clientes y qué tanto te cuesta demostrar que tu certificación vale más que el precio de un técnico informal?
@@ -226,7 +226,7 @@ En esta sección, el equipo de Hampcoders realiza el diseño de las entrevistas 
 14. ¿Qué tan difícil es gestionar los pagos y la facturación con clientes individuales o empresas actualmente? ¿Prefieres que la plataforma gestione el cobro de forma segura?
 
 #### Segmento #3: PyMES y Administradores de Edificios
-
+\
 **Preguntas Principales (Enfoque en Continuidad y Eficiencia)**
 
 1. ¿Cómo afecta a la operación de su negocio un corte eléctrico inesperado y cuánto estima que pierde económicamente por cada hora de inactividad?

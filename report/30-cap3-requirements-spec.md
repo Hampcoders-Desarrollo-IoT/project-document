@@ -114,8 +114,8 @@
 
 En esta sección, el equipo organiza el Product Backlog en base a su valor para el negocio y su peso en Story Points.
 
-| Orden | Story ID | Título | Descripción | Story Points (Fibonacci) | 
-| ----- |----------|--------|--------------------------|--------------------------|-------|
+| Orden | Story ID | Título | Descripción | Story Points | 
+| ----- |------|--------------|--------------------------|----|-----|
 | 01 | US-05 | Cierre de sesión seguro | **Como** usuario autenticado, **quiero** cerrar mi sesión de forma segura, **para** proteger mi cuenta cuando termine de usar la plataforma. | 1 |
 | 02 | US-60 | Información institucional de la startup | Como visitante, quiero acceder a información sobre la empresa detrás de ElectroLink, para evaluar su credibilidad y tomar una decisión informada.  | 1 | EP-13 |
 | 03 | US-61 | Navegación fluida y adaptativa | Como visitante que accede desde distintos dispositivos, quiero que la landing page funcione correctamente y se adapte a mi pantalla, para tener una experiencia óptima independientemente del dispositivo. | 1 | EP-13 |
