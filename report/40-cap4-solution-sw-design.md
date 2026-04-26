@@ -32,6 +32,8 @@ A continuación, se presenta el Context Map elegido que resume visualmente estas
 #### 4.1.3. Software Architecture.
 
 ##### 4.1.3.1. Candidate Context Discovery.
+![](assets/img/cap2/CCD.png)
+
 ##### 4.1.3.2. Domain Message Flows Modeling.
 ##### 4.1.3.3. Bounded Context Canvases.
 ##### 4.1.3.4. Software Architecture Deployment Diagrams.
