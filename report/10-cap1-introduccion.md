@@ -129,19 +129,32 @@ En esta sección el equipo aplica la metodología Lean UX para definir el proble
 
 **Problem Statement #1**
 
-Nuestra plataforma busca ayudar a propietarios de viviendas y empresas a gestionar sus sistemas eléctricos de manera más segura y eficiente, pasando de un enfoque reactivo a uno preventivo.
+Las PyMEs y propietarios de viviendas enfrentan dificultades para gestionar y comprender su consumo eléctrico de manera detallada, lo que genera costos impredecibles, fallas inesperadas en equipos críticos y riesgos en la continuidad de sus operaciones.
 
-Hemos identificado que actualmente los usuarios no tienen visibilidad sobre su consumo eléctrico ni sobre el estado de sus instalaciones, lo que hace que los problemas se detecten recién cuando ocurre una falla. Esta situación genera riesgos en la seguridad, interrupciones en sus actividades y costos elevados por reparaciones de emergencia.
+En muchos casos, no cuentan con personal técnico especializado, por lo que dependen de intervenciones reactivas cuando ocurre una avería, incrementando el tiempo de inactividad y las pérdidas económicas.
 
-Ante este desafío, surge la pregunta:¿Cómo podemos permitir a los usuarios monitorear su consumo eléctrico y detectar anomalías a tiempo para prevenir fallas y reducir riesgos?
+En este contexto, nuestra solución propone una plataforma basada en IoT que permita monitorear en tiempo real el consumo energético por circuito, detectar anomalías como sobrecargas o consumos inusuales y generar alertas preventivas.
+
+Esta problemática impacta directamente en la estabilidad financiera y operativa de las PyMEs, ya que no pueden anticiparse a fallas ni optimizar su uso energético de manera eficiente.
+
+Ante este desafío surge la pregunta:
+
+¿Cómo podemos utilizar tecnologías IoT para brindar a las PyMEs visibilidad, control y prevención sobre su consumo eléctrico, reduciendo costos y asegurando la continuidad operativa?
+
 
 **Problem Statement #2**
 
-Nuestra plataforma busca optimizar la forma en que los técnicos eléctricos gestionan su trabajo, integrándolos en un sistema más inteligente basado en datos y monitoreo en tiempo real.
+Los electricistas independientes enfrentan dificultades para generar ingresos constantes y diferenciarse en un mercado altamente competitivo, lo que los obliga a depender de reparaciones técnicas y diagnósticos presenciales poco eficientes.
 
-Hemos identificado que muchos técnicos eléctricos trabajan de manera reactiva, sin información previa sobre el estado de las instalaciones, lo que dificulta la planificación de sus servicios y reduce su eficiencia. Además, enfrentan dificultades para acceder a una demanda constante y organizada de trabajos.
+Además, la falta de acceso a información previa sobre el estado eléctrico de las instalaciones limita su capacidad de realizar diagnósticos precisos, generando pérdida de tiempo, visitas innecesarias y menor confianza por parte del cliente.
 
-Ante este desafío, surge la pregunta clave: ¿Cómo podemos proporcionar a los técnicos información relevante en tiempo real y un flujo constante de servicios para mejorar su eficiencia y calidad de trabajo?
+En este contexto, nuestra solución propone una plataforma basada en IoT que, mediante la recolección y análisis de datos en tiempo real desde dispositivos instalados en PyMEs, permita a los electricistas monitorear remotamente, anticipar fallas y realizar diagnósticos antes de intervenir físicamente.
+
+Esta problemática afecta su crecimiento profesional, ya que limita su capacidad de ofrecer servicios de mayor valor como mantenimiento preventivo y gestión energética basada en datos.
+
+Ante este desafío surge la pregunta:
+
+¿Cómo podemos aprovechar los datos generados por dispositivos IoT para permitir a los electricistas ofrecer servicios predictivos, mejorar su eficiencia operativa y generar ingresos sostenibles?
 
 #### 1.2.3.2 Lean UX Assumptions
 
