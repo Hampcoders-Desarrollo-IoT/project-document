@@ -77,7 +77,7 @@ Competidor indirecto, ya que aborda el mantenimiento preventivo mediante tecnolo
 
 ---
 
-###  Conclusión del análisis
+####  Conclusión del análisis
 
 A partir del análisis realizado, se identifica que los competidores actuales se enfocan principalmente en dos enfoques: la intermediación de servicios técnicos (HomeAdvisor y Angi) o la implementación de soluciones tecnológicas basadas en IoT (Google Nest y Schneider Electric). En este contexto, ElectroLink propone un enfoque integrador que combina ambos modelos, permitiendo no solo la conexión entre clientes y proveedores, sino también la incorporación de tecnologías IoT para el monitoreo y mantenimiento preventivo, generando así una propuesta de valor diferenciada en el mercado.
 
