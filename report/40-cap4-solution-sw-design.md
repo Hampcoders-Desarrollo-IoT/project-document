@@ -27,7 +27,7 @@ En el desarrollo de nuestro proyecto, el proceso se estructuró siguiendo las fa
 
 A continuación, se presenta el Context Map elegido que resume visualmente estas relaciones y sirve como hoja de ruta para la implementación técnica de la solución:
 
-![](assets/img/cap4/Context-Mapping.jpg)
+![](assets/img/cap4/Context-Mapping-Electrolink.jpg)
 
 #### 4.1.3. Software Architecture.
 
