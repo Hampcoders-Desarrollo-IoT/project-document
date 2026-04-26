@@ -12,7 +12,7 @@
 
 \vspace{1cm}
 
-{\large 1ACC0238 | Fundamentos de Arquitectura de Software}\\
+{\large 1ACC0238 | Desarrollo de Soluciones Iot}\\
 
 \vspace{0.5cm}
 

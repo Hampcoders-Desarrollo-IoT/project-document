@@ -1,0 +1,2327 @@
+\begin{center}
+
+\includegraphics[width=0.3\textwidth]{assets/img/general/upc-logo.png}
+
+\vspace{1cm}
+
+{\LARGE \textbf{Univerisdad Peruana de Ciencias Aplicadas}}\\
+
+\vspace{1cm}
+
+{\LARGE Ingeniería de Software}\\
+
+\vspace{1cm}
+
+{\large 1ACC0238 | Desarrollo de Soluciones Iot}\\
+
+\vspace{0.5cm}
+
+{\large NRC: 7944}\\
+
+\vspace{0.5cm}
+
+{\large Periodo: 202610}\\
+
+\vspace{1.5cm}
+
+{\LARGE \textbf{Informe del Trabajo Final}}\\
+
+\vspace{1.25cm}
+
+{\large Startup: HampCoders}\\
+
+\vspace{0.5cm}
+
+{\large Producto: Glottia}\\
+
+\vspace{1.25cm}
+
+Ethan Matias Aliaga Aguirre\\
+
+\vspace{0.25cm}
+
+Leandro Saul Contreras López\\
+
+\vspace{0.25cm}
+
+Italo Ludwing Sanchez Manrique\\
+
+\vspace{0.25cm}
+
+Ivo Marcelo Machado Bracamonte\\
+
+\vspace{0.25cm}
+
+Cesar Arostegui Alzamora\\
+
+\vspace{1cm}
+
+Noviembre 2025
+
+\end{center}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Registro de Versiones del
+Informe}\label{report__01-registro-versiones.md__registro-de-versiones-del-informe}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1636}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1273}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.5091}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Versión
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Fecha
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Autor(es)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Descripción de modificación
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{TB1} & 06/04/2026 & \textbf{Ethan Matías Aliaga Aguirre} &
+Establecer estructura principal para el informe del proyecto \\
+\textbf{TB1} & 07/04/2026 & \textbf{Ethan Matías Aliaga Aguirre} &
+Redactar primera versión del Capítulo I \\
+\textbf{TB1} & 07/04/2026 & \textbf{Ethan Matías Aliaga Aguirre} &
+Redactar Startup Profile \\
+\textbf{TB1} & 07/04/2026 & \textbf{Ethan Matías Aliaga Aguirre} &
+Redactar Solution Profile \\
+\textbf{TB1} & 07/04/2026 & \textbf{Ethan Matías Aliaga Aguirre} &
+Redactar tabla base para colocar nombres de los integrantes \\
+\end{longtable}
+}
+
+\footnotesize
+
+\normalsize
+
+\section{Capítulo I:
+Introducción}\label{report__10-cap1-introduccion.md__capuxedtulo-i-introducciuxf3n}
+
+En este capítulo el equipo presenta el contexto general del proyecto que
+se trabajará durante el ciclo, incluyendo la descripción de la startup,
+los problemas identificados y la solución propuesta. En adición, se
+especifica el proceso de Lean UX utilizado para la validación del
+producto y segmentos objetivos.
+
+\subsection{1.1. Startup
+Profile}\label{report__10-cap1-introduccion.md__startup-profile}
+
+En esta sección el equipo describe el perfil de la startup, el propósito
+y el perfil de los integrantes.
+
+\subsubsection{1.1.1. Descripción de la
+Startup}\label{report__10-cap1-introduccion.md__descripciuxf3n-de-la-startup}
+
+En Hampcoders creemos en crear tecnología que realmente tenga impacto.
+Usamos herramientas open-source para desarrollar soluciones digitales
+pensadas en problemas reales del día a día. Desde el inicio tuvimos
+claro que no se trata solo de programar, sino de ayudar a las personas y
+a los emprendedores a trabajar mejor, simplificando sus procesos y
+dándoles herramientas útiles, prácticas y sin complicaciones.
+
+Misión: Democratizar la tecnología open-source para resolver los
+problemas reales de personas y emprendedores.
+
+Visión: Ser el motor tecnológico detrás de la próxima generación de
+emprendedores exitosos, impulsados por el código abierto.
+
+\subsubsection{1.1.2. Perfiles de Integrantes del
+equipo}\label{report__10-cap1-introduccion.md__perfiles-de-integrantes-del-equipo}
+
+\begin{minipage}{0.3\textwidth}
+\includegraphics[width=\linewidth]{assets/img/cap1/team-images/ethan.png}
+\end{minipage}
+\hfill
+\begin{minipage}{0.65\textwidth}
+
+\textbf{Ethan Matias Aliaga Aguirre} \\
+Código: U202318323  
+
+Soy Ethan Matias Aliaga Aguirre, estudiante de 7mo ciclo de Ingeniería de Software en la UPC, sede San Miguel. Me caracterizo por mi compromiso, responsabilidad, habilidad para trabajar en equipo y comunicación. Mis conocimientos incluyen arquitectura de software y desarrollo de APIs. Además, tengo experiencia en el uso de herramientas como Photoshop, Filmora y Vegas Studio, lo que me permite aportar con soluciones creativas y técnicas en mis proyectos. Estoy comprometido con mi crecimiento personal y profesional, siempre buscando aprender y mejorar en cada oportunidad que se presente.
+\end{minipage}
+
+\vspace{1cm}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{minipage}{0.3\textwidth}
+\includegraphics[width=\linewidth]{assets/img/cap1/team-images/leandro.png}
+\end{minipage}
+\hfill
+\begin{minipage}{0.65\textwidth}
+
+\textbf{Leandro Saúl Contreras López} \\
+**Código:** U20231E215
+
+Mucho gusto, soy Leandro Contreras, estudiante de la carrera de Ingeniería de Software en la UPC, sede San Miguel. Tengo 20 años y estoy cursando el séptimo ciclo académico. Me considero una persona adaptativa, perseverante y comprometida con lo que me propongo. En este proyecto tengo como objetivo buscar múltiples soluciones que beneficien a todo el grupo. Por experiencia propia, suelo trabajar de manera colaborativa y eficaz. Al terminar la carrera de ingeniería, me gustaría estudiar una segunda carrera: Gastronomía y Gestión Culinaria.
+\end{minipage}
+
+\vspace{1cm}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\newpage
+
+\subsection{1.2. Solution
+Profile}\label{report__10-cap1-introduccion.md__solution-profile}
+
+En esta sección el equipo describe el perfil de la solución, inluyendo
+el análisis mediante la metodología Lean UX
+
+\subsubsection{1.2.1 Nombre del
+producto}\label{report__10-cap1-introduccion.md__nombre-del-producto}
+
+Después de la pandemia, muchas cosas cambiaron en cómo vivimos y
+manejamos nuestros espacios. Hoy en día, tanto en casas como en
+negocios, dependemos mucho más de la electricidad, pero la mayoría de
+personas no tiene claro cuánto consume, si hay fallas en su instalación
+o cuándo algo podría salir mal. Normalmente, los problemas eléctricos se
+detectan recién cuando ya ocurrió una falla.
+
+Al mismo tiempo, muchos técnicos eléctricos trabajan de forma
+independiente y les cuesta conseguir clientes de manera constante,
+teniendo ingresos inestables y poco organizados. Por otro lado, empresas
+y administradores de edificios buscan reducir costos eléctricos, pero no
+cuentan con herramientas simples que les permitan entender y optimizar
+su consumo.
+
+ElectroLink es una plataforma que conecta a personas y empresas con
+técnicos eléctricos confiables, permitiendo monitorear el consumo
+eléctrico en tiempo real mediante dispositivos inteligentes. Esto ayuda
+a detectar problemas antes de que se conviertan en fallas, facilitando
+un mantenimiento más preventivo que reactivo.
+
+\subsubsection{1.2.2 Antecedentes y
+problemática}\label{report__10-cap1-introduccion.md__antecedentes-y-problemuxe1tica}
+
+Para detallar los antecedentes de la solución y presentar correctamente
+la descripción de la problemática, se ha utilizado la herramienta 5 `W'
+s y 2 `H' s.
+
+\begin{longtable}{|p{6cm}|p{9cm}|}
+\hline
+\textbf{Pregunta} & \textbf{Respuesta} \\
+\hline
+
+¿Qué (What) 
+\
+
+¿Cuál es el problema?
+& Muchas personas y empresas no tienen visibilidad sobre su consumo eléctrico ni el estado de sus instalaciones, lo que hace que los problemas se detecten recién cuando ocurre una falla. Además, encontrar técnicos confiables y disponibles no siempre es sencillo. \\
+\hline
+
+¿Quién (Who) 
+\
+
+¿Quiénes son los beneficiarios?
+& Propietarios de viviendas, pequeños negocios, empresas y administradores de edificios que necesitan gestionar su consumo eléctrico, así como técnicos eléctricos independientes que buscan más oportunidades de trabajo y mejor organización. \\
+\hline
+
+¿Cuándo (When) 
+\
+
+¿Cuándo se origina el problema?
+& El problema aparece cuando ocurre una falla eléctrica inesperada o cuando los usuarios intentan entender o reducir su consumo sin contar con información clara o herramientas adecuadas. \\
+\hline
+
+¿Por qué (Why)
+\
+
+¿Por qué se origina el problema?
+& Se origina por la falta de herramientas accesibles para monitorear el consumo en tiempo real, la ausencia de mantenimiento preventivo y la desconexión entre los usuarios y técnicos eléctricos confiables. \\
+\hline
+
+¿Dónde (Where)
+\
+
+¿Dónde ocurre el problema?
+& Ocurre en hogares, locales comerciales y edificios, principalmente en entornos urbanos donde el consumo eléctrico es constante y crítico para las actividades diarias. \\
+\hline
+
+¿Cómo (How)
+\
+
+¿Cómo se origina el problema?
+& Se da porque la mayoría de sistemas eléctricos no cuentan con monitoreo continuo, lo que impide detectar anomalías a tiempo. A esto se suma la falta de plataformas que integren diagnóstico, contacto con técnicos y seguimiento del servicio en un solo lugar. \\
+\hline
+
+¿Cuánto (How much)
+\
+
+¿Cuánto dinero está implicado?
+& Los problemas eléctricos pueden generar gastos imprevistos en reparaciones, así como pérdidas económicas por interrupciones en negocios o consumo ineficiente de energía. Diversos estudios señalan que el mantenimiento correctivo suele implicar mayores costos debido a reparaciones de emergencia y tiempos de inactividad, mientras que el mantenimiento preventivo permite reducir estos gastos al anticipar fallas y planificar intervenciones. \cite{maintenance_costs} \\
+\hline
+
+\end{longtable}
+
+\subsubsection{1.2.3 Lean UX
+Process}\label{report__10-cap1-introduccion.md__lean-ux-process}
+
+En esta sección el equipo aplica la metodología Lean UX para definir el
+problema, las suposiciones y las hipotesis.
+
+\paragraph{1.2.3.1 Lean UX Problem
+Statement}\label{report__10-cap1-introduccion.md__lean-ux-problem-statement}
+
+\hfill\break
+
+\textbf{Problem Statement \#1}
+
+Nuestra plataforma busca ayudar a propietarios de viviendas y empresas a
+gestionar sus sistemas eléctricos de manera más segura y eficiente,
+pasando de un enfoque reactivo a uno preventivo.
+
+Hemos identificado que actualmente los usuarios no tienen visibilidad
+sobre su consumo eléctrico ni sobre el estado de sus instalaciones, lo
+que hace que los problemas se detecten recién cuando ocurre una falla.
+Esta situación genera riesgos en la seguridad, interrupciones en sus
+actividades y costos elevados por reparaciones de emergencia.
+
+Ante este desafío, surge la pregunta:¿Cómo podemos permitir a los
+usuarios monitorear su consumo eléctrico y detectar anomalías a tiempo
+para prevenir fallas y reducir riesgos?
+
+\textbf{Problem Statement \#2}
+
+Nuestra plataforma busca optimizar la forma en que los técnicos
+eléctricos gestionan su trabajo, integrándolos en un sistema más
+inteligente basado en datos y monitoreo en tiempo real.
+
+Hemos identificado que muchos técnicos eléctricos trabajan de manera
+reactiva, sin información previa sobre el estado de las instalaciones,
+lo que dificulta la planificación de sus servicios y reduce su
+eficiencia. Además, enfrentan dificultades para acceder a una demanda
+constante y organizada de trabajos.
+
+Ante este desafío, surge la pregunta clave: ¿Cómo podemos proporcionar a
+los técnicos información relevante en tiempo real y un flujo constante
+de servicios para mejorar su eficiencia y calidad de trabajo?
+
+\paragraph{1.2.3.2 Lean UX
+Assumptions}\label{report__10-cap1-introduccion.md__lean-ux-assumptions}
+
+\paragraph{Business
+Outcomes:}\label{report__10-cap1-introduccion.md__business-outcomes}
+
+\hfill\break
+\textbf{Creemos que nuestros usuarios necesitan} una solución que les
+permita monitorear y entender su consumo eléctrico en tiempo real,
+además de prevenir fallas antes de que ocurran, ya que actualmente solo
+reaccionan cuando el problema ya es crítico.
+
+\textbf{Estas necesidades se pueden resolver mediante} el desarrollo de
+una plataforma que integre monitoreo IoT con una red de técnicos
+eléctricos verificados, permitiendo detectar anomalías, generar alertas
+y facilitar la gestión de servicios eléctricos de forma proactiva y
+eficiente.
+
+\textbf{Nuestros clientes iniciales son} propietarios de viviendas,
+pequeñas y medianas empresas, y administradores de edificios que buscan
+mejorar la seguridad y eficiencia de sus instalaciones eléctricas, así
+como técnicos eléctricos que desean acceder a una demanda constante y
+organizada de servicios.
+
+\textbf{El valor \#1 que los clientes quiere de nuestro servicio} es
+tener visibilidad y control sobre su sistema eléctrico para evitar
+fallas inesperadas, reducir riesgos y tomar decisiones informadas
+basadas en datos reales.
+
+\textbf{El cliente también puede obtener estos beneficios adicionales}
+como reducción de costos por mantenimiento correctivo, alertas tempranas
+ante anomalías, optimización del consumo energético, acceso a técnicos
+certificados y seguimiento en tiempo real de los servicios realizados.
+
+\textbf{Vamos a adquirir la mayoría de los clientes a través de}
+estrategias de marketing digital, alianzas con empresas del sector
+eléctrico, campañas educativas sobre eficiencia energética y
+demostraciones del valor del monitoreo preventivo en hogares y negocios.
+
+\textbf{Haremos dinero a través de} un modelo de suscripciones para
+propietarios y empresas basado en el acceso a funcionalidades premium de
+monitoreo y analítica, así como servicios asociados a la instalación y
+mantenimiento de dispositivos IoT.
+
+\textbf{Nuestra competencia de mercado serán} plataformas que conectan
+clientes con técnicos como marketplaces tradicionales, así como
+soluciones de monitoreo energético independientes que no integran
+servicios técnicos ni gestión operativa.
+
+\textbf{Los venceremos debido a} nuestro enfoque integral que combina
+monitoreo en tiempo real, análisis de datos y conexión directa con
+técnicos certificados, permitiendo no solo detectar problemas sino
+también solucionarlos de forma eficiente dentro de la misma plataforma.
+
+\textbf{Nuestro mayor riesgo de producto es} que los usuarios no
+perciban el valor del monitoreo preventivo o no estén dispuestos a
+adoptar dispositivos IoT en sus instalaciones eléctricas.
+
+\textbf{Resolveremos esto a través de} pruebas piloto, planes iniciales
+accesibles, demostraciones del ahorro generado y educación del usuario
+sobre los beneficios del mantenimiento predictivo frente al correctivo.
+
+\textbf{Qué otras suposiciones tenemos que, de probarse falsas, pueden
+causar que nuestro proyecto fracase:}
+
+\begin{itemize}
+\item
+  Creemos que los usuarios estarán dispuestos a instalar dispositivos
+  IoT en sus propiedades para obtener beneficios a largo plazo.
+\item
+  Creemos que los técnicos adoptarán la plataforma como su principal
+  canal de trabajo.
+\item
+  Creemos que los usuarios valorarán la prevención por encima de la
+  reacción ante fallas.
+\item
+  Creemos que las empresas estarán interesadas en invertir en soluciones
+  de eficiencia energética basadas en datos.
+\end{itemize}
+
+\paragraph{User
+Outcomes:}\label{report__10-cap1-introduccion.md__user-outcomes}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  ¿Quién será el usuario?
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Propietarios de viviendas
+  \item
+    Dueños de PYMES y empresas
+  \item
+    Técnicos eléctricos certificados
+  \end{itemize}
+\item
+  ¿Dónde encaja nuestro producto en su trabajo o vida?
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Para propietarios y empresas, el sistema se integra en la gestión
+    diaria de sus instalaciones eléctricas, permitiéndoles monitorear
+    consumo, recibir alertas y tomar decisiones informadas.
+  \item
+    Para técnicos, se convierte en una herramienta de trabajo que les
+    proporciona contexto previo, organización de servicios y acceso a
+    clientes.
+  \end{itemize}
+\item
+  ¿Qué problemas busca resolver nuestro producto?
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Falta de visibilidad del consumo eléctrico
+  \item
+    Detección tardía de fallas eléctricas
+  \item
+    Costos elevados por mantenimiento correctivo
+  \item
+    Dificultad para gestionar servicios eléctricos de manera eficiente
+  \item
+    Falta de acceso a demanda constante por parte de técnicos
+  \end{itemize}
+\item
+  ¿Cuándo y cómo es usado nuestro producto?
+
+  Cuándo:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    De forma continua para monitoreo
+  \item
+    Cuando se detecta una anomalía
+  \item
+    Al solicitar o gestionar un servicio eléctrico
+  \end{itemize}
+
+  Cómo:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    A través de una aplicación web o móvil
+  \item
+    Visualizando dashboards de consumo
+  \item
+    Recibiendo alertas automáticas
+  \item
+    Gestionando solicitudes de servicio
+  \end{itemize}
+\item
+  ¿Qué características son importantes?
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Monitoreo en tiempo real del consumo eléctrico
+  \item
+    Detección de anomalías y alertas automáticas
+  \item
+    Dashboard de analítica y consumo
+  \item
+    Asignación automática de técnicos
+  \item
+    Historial de servicios y mantenimiento
+  \item
+    Interfaz clara e intuitiva
+  \end{itemize}
+\item
+  ¿Cómo debe comportarse y verse nuestro producto?
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Interfaz simple, clara y orientada a datos
+  \item
+    Visualización intuitiva del consumo eléctrico
+  \item
+    Respuesta rápida ante eventos críticos
+  \item
+    Experiencia fluida tanto en web como en móvil
+  \item
+    Diferenciación de interfaces según tipo de usuario
+  \end{itemize}
+\end{enumerate}
+
+\paragraph{1.2.3.3 Lean UX
+Hypothesis}\label{report__10-cap1-introduccion.md__lean-ux-hypothesis}
+
+\hfill\break
+Transformamos los supuestos anteriores en declaraciones de prueba para
+definir un contexto más acorde a nuestros usuarios.
+
+\begin{itemize}
+\item
+  \textbf{Hipótesis 1: Sobre el Monitoreo Preventivo}. \textbf{Creemos
+  que} la implementación de sensores IoT reducirá las reparaciones de
+  emergencia costosas para los usuarios. \textbf{Sabremos que} estamos
+  {[}bien{]} \textbf{cuando veamos} los siguientes comentarios del
+  mercado: un aumento del 40\% en solicitudes de mantenimiento
+  preventivo programado antes de que ocurra una falla crítica en un
+  periodo de 6 meses.
+\item
+  \textbf{Hipótesis 2: Sobre la Confianza en Técnicos}. \textbf{Creemos
+  que} mostrar las certificaciones oficiales y reseñas verificadas de
+  los técnicos incrementará la tasa de contratación en la plataforma.
+  \textbf{Sabremos que} hemos tenido éxito \textbf{cuando veamos} un
+  aumento del 25\% en la tasa de conversión de usuarios que revisan
+  perfiles técnicos y proceden a reservar el servicio.
+\item
+  \textbf{Hipótesis 3: Sobre el Valor para el Partner (Técnico)}.
+  \textbf{Creemos que} los técnicos preferirán ElectroLink porque los
+  trabajos incluyen un pre-diagnóstico del sensor IoT que les ahorra
+  tiempo. \textbf{Sabremos que} esto es cierto \textbf{cuando veamos}
+  que el 60\% de los técnicos registrados aceptan trabajos
+  pre-diagnosticados en menos de 15 minutos.
+\end{itemize}
+
+\paragraph{1.2.3.4 Lean UX
+Canvas}\label{report__10-cap1-introduccion.md__lean-ux-canvas}
+
+\newpage
+
+\subsection{1.3 Segmentos
+objetivo}\label{report__10-cap1-introduccion.md__segmentos-objetivo}
+
+\paragraph{Segmento objetivo \#1: Propietarios
+Individuales}\label{report__10-cap1-introduccion.md__segmento-objetivo-1-propietarios-individuales}
+
+\hfill\break
+
+\textbf{Descripción:} Personas naturales dueñas de viviendas,
+departamentos o pequeños locales comerciales que requieren servicios
+eléctricos y monitoreo básico.
+
+\textbf{Aspectos demográficos:} - Sexo: Masculino y femenino\\
+- Edades: Entre 25 y 60 años\\
+- Nivel socioeconómico: Medio a medio-alto
+
+\textbf{Aspectos geográficos:} - Zonas urbanas en ciudades medianas y
+grandes\\
+- Residen en casas, departamentos o pequeños negocios
+
+\textbf{Aspectos psicográficos:} - No poseen conocimientos técnicos
+eléctricos\\
+- Buscan soluciones rápidas, confiables y accesibles\\
+- Valoran la transparencia en precios y servicios\\
+- Interesados en mantenimiento preventivo sin complejidad técnica\\
+- Abiertos a usar tecnología si es simple (apps, alertas, monitoreo
+básico)
+
+\textbf{Necesidades clave:} - Contactar técnicos confiables\\
+- Diagnóstico rápido de problemas eléctricos\\
+- Monitoreo básico de consumo eléctrico\\
+- Alertas ante fallas o anomalías
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\paragraph{Segmento objetivo \#2: Empresas y Administradores de
+Edificios}\label{report__10-cap1-introduccion.md__segmento-objetivo-2-empresas-y-administradores-de-edificios}
+
+\hfill\break
+
+\textbf{Descripción:} Organizaciones o responsables de infraestructura
+(oficinas, edificios comerciales o industriales) que requieren monitoreo
+continuo y optimización energética.
+
+\textbf{Aspectos demográficos:} - Representantes: Administradores, jefes
+de operaciones, facility managers\\
+- Edad: Entre 30 y 60 años\\
+- Nivel socioeconómico: Medio-alto a alto (presupuesto empresarial)
+
+\textbf{Aspectos geográficos:} - Zonas urbanas, industriales o
+corporativas\\
+- Presencia en ciudades en expansión o polos económicos
+
+\textbf{Aspectos psicográficos:} - Enfocados en eficiencia operativa y
+reducción de costos\\
+- Orientados a decisiones basadas en datos\\
+- Buscan automatización y monitoreo continuo\\
+- Priorizan la continuidad operativa y prevención de fallas\\
+- Dispuestos a invertir en soluciones tecnológicas (IoT + SaaS)
+
+\textbf{Necesidades clave:} - Monitoreo en tiempo real de múltiples
+circuitos\\
+- Analítica avanzada de consumo eléctrico\\
+- Alertas críticas y respuesta inmediata ante fallas\\
+- Reportes para toma de decisiones\\
+- Gestión de dispositivos IoT instalados\\
+- Planes de suscripción escalables
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\paragraph{Segmento objetivo \#3: Técnicos Eléctricos (Certificados y No
+Certificados)}\label{report__10-cap1-introduccion.md__segmento-objetivo-3-tuxe9cnicos-eluxe9ctricos-certificados-y-no-certificados}
+
+\hfill\break
+
+\textbf{Descripción:} Electricistas independientes o pequeñas empresas
+que brindan servicios eléctricos y utilizan la plataforma para conseguir
+clientes y gestionar su trabajo.
+
+\textbf{Aspectos demográficos:} - Sexo: Masculino y femenino\\
+- Edades: Entre 25 y 55 años\\
+- Nivel socioeconómico: Medio a medio-alto
+
+\textbf{Aspectos geográficos:} - Zonas urbanas, semiurbanas e
+industriales\\
+- Operan en áreas con alta demanda de servicios eléctricos
+
+\textbf{Aspectos psicográficos:} - Buscan generación constante de
+ingresos\\
+- Interesados en digitalizar su trabajo\\
+- Valoran la automatización de asignaciones\\
+- Quieren reducir tiempo en negociación con clientes\\
+- Orientados al crecimiento profesional
+
+\textbf{Subsegmento clave: Técnicos Certificados IoT} - Capacitados para
+instalación y mantenimiento de dispositivos IoT\\
+- Acceden a servicios de mayor valor (instalaciones, mantenimiento
+avanzado)\\
+- Tienen mayor confianza dentro de la plataforma
+
+\textbf{Necesidades clave:} - Captación automática de clientes\\
+- Gestión de agenda y servicios\\
+- Herramientas para administrar trabajos e inventario\\
+- Acceso a servicios premium (instalación IoT)\\
+- Reputación y validación dentro de la plataforma
+
+\newpage
+
+\subsection{Capítulo II: Requirements Elicitation \&
+Analysis}\label{report__20-cap2-requirements-analysis.md__capuxedtulo-ii-requirements-elicitation-analysis}
+
+\subsubsection{2.1.
+Competidores}\label{report__20-cap2-requirements-analysis.md__competidores}
+
+En esta sección se identifican y analizan los principales competidores
+directos e indirectos dentro del mercado de servicios y soluciones
+eléctricas, considerando plataformas digitales y modelos de
+intermediación similares.
+
+\subsubsection{Competidores
+Directos}\label{report__20-cap2-requirements-analysis.md__competidores-directos}
+
+\paragraph{HomeAdvisor}\label{report__20-cap2-requirements-analysis.md__homeadvisor}
+
+\textbf{¿Qué ofrece?}\\
+- Servicios para el hogar: electricidad, plomería, remodelación,
+limpieza, HVAC, entre otros.\\
+- Acceso a profesionales verificados y calificados.\\
+- Guías de costos y asesoramiento para proyectos domésticos.
+
+\textbf{¿Cómo funciona?}\\
+- El usuario ingresa su necesidad (ej. servicio eléctrico).\\
+- La plataforma sugiere profesionales según ubicación y tipo de
+servicio.\\
+- Los proveedores envían propuestas o son asignados al cliente.\\
+- El cliente selecciona al profesional según precio, experiencia y
+reseñas.
+
+\textbf{Relación con ElectroLink}\\
+Es un competidor directo, ya que conecta clientes con técnicos; sin
+embargo, no integra tecnologías IoT para mantenimiento preventivo.
+
+\paragraph{Angi}\label{report__20-cap2-requirements-analysis.md__angi}
+
+\textbf{¿Qué ofrece?}\\
+- Servicios del hogar: electricidad, mantenimiento, remodelación,
+limpieza, entre otros.\\
+- Sistema de calificaciones y reseñas verificadas.\\
+- Contenido informativo y guías de costos para usuarios.
+
+\textbf{¿Cómo funciona?}\\
+- El usuario busca el tipo de servicio requerido.\\
+- Accede a perfiles de profesionales con valoraciones y experiencia.\\
+- Selecciona al proveedor según sus necesidades.\\
+- Agenda y paga el servicio a través de la plataforma.
+
+\textbf{Relación con ElectroLink}\\
+Compite directamente en la intermediación de servicios, destacando en
+confianza y reputación, pero sin integrar IoT.
+
+\subsubsection{Competidores Indirectos
+(IoT)}\label{report__20-cap2-requirements-analysis.md__competidores-indirectos-iot}
+
+\paragraph{Google
+Nest}\label{report__20-cap2-requirements-analysis.md__google-nest}
+
+\textbf{¿Qué ofrece?}\\
+- Dispositivos inteligentes: sensores, termostatos, cámaras.\\
+- Automatización del hogar.\\
+- Monitoreo remoto de condiciones del hogar.
+
+\textbf{¿Cómo funciona?}\\
+- El usuario instala dispositivos IoT en su hogar.\\
+- Los dispositivos recopilan datos en tiempo real.\\
+- La información se gestiona desde una app.\\
+- Se generan alertas o automatizaciones según condiciones detectadas.
+
+\textbf{Relación con ElectroLink}\\
+Competidor indirecto, ya que aborda el mantenimiento preventivo mediante
+tecnología, pero no conecta con técnicos.
+
+\paragraph{Schneider
+Electric}\label{report__20-cap2-requirements-analysis.md__schneider-electric}
+
+\textbf{¿Qué ofrece?}\\
+- Soluciones eléctricas inteligentes.\\
+- Sistemas de monitoreo energético.\\
+- Automatización de infraestructuras (hogares y empresas).
+
+\textbf{¿Cómo funciona?}\\
+- Implementa dispositivos y sistemas IoT en instalaciones eléctricas.\\
+- Monitorea el consumo y estado en tiempo real.\\
+- Detecta fallas o ineficiencias energéticas.\\
+- Permite optimizar el uso de energía mediante análisis de datos.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{Conclusión del
+análisis}\label{report__20-cap2-requirements-analysis.md__conclusiuxf3n-del-anuxe1lisis}
+
+A partir del análisis realizado, se identifica que los competidores
+actuales se enfocan principalmente en dos enfoques: la intermediación de
+servicios técnicos (HomeAdvisor y Angi) o la implementación de
+soluciones tecnológicas basadas en IoT (Google Nest y Schneider
+Electric). En este contexto, ElectroLink propone un enfoque integrador
+que combina ambos modelos, permitiendo no solo la conexión entre
+clientes y proveedores, sino también la incorporación de tecnologías IoT
+para el monitoreo y mantenimiento preventivo, generando así una
+propuesta de valor diferenciada en el mercado.
+
+\paragraph{2.1.1. Análisis
+competitivo}\label{report__20-cap2-requirements-analysis.md__anuxe1lisis-competitivo}
+
+\textbf{¿Por qué llevar a cabo este análisis?}\\
+Identificar el posicionamiento de ElectroLink frente a sus competidores
+y detectar oportunidades de diferenciación mediante la integración de
+servicios técnicos y tecnologías IoT.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1190}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1548}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2619}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1548}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0714}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2381}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Categoría
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Subcategoría
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+ElectroLink (Startup)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+HomeAdvisor
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Angi
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Schneider Electric
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Perfil} & Overview & Plataforma que conecta proveedores
+eléctricos con clientes, integrando IoT para mantenimiento preventivo. &
+Marketplace de servicios del hogar con profesionales verificados. &
+Plataforma basada en reputación para contratar servicios del hogar. &
+Empresa de soluciones eléctricas inteligentes con enfoque en IoT. \\
+\textbf{Perfil} & Ventaja competitiva / Valor al cliente & Integración
+de IoT + servicios técnicos → mantenimiento preventivo y correctivo. &
+Amplia red de profesionales y sistema de validación. & Alta confianza
+basada en reseñas verificadas. & Tecnología avanzada para monitoreo y
+eficiencia energética. \\
+\textbf{Perfil de Marketing} & Mercado objetivo & Hogares y PYMES que
+requieren mantenimiento eléctrico. & Propietarios de viviendas. &
+Usuarios que buscan servicios confiables del hogar. & Empresas y hogares
+con enfoque en eficiencia energética. \\
+\textbf{Perfil de Marketing} & Estrategias de marketing & Innovación
+tecnológica + seguridad + eficiencia. & Publicidad digital y SEO. &
+Marketing basado en reputación y confianza. & Branding tecnológico e
+innovación industrial. \\
+\textbf{Perfil de Producto} & Productos \& Servicios & Servicios
+eléctricos + monitoreo IoT. & Servicios del hogar (electricidad,
+plomería, etc.). & Servicios del hogar con enfoque en calidad. &
+Sistemas eléctricos inteligentes y automatización. \\
+\textbf{Perfil de Producto} & Precios \& Costos & Variables + posible
+suscripción IoT. & Costos por servicio/cotización. & Costos variables
+según proveedor. & Alto costo inicial (equipos + instalación). \\
+\textbf{Perfil de Producto} & Canales de distribución & Web y app móvil.
+& Web y app móvil. & Web y app móvil. & Dispositivos físicos + software
++ apps. \\
+\textbf{SWOT} & Fortalezas & Innovación, IoT, enfoque preventivo. & Gran
+base de usuarios. & Alta reputación. & Tecnología avanzada y liderazgo
+en el sector. \\
+\textbf{SWOT} & Debilidades & Nuevo en el mercado. & No usa IoT. & Falta
+de innovación tecnológica. & No conecta técnicos directamente. \\
+\textbf{SWOT} & Oportunidades & Crecimiento del IoT. & Expansión
+digital. & Crecimiento del mercado online. & Expansión de smart grids y
+smart homes. \\
+\textbf{SWOT} & Amenazas & Competidores consolidados. & Nuevas
+plataformas innovadoras. & Competencia tecnológica. & Nuevos modelos
+híbridos como ElectroLink. \\
+\end{longtable}
+}
+
+\paragraph{2.1.2. Estrategias y tácticas frente a
+competidores}\label{report__20-cap2-requirements-analysis.md__estrategias-y-tuxe1cticas-frente-a-competidores}
+
+Para enfrentar a los competidores directos e indirectos identificados,
+ElectroLink plantea un conjunto de estrategias y tácticas enfocadas en
+la diferenciación, la confianza, la innovación tecnológica y la
+especialización en el sector eléctrico.
+
+\textbf{Estrategia de diferenciación mediante especialización en
+sistemas eléctricos e IoT}\\
+A diferencia de plataformas generalistas como HomeAdvisor y Angi, que
+abarcan múltiples categorías de servicios, ElectroLink se enfocará
+específicamente en servicios de mantenimiento eléctrico preventivo y
+correctivo, integrando tecnologías IoT. Esta especialización permitirá
+posicionar la plataforma como una solución confiable y experta en el
+sector.
+
+\emph{Tácticas:}\\
+- Implementación de monitoreo en tiempo real mediante dispositivos
+IoT.\\
+- Generación de alertas predictivas ante posibles fallas eléctricas.\\
+- Recomendaciones inteligentes para mantenimiento preventivo.
+
+\textbf{Estrategia de integración de servicios y tecnología}\\
+Frente a competidores como Schneider Electric, que ofrecen soluciones
+tecnológicas sin intermediación de servicios, ElectroLink propone
+integrar en una sola plataforma el monitoreo IoT y la conexión con
+técnicos especializados, cubriendo todo el ciclo de atención.
+
+\emph{Tácticas:}\\
+- Desarrollo de un marketplace de proveedores certificados.\\
+- Integración de datos IoT con solicitudes automáticas de servicio.\\
+- Plataforma web y móvil para gestión integral del servicio.
+
+\textbf{Estrategia de garantía de seguridad y cumplimiento normativo}\\
+ElectroLink buscará generar confianza en los usuarios mediante el
+aseguramiento de la calidad y legalidad de los servicios ofrecidos,
+superando una de las principales debilidades del mercado informal.
+
+\emph{Tácticas:}\\
+- Sistema de certificación y validación de proveedores.\\
+- Verificación de licencias y cumplimiento de normativas eléctricas.\\
+- Implementación de sistemas de calificación y reputación.
+
+\textbf{Estrategia de precios transparentes y accesibles}\\
+A diferencia de modelos como los de HomeAdvisor, basados en generación
+de leads, ElectroLink adoptará un enfoque de precios claros y accesibles
+para clientes y proveedores.
+
+\emph{Tácticas:}\\
+- Visualización transparente de costos antes de contratar servicios.\\
+- Implementación de planes de suscripción para mantenimiento
+preventivo.\\
+- Tarifas competitivas orientadas a hogares y PYMES.
+
+\textbf{Estrategia de posicionamiento en nichos específicos (hogares y
+PYMES)}\\
+ElectroLink enfocará sus esfuerzos en segmentos con alta necesidad de
+mantenimiento eléctrico, pero baja adopción de soluciones tecnológicas
+avanzadas.
+
+\emph{Tácticas:}\\
+- Campañas de marketing digital dirigidas a hogares y pequeñas
+empresas.\\
+- Alianzas estratégicas con proveedores del sector eléctrico.\\
+- Soluciones escalables adaptadas a distintos niveles de necesidad.
+
+\subsubsection{2.2.
+Entrevistas}\label{report__20-cap2-requirements-analysis.md__entrevistas}
+
+\paragraph{2.2.1. Diseño de
+entrevistas}\label{report__20-cap2-requirements-analysis.md__diseuxf1o-de-entrevistas}
+
+\paragraph{2.2.2. Registro de
+entrevistas}\label{report__20-cap2-requirements-analysis.md__registro-de-entrevistas}
+
+\paragraph{2.2.3. Análisis de
+entrevistas}\label{report__20-cap2-requirements-analysis.md__anuxe1lisis-de-entrevistas}
+
+\subsubsection{2.3.
+Needfinding}\label{report__20-cap2-requirements-analysis.md__needfinding}
+
+En la presente sección se presentan las fichas de User Persona
+elaboradas teniendo en cuenta las entrevistas realizadas y analizadas
+previamente y la revisión de soluciones existentes en el mercado. En
+cada arquetipo se presentan las características demográficas, de
+personalidad, los objetivos, las motivaciones, frustraciones y
+preferencias de los usuarios clave de cada segmento. La construcción de
+estos User Persona se basa en resultados y análisis obtenidos durante la
+investigación previa con el objetivo de tomar decisiones de diseño y
+desarrollo adecuadas para resolver los problemas identificados.
+
+\paragraph{2.3.1. User
+Personas}\label{report__20-cap2-requirements-analysis.md__user-personas}
+
+\paragraph{2.3.2. User Task
+Matrix}\label{report__20-cap2-requirements-analysis.md__user-task-matrix}
+
+\paragraph{2.3.3. User Journey
+Mapping}\label{report__20-cap2-requirements-analysis.md__user-journey-mapping}
+
+\paragraph{2.3.4. Empathy
+Mapping}\label{report__20-cap2-requirements-analysis.md__empathy-mapping}
+
+\subsubsection{2.4. Big Picture
+EventStorming}\label{report__20-cap2-requirements-analysis.md__big-picture-eventstorming}
+
+\subsubsection{2.5. Ubiquitous
+Language}\label{report__20-cap2-requirements-analysis.md__ubiquitous-language}
+
+\section{Capítulo III: Requirements
+Specification}\label{report__30-cap3-requirements-spec.md__capuxedtulo-iii-requirements-specification}
+
+\subsection{3.1. User
+Stories.}\label{report__30-cap3-requirements-spec.md__user-stories.}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1613}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1290}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2097}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.3871}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1129}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Story ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Título
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Descripción
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Criterios de Aceptación
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Épica
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+EP-01 & Gestión de Acceso de Usuarios & Como usuario, quiero un sistema
+completo de acceso para registrarme, autenticarme y gestionar mis
+credenciales de manera segura según mi perfil específico (Propietario
+Individual, Empresa o Técnico). & & \\
+US-01 & Registro de cuenta como Propietario Individual & Como
+propietario individual, quiero registrarme en la plataforma
+seleccionando el rol correspondiente, para acceder a los servicios de
+gestión eléctrica de mi vivienda o local. & \textbf{Escenario 1:
+Registro exitoso con datos válidos}Dado que una persona no registrada
+accede al proceso de registroCuando selecciona el rol ``Propietario
+Individual'' y proporciona información personal válida (nombre, correo,
+contraseña)Entonces el sistema crea una cuenta con el rol
+OWNER\_INDIVIDUAL en estado PENDING\_VERIFICATIONY publica el evento
+\texttt{UserRegistered} hacia los contextos de Profiles y SubscriptionsY
+notifica al usuario que se ha enviado un enlace de verificación a su
+correo.\textbf{Escenario 2: Registro con correo ya registrado}Dado que
+una persona intenta registrarseCuando ingresa un correo electrónico que
+ya está asociado a una cuenta activaEntonces el sistema rechaza el
+registroY notifica que la dirección de correo ya está en uso. & EP-01 \\
+US-02 & Registro de cuenta como Empresa & Como representante de una
+empresa, quiero registrarme en la plataforma indicando el tipo de cuenta
+empresarial, para gestionar el consumo eléctrico de mis instalaciones
+comerciales. & \textbf{Escenario 1: Registro exitoso de cuenta
+empresarial}Dado que un representante empresarial no registrado accede
+al proceso de registroCuando selecciona el rol ``Empresa'' y proporciona
+información válida incluyendo nombre de la empresaEntonces el sistema
+crea una cuenta con el rol COMPANY en estado PENDING\_VERIFICATIONY
+publica el evento \texttt{UserRegistered} hacia los contextos de
+Profiles y Subscriptions.\textbf{Escenario 2: Registro con información
+de empresa incompleta}Dado que un representante empresarial está en el
+proceso de registroCuando omite campos obligatorios como el nombre de la
+empresaEntonces el sistema no completa el registroY notifica cuáles
+campos son requeridos. & EP-01 \\
+US-03 & Registro de cuenta como Técnico & Como técnico eléctrico, quiero
+registrarme en la plataforma indicando mi perfil profesional, para
+ofrecer mis servicios a propietarios y empresas. & \textbf{Escenario 1:
+Registro exitoso como técnico}Dado que un técnico eléctrico no
+registrado accede al proceso de registroCuando selecciona el rol
+``Técnico'' y proporciona su información profesional válidaEntonces el
+sistema crea una cuenta con el rol TECHNICIAN en estado
+PENDING\_VERIFICATIONY publica el evento
+\texttt{UserRegistered}.\textbf{Escenario 2: Registro fallido por
+contraseña débil}Dado que un técnico está completando el formulario de
+registroCuando ingresa una contraseña que no cumple con los requisitos
+mínimos de seguridadEntonces el sistema rechaza el registroY notifica
+los requisitos que no se cumplen. & EP-01 \\
+US-04 & Autenticación de usuario registrado & Como usuario registrado y
+verificado, quiero autenticarme en la plataforma con mis credenciales,
+para acceder a las funcionalidades según mi rol y plan de suscripción. &
+\textbf{Escenario 1: Autenticación exitosa}Dado que un usuario con
+cuenta en estado ACTIVE intenta autenticarseCuando proporciona
+credenciales válidas (correo y contraseña)Entonces el sistema valida las
+credenciales, genera un token de sesión JWTY publica el evento
+\texttt{UserAuthenticated}Y concede acceso a las funcionalidades
+correspondientes a su rol y plan de suscripción.\textbf{Escenario 2:
+Autenticación fallida por credenciales inválidas}Dado que un usuario
+intenta autenticarseCuando proporciona un correo o contraseña
+incorrectosEntonces el sistema deniega el accesoY notifica que las
+credenciales son inválidas sin revelar cuál campo es
+incorrecto.\textbf{Escenario 3: Intento de acceso con cuenta
+suspendida}Dado que un usuario intenta autenticarseCuando su cuenta se
+encuentra en estado SUSPENDEDEntonces el sistema deniega el accesoY
+notifica que la cuenta está suspendida e indica cómo regularizar la
+situación. & EP-01 \\
+US-05 & Cierre de sesión seguro & Como usuario autenticado, quiero
+cerrar mi sesión de forma segura, para proteger mi cuenta cuando termine
+de usar la plataforma. & \textbf{Escenario 1: Cierre de sesión
+voluntario}Dado que un usuario está autenticado en la plataformaCuando
+solicita cerrar su sesiónEntonces el sistema invalida el token de sesión
+activoY deniega el acceso a cualquier recurso protegido usando el token
+invalidado. & EP-01 \\
+EP-02 & Experiencia de Registro y Verificación & Como usuario, quiero
+recibir retroalimentación clara durante el proceso de registro y
+verificar mi identidad, para completar el onboarding sin fricciones. &
+& \\
+US-06 & Verificación de cuenta por correo electrónico & Como usuario
+recién registrado, quiero verificar mi cuenta a través de un enlace
+enviado a mi correo, para confirmar mi identidad y activar el acceso
+completo. & \textbf{Escenario 1: Verificación exitosa}Dado que un
+usuario se ha registrado exitosamente y recibe el correo de
+verificaciónCuando utiliza el enlace único de verificación dentro del
+período de validezEntonces el sistema actualiza el estado de la cuenta
+de PENDING\_VERIFICATION a ACTIVEY notifica al usuario que la
+verificación fue exitosa.\textbf{Escenario 2: Enlace de verificación
+expirado}Dado que un usuario intenta verificar su cuentaCuando el enlace
+de verificación ya ha expiradoEntonces el sistema rechaza la solicitudY
+ofrece la opción de reenviar un nuevo enlace de verificación. & EP-02 \\
+US-07 & Recuperación de contraseña & Como usuario registrado que olvidó
+su contraseña, quiero iniciar un proceso de recuperación, para volver a
+acceder a mi cuenta de manera segura. & \textbf{Escenario 1: Solicitud
+de recuperación con correo válido}Dado que un usuario se encuentra en el
+proceso de recuperación de contraseñaCuando ingresa el correo
+electrónico asociado a su cuenta activaEntonces el sistema genera un
+token de recuperación con tiempo de expiración definidoY envía las
+instrucciones de recuperación al correo proporcionado.\textbf{Escenario
+2: Restablecimiento exitoso de contraseña}Dado que un usuario sigue el
+enlace de restablecimiento dentro del período de validezCuando ingresa y
+confirma una nueva contraseña que cumple los requisitos de
+seguridadEntonces el sistema actualiza la contraseña encriptadaY elimina
+el token de recuperación utilizadoY notifica al usuario que el cambio
+fue exitoso.\textbf{Escenario 3: Token de recuperación expirado}Dado que
+un usuario intenta usar el enlace de recuperaciónCuando el token ha
+superado su tiempo de expiraciónEntonces el sistema rechaza la
+solicitudY notifica que el enlace ha expirado. & EP-02 \\
+EP-03 & Personalización y Seguridad de la Cuenta & Como usuario, quiero
+tener control sobre la seguridad y configuración de mi cuenta, para
+proteger mi información y adaptarla a mis necesidades. & & \\
+US-08 & Visualización del perfil de propietario & Como propietario
+autenticado, quiero visualizar mi perfil personal, para revisar mi
+información almacenada y mis preferencias de notificación. &
+\textbf{Escenario 1: Acceso exitoso al perfil}Dado que un propietario
+está autenticadoCuando solicita acceder a su información de
+perfilEntonces el sistema retorna la información personal registrada
+(nombre, correo, teléfono) sin exponer datos sensibles como contraseñasY
+muestra las preferencias de notificación configuradas. & EP-03 \\
+US-09 & Edición del perfil de propietario & Como propietario
+autenticado, quiero editar mi información personal y preferencias, para
+mantener mi perfil actualizado. & \textbf{Escenario 1: Actualización
+exitosa de información personal}Dado que un propietario está
+autenticadoCuando modifica campos válidos de su perfil (nombre,
+teléfono, preferencias) y confirma los cambiosEntonces el sistema valida
+y almacena la información actualizadaY confirma que los cambios fueron
+guardados exitosamente.\textbf{Escenario 2: Edición con datos
+inválidos}Dado que un propietario intenta actualizar su perfilCuando
+proporciona datos que no cumplen las reglas de validaciónEntonces el
+sistema rechaza la actualizaciónY retorna los errores de validación por
+campo. & EP-03 \\
+US-10 & Visualización del perfil de técnico & Como técnico autenticado,
+quiero visualizar mi perfil profesional completo, para revisar cómo se
+presenta mi información, especialidades y zona de cobertura a los
+clientes. & \textbf{Escenario 1: Acceso al perfil profesional}Dado que
+un técnico está autenticadoCuando solicita acceder a su perfil
+profesionalEntonces el sistema retorna su información profesional
+incluyendo especialidades, zona de cobertura geográfica, certificación
+IoT (si aplica) y portafolio de trabajos. & EP-03 \\
+US-11 & Edición del perfil de técnico & Como técnico autenticado, quiero
+editar mi información profesional, especialidades y zona de cobertura,
+para mantener mi perfil actualizado y atractivo para los clientes. &
+\textbf{Escenario 1: Edición exitosa de información profesional}Dado que
+un técnico está autenticadoCuando modifica su descripción, información
+de contacto, especialidades o zona de cobertura y guarda los
+cambiosEntonces el sistema almacena los cambiosY publica el evento
+\texttt{TechnicianDataUpdated} para que el contexto de Planning BC
+recalcule el matching si cambió la zona de cobertura.\textbf{Escenario
+2: Gestión de portafolio de trabajos}Dado que un técnico está editando
+su perfilCuando añade un trabajo al portafolio con descripción e
+imágenes de evidenciaEntonces el sistema almacena el trabajo en el
+portafolioY lo hace disponible en su perfil profesional. & EP-03 \\
+US-12 & Configuración de preferencias de notificación & Como usuario
+autenticado, quiero configurar mis preferencias de notificaciones, para
+recibir únicamente las alertas relevantes sin ser saturado de mensajes.
+& \textbf{Escenario 1: Actualización de preferencias de
+notificación}Dado que un usuario está autenticadoCuando ajusta sus
+preferencias de notificación (tipos de eventos, canales como email o
+push)Entonces el sistema almacena las preferenciasY las notificaciones
+futuras respetan la configuración seleccionada. & EP-03 \\
+EP-04 & Gestión de Catálogo de Servicios del Técnico & Como técnico,
+quiero administrar mi catálogo de servicios con sus recetas de
+componentes, para mantener actualizada mi oferta y participar en el
+matching automático. & & \\
+US-13 & Creación de recipe de servicio en catálogo & Como técnico con
+suscripción Premium activa, quiero crear un nuevo recipe de servicio en
+mi catálogo especificando la categoría, componentes necesarios y precio,
+para que el sistema me asigne solicitudes de esa categoría
+automáticamente. & \textbf{Escenario 1: Creación exitosa de recipe}Dado
+que un técnico con plan Premium está autenticado y su catálogo
+existeCuando proporciona datos válidos para un nuevo recipe (categoría
+de servicio, lista de componentes con cantidades, precio base y duración
+estimada)Entonces el sistema crea el recipe en estado activoY publica el
+evento \texttt{ServiceRecipeCreated}Y si el catálogo estaba en estado
+EMPTY, transiciona a ACTIVE.\textbf{Escenario 2: Técnico sin suscripción
+Premium intenta crear recipe}Dado que un técnico con plan FREE intenta
+crear un recipeCuando envía la solicitud de creaciónEntonces el sistema
+rechaza la operaciónY publica el evento
+\texttt{ServiceCreationDeniedDueToSubscription}. & EP-04 \\
+US-14 & Modificación de recipe de servicio & Como técnico Premium
+autenticado, quiero editar los recipes existentes de mi catálogo
+(descripción, componentes, precio), para mantener actualizada mi oferta
+de servicios. & \textbf{Escenario 1: Actualización exitosa de recipe sin
+servicios activos}Dado que un técnico está autenticado y selecciona un
+recipe activo sin servicios actualmente asignadosCuando modifica el
+precio, lista de componentes o duración estimadaEntonces el sistema
+actualiza el recipeY publica el evento
+\texttt{ServiceRecipeUpdated}.\textbf{Escenario 2: Modificación de
+recipe con servicios asignados en curso}Dado que un técnico intenta
+modificar el precio de un recipe que tiene servicios en estado
+SCHEDULEDCuando el incremento de precio supera el 20\% del precio
+originalEntonces el sistema rechaza el cambio de precioY notifica al
+técnico la restricción. & EP-04 \\
+US-15 & Desactivación de recipe de servicio & Como técnico Premium
+autenticado, quiero desactivar un recipe de mi catálogo cuando ya no
+ofrezco ese servicio, para evitar que el sistema me asigne solicitudes
+que no puedo atender. & \textbf{Escenario 1: Desactivación exitosa de
+recipe}Dado que un técnico está autenticado y selecciona un recipe
+activoCuando solicita su desactivaciónEntonces el sistema cambia el
+estado del recipe a INACTIVEY publica el evento
+\texttt{ServiceRecipeDeactivated}Y si era el último recipe activo, el
+catálogo transiciona a INACTIVE.\textbf{Escenario 2: El recipe
+desactivado no afecta servicios asignados}Dado que un recipe es
+desactivadoCuando existen servicios en estado SCHEDULED que usan ese
+recipeEntonces el sistema mantiene esos servicios en su estado actual
+usando el RecipeSnapshot capturado al momento de la asignación. &
+EP-04 \\
+US-16 & Reactivación de recipe de servicio & Como técnico Premium
+autenticado, quiero reactivar un recipe previamente desactivado, para
+volver a ofrecerlo cuando esté disponible para atenderlo. &
+\textbf{Escenario 1: Reactivación exitosa de recipe}Dado que un técnico
+está autenticado y selecciona un recipe en estado INACTIVECuando
+solicita su reactivaciónEntonces el sistema cambia el estado del recipe
+a ACTIVEY publica el evento \texttt{ServiceRecipeReactivated}Y si el
+catálogo estaba en estado INACTIVE, transiciona a ACTIVE. & EP-04 \\
+US-17 & Establecimiento de precios diferenciados por zona & Como técnico
+Premium autenticado, quiero establecer precios diferenciados para mis
+servicios según la zona de cobertura, para tener una estructura
+tarifaria adaptada a mi área de operación. & \textbf{Escenario 1:
+Definición de precio base de servicio}Dado que un técnico está creando o
+editando un recipeCuando establece un precio base para el
+servicioEntonces el sistema almacena el precio y lo incluye en los
+resultados de búsqueda de categorías disponibles para
+propietarios.\textbf{Escenario 2: Precio diferenciado por zona de
+cobertura}Dado que un técnico ha definido múltiples zonas de
+coberturaCuando edita un recipe y asigna un precio diferente a una zona
+específicaEntonces el sistema almacena el precio diferenciadoY el
+algoritmo de matching considera el precio correspondiente a la zona de
+la propiedad solicitante. & EP-04 \\
+EP-05 & Gestión de Agenda y Disponibilidad del Técnico & Como técnico,
+quiero configurar y gestionar mi disponibilidad semanal, bloqueos de
+horario y parámetros de traslado, para que el sistema me asigne trabajos
+de forma óptima. & & \\
+US-18 & Configuración de horarios de trabajo semanales & Como técnico
+Premium autenticado, quiero configurar mis horarios de trabajo por día
+de la semana, para que el sistema me asigne solicitudes únicamente
+dentro de mis horarios laborales disponibles. & \textbf{Escenario 1:
+Establecer disponibilidad semanal}Dado que un técnico está
+autenticadoCuando define sus horas de inicio y fin de trabajo para cada
+día de la semanaEntonces el sistema almacena la disponibilidad semanal
+del técnicoY el algoritmo de matching la utiliza como criterio para la
+asignación automática de servicios.\textbf{Escenario 2: Actualización de
+horario existente}Dado que un técnico tiene un horario de trabajo
+configuradoCuando modifica las horas de un día laboral y guarda los
+cambiosEntonces el sistema actualiza el horario estándarY las
+solicitudes pendientes de matching recalculan la disponibilidad. &
+EP-05 \\
+US-19 & Bloqueo de fechas y horarios específicos & Como técnico Premium
+autenticado, quiero bloquear fechas o rangos de horas específicos en mi
+agenda, para evitar que el sistema me asigne trabajos durante
+compromisos personales o vacaciones. & \textbf{Escenario 1: Bloqueo
+exitoso de período}Dado que un técnico está autenticadoCuando selecciona
+una fecha o rango de horas y lo registra como no disponibleEntonces el
+sistema almacena el bloqueoY no asigna servicios al técnico durante ese
+período.\textbf{Escenario 2: Eliminación de bloqueo}Dado que un técnico
+tiene un bloqueo registradoCuando solicita eliminarloEntonces el sistema
+elimina el bloqueoY ese período vuelve a estar disponible para el
+matching automático. & EP-05 \\
+US-20 & Configuración de tiempo de traslado entre servicios & Como
+técnico Premium autenticado, quiero configurar el tiempo promedio que
+necesito para trasladarme entre ubicaciones, para que el sistema
+considere estos intervalos al asignarme trabajos consecutivos. &
+\textbf{Escenario 1: Configuración exitosa de buffer de traslado}Dado
+que un técnico está autenticadoCuando define un tiempo promedio de
+traslado en minutosEntonces el sistema almacena el buffer de trasladoY
+el algoritmo de matching incluye este intervalo entre servicios
+consecutivos para evitar solapamientos. & EP-05 \\
+US-21 & Visualización de agenda de trabajos asignados & Como técnico
+Premium autenticado, quiero consultar todos los trabajos que el sistema
+me ha asignado automáticamente, para planificar mi jornada y conocer mi
+carga de trabajo. & \textbf{Escenario 1: Consulta de trabajos
+asignados}Dado que un técnico está autenticado y tiene trabajos
+asignadosCuando consulta su agendaEntonces el sistema retorna la lista
+de servicios asignados con sus detalles (fecha, categoría de servicio,
+ubicación de la propiedad y estado).\textbf{Escenario 2: Agenda sin
+trabajos asignados}Dado que un técnico está autenticado y no tiene
+trabajos asignados en el período consultadoCuando consulta su
+agendaEntonces el sistema retorna una lista vacía. & EP-05 \\
+EP-06 & Contratación de Servicios Eléctricos & Como propietario o
+empresa, quiero solicitar servicios eléctricos mediante un proceso
+guiado paso a paso, para resolver mis necesidades eléctricas de forma
+estructurada. & & \\
+US-22 & Inicio del proceso de solicitud de servicio & Como propietario
+autenticado, quiero iniciar el proceso de solicitud de un servicio
+eléctrico para que el sistema valide mi plan antes de continuar, para no
+desperdiciar tiempo si he alcanzado mi límite de solicitudes. &
+\textbf{Escenario 1: Propietario FREE dentro del límite de
+solicitudes}Dado que un propietario con plan FREE está autenticado y ha
+creado menos de 2 solicitudes en el ciclo actualCuando inicia el
+asistente de solicitud de servicioEntonces el sistema crea una solicitud
+en estado DRAFTY publica el evento
+\texttt{ServiceRequestInitiated}.\textbf{Escenario 2: Propietario FREE
+en límite de solicitudes}Dado que un propietario con plan FREE ha
+alcanzado su límite mensual de solicitudesCuando intenta iniciar una
+nueva solicitudEntonces el sistema rechaza la acciónY publica el evento
+\texttt{ServiceRequestLimitReached}Y notifica al propietario que ha
+alcanzado su límite e informa sobre el plan Premium.\textbf{Escenario 3:
+Propietario Premium sin límite}Dado que un propietario con plan
+PREMIUM\_INDIVIDUAL está autenticadoCuando inicia el asistente de
+solicitud de servicioEntonces el sistema crea una solicitud en estado
+DRAFT sin restricción de límite. & EP-06 \\
+US-23 & Selección de propiedad para el servicio & Como propietario con
+múltiples propiedades registradas, quiero seleccionar la propiedad
+específica donde necesito el servicio, para que el sistema use su
+ubicación en el proceso de matching. & \textbf{Escenario 1: Selección
+exitosa de propiedad}Dado que un propietario tiene una solicitud en
+estado DRAFT y tiene propiedades registradasCuando selecciona una de sus
+propiedades registradasEntonces el sistema asocia la geolocalización de
+la propiedad a la solicitudY la solicitud transiciona al estado
+PROPERTY\_SELECTEDY publica el evento
+\texttt{PropertySelectedForRequest}.\textbf{Escenario 2: Sin propiedades
+registradas}Dado que un propietario inicia una solicitud pero no tiene
+propiedades registradasCuando llega al paso de selección de
+propiedadEntonces el sistema notifica que debe registrar al menos una
+propiedad antes de continuar. & EP-06 \\
+US-24 & Selección de categoría de servicio disponible & Como propietario
+con una solicitud en proceso, quiero ver las categorías de servicio
+disponibles en la zona de mi propiedad, para seleccionar la que se
+ajusta a mi necesidad. & \textbf{Escenario 1: Categorías disponibles en
+la zona}Dado que un propietario tiene una solicitud en estado
+PROPERTY\_SELECTEDCuando consulta las categorías disponiblesEntonces el
+sistema retorna las categorías de servicio para las que existen técnicos
+con zona de cobertura activa en la ubicación de la propiedad, mostrando
+rango de precios y duración estimada.\textbf{Escenario 2: Sin cobertura
+en la zona}Dado que un propietario consulta categorías disponiblesCuando
+ningún técnico activo tiene cobertura en la zona de la propiedadEntonces
+el sistema retorna una lista vacía e indica que no hay cobertura
+disponible en esa ubicación.\textbf{Escenario 3: Selección de
+categoría}Dado que el propietario ve categorías disponiblesCuando
+selecciona una categoría de servicioEntonces la solicitud transiciona al
+estado CATEGORY\_SELECTEDY publica el evento
+\texttt{ServiceCategorySelected}. & EP-06 \\
+US-25 & Descripción detallada del problema eléctrico & Como propietario
+con una solicitud en proceso, quiero añadir una descripción detallada de
+mi problema eléctrico y mis datos de recibo, para que el técnico llegue
+con contexto previo. & \textbf{Escenario 1: Adición de detalles del
+servicio}Dado que un propietario tiene una solicitud en estado
+CATEGORY\_SELECTEDCuando proporciona la descripción del problema y los
+datos de recibo eléctrico (consumo kWh, monto, período de
+facturación)Entonces el sistema almacena los detalles en la solicitudY
+la solicitud transiciona al estado READY\_TO\_CONFIRMY publica el evento
+\texttt{ServiceDetailsAdded}.\textbf{Escenario 2: Datos de recibo
+incompletos}Dado que un propietario está añadiendo detalles de su
+solicitudCuando omite campos obligatorios del recibo eléctricoEntonces
+el sistema no permite avanzar al estado READY\_TO\_CONFIRMY notifica los
+campos requeridos. & EP-06 \\
+US-26 & Confirmación de solicitud de servicio & Como propietario con una
+solicitud lista para confirmar, quiero confirmar la solicitud de
+servicio, para que el sistema inicie el proceso de matching y asignación
+de técnico. & \textbf{Escenario 1: Confirmación exitosa de solicitud
+estándar}Dado que un propietario tiene una solicitud en estado
+READY\_TO\_CONFIRMCuando confirma la solicitud sin marcarla como
+prioritariaEntonces el sistema cambia el estado a PENDING\_ASSIGNMENTY
+publica el evento \texttt{ServiceRequestCreated}Y encola la solicitud en
+la cola normal FIFO para el proceso de matching.\textbf{Escenario 2:
+Confirmación de solicitud prioritaria (solo plan Premium)}Dado que un
+propietario con plan PREMIUM\_INDIVIDUAL tiene una solicitud en estado
+READY\_TO\_CONFIRMCuando confirma la solicitud marcándola como
+prioritariaEntonces el sistema cambia el estado a PENDING\_ASSIGNMENT
+con la bandera \texttt{isPriority\ =\ true}Y encola la solicitud en la
+cola de prioridad para ser procesada antes que las
+normales.\textbf{Escenario 3: Propietario FREE intenta marcar como
+prioritaria}Dado que un propietario con plan FREE intenta confirmar una
+solicitud como prioritariaCuando envía la confirmaciónEntonces el
+sistema rechaza la operaciónY notifica que la opción de prioridad es
+exclusiva del plan Premium. & EP-06 \\
+US-27 & Cancelación de solicitud de servicio & Como propietario, quiero
+cancelar una solicitud de servicio que aún no ha sido asignada, para
+evitar cargos y compromisos innecesarios. & \textbf{Escenario 1:
+Cancelación exitosa antes de la asignación}Dado que un propietario tiene
+una solicitud en estado PENDING\_ASSIGNMENTCuando solicita su
+cancelaciónEntonces el sistema cambia el estado de la solicitud a
+CANCELLEDY publica el evento
+\texttt{ServiceRequestCancelled}.\textbf{Escenario 2: Intento de
+cancelación de solicitud ya asignada}Dado que un propietario intenta
+cancelar una solicitudCuando la solicitud ya se encuentra en estado
+ASSIGNEDEntonces el sistema rechaza la cancelación desde este flujoY
+dirige al propietario al proceso de cancelación de servicio en
+ejecución. & EP-06 \\
+EP-07 & Ejecución y Monitoreo de Servicios & Como propietario y técnico,
+quiero dar seguimiento en tiempo real a los servicios en curso,
+registrar evidencias y generar reportes técnicos, para asegurar la
+calidad y trazabilidad del trabajo. & & \\
+US-28 & Seguimiento del estado del servicio en tiempo real & Como
+propietario o técnico, quiero consultar el estado actual de un servicio
+asignado, para estar informado sobre el progreso del trabajo. &
+\textbf{Escenario 1: Consulta de estado del servicio}Dado que un
+propietario o técnico está autenticado y tiene un servicio
+asignadoCuando consulta los detalles de ese servicioEntonces el sistema
+retorna el estado actual (SCHEDULED, IN\_PROGRESS, COMPLETED, CANCELLED)
+y el historial de cambios.\textbf{Escenario 2: Actualización de estado
+por el técnico}Dado que un técnico está autenticado y tiene un servicio
+en estado SCHEDULEDCuando actualiza el estado a IN\_PROGRESSEntonces el
+sistema registra el cambio con la marca de tiempoY el nuevo estado es
+visible tanto para el técnico como para el propietario. & EP-07 \\
+US-29 & Registro fotográfico de evidencias del trabajo & Como técnico
+ejecutando un servicio, quiero subir fotografías del área de trabajo
+antes y después de la intervención, para documentar el trabajo realizado
+y contar con evidencia ante reclamos. & \textbf{Escenario 1: Carga de
+fotografía de evidencia}Dado que un técnico tiene un servicio en estado
+IN\_PROGRESSCuando sube una fotografía especificando si corresponde al
+tipo BEFORE o AFTEREntonces el sistema almacena la imagen asociada al
+registro de ejecución del servicioY publica el evento
+\texttt{WorkPhotoUploaded}.\textbf{Escenario 2: Completar servicio sin
+fotografías}Dado que un técnico intenta marcar como completado un
+servicioCuando no ha subido al menos una fotografíaEntonces el sistema
+rechaza la operaciónY notifica que se requiere al menos una fotografía
+de evidencia para completar el servicio. & EP-07 \\
+US-30 & Registro de componentes utilizados en el servicio & Como técnico
+durante la ejecución de un servicio, quiero registrar los componentes
+eléctricos que utilicé, para que el sistema descuente automáticamente el
+stock de mi inventario al completar el trabajo. & \textbf{Escenario 1:
+Registro exitoso de componentes utilizados}Dado que un técnico tiene un
+servicio en estado IN\_PROGRESSCuando registra los componentes
+efectivamente utilizados con sus cantidadesEntonces el sistema almacena
+el registro de uso de componentes como parte del log de trabajoY publica
+el evento \texttt{ComponentsActuallyUsedRecorded}.\textbf{Escenario 2:
+Componentes utilizados exceden la reserva}Dado que un técnico registra
+componentes utilizadosCuando la cantidad de un componente supera la
+cantidad reservada originalmente en la recetaEntonces el sistema
+registra la diferencia como sobreconsumo (delta positivo)Y al completar
+el servicio, notifica al contexto de Assets para gestionar el stock
+adicional. & EP-07 \\
+US-31 & Generación de reporte técnico del servicio & Como técnico al
+completar un servicio, quiero generar un reporte técnico estructurado
+que documente el trabajo realizado y las recomendaciones para el
+cliente, para profesionalizar el servicio. & \textbf{Escenario 1:
+Generación exitosa de reporte técnico}Dado que un técnico tiene un
+servicio en estado IN\_PROGRESS con al menos una fotografía
+registradaCuando registra el contenido del reporte técnico
+(procedimientos realizados, componentes utilizados,
+recomendaciones)Entonces el sistema almacena el reporte asociado al
+servicioY publica el evento
+\texttt{TechnicalReportUpdated}.\textbf{Escenario 2: Completar servicio
+sin reporte}Dado que un técnico intenta marcar como completado un
+servicioCuando el contenido del reporte técnico está vacíoEntonces el
+sistema rechaza la operaciónY notifica que el reporte técnico es
+obligatorio para completar el servicio. & EP-07 \\
+US-32 & Completar servicio y desencadenar efectos en cadena & Como
+técnico, quiero marcar un servicio como completado para cerrar el ciclo
+de ejecución y que el sistema descuente el inventario, registre el
+mantenimiento y abra la ventana de evaluación. & \textbf{Escenario 1:
+Completar servicio exitosamente}Dado que un técnico tiene un servicio en
+estado IN\_PROGRESS con fotografías, reporte técnico y componentes
+registradosCuando marca el servicio como completadoEntonces el sistema
+cambia el estado a COMPLETEDY publica el evento
+\texttt{ServiceCompleted}Y el contexto de Assets descuenta los
+componentes utilizados del inventario del técnicoY el contexto de Assets
+registra el servicio en el historial de mantenimiento de la propiedadY
+el contexto de Analytics actualiza las métricas del técnicoY se abre una
+ventana de evaluación mutua con un período de 7 días. & EP-07 \\
+US-33 & Cancelación de servicio con posibilidad de reasignación & Como
+propietario o técnico, quiero cancelar un servicio en ejecución e
+indicar si deseo que sea reasignado a otro técnico, para no perder el
+servicio por causas externas. & \textbf{Escenario 1: Cancelación por
+parte del propietario con solicitud de reasignación}Dado que un
+propietario tiene un servicio en estado SCHEDULED o IN\_PROGRESSCuando
+solicita cancelar el servicio e indica que desea reasignaciónEntonces el
+sistema cambia el estado del servicio a CANCELLEDY libera la reserva de
+componentes del inventario del técnicoY publica el evento
+\texttt{ServiceExecutionCancelled}Y el contexto de Planning BC reactiva
+la solicitud original para que ingrese nuevamente al proceso de
+matching.\textbf{Escenario 2: Cancelación por parte del técnico}Dado que
+un técnico tiene un servicio en estado SCHEDULEDCuando solicita cancelar
+el servicioEntonces el sistema cambia el estado del servicio a
+CANCELLEDY la bandera \texttt{requestReassignment} se establece
+automáticamente en false para cancelaciones iniciadas por el técnico. &
+EP-07 \\
+US-34 & Evaluación del técnico por parte del propietario & Como
+propietario, quiero calificar el servicio recibido y dejar una reseña
+sobre el técnico, para compartir mi experiencia con otros usuarios. &
+\textbf{Escenario 1: Evaluación exitosa dentro de la ventana activa}Dado
+que un propietario tiene un servicio en estado COMPLETED y la ventana de
+evaluación está activa (menor a 7 días desde la finalización)Cuando
+envía una calificación (entre 1 y 5 estrellas) con comentario y
+categorías evaluadasEntonces el sistema registra la evaluación asociada
+al servicioY publica el evento \texttt{HomeownerReviewSubmitted}Y el
+contexto de Analytics actualiza el rating promedio del
+técnico.\textbf{Escenario 2: Intento de evaluación con ventana
+expirada}Dado que han pasado más de 7 días desde que el servicio fue
+completadoCuando un propietario intenta enviar una evaluaciónEntonces el
+sistema rechaza la operaciónY notifica que el período de evaluación ha
+expirado. & EP-07 \\
+US-35 & Evaluación del propietario por parte del técnico & Como técnico,
+quiero calificar mi experiencia con el propietario al finalizar el
+servicio, para contribuir a la transparencia y confianza del ecosistema.
+& \textbf{Escenario 1: Evaluación del propietario exitosa}Dado que un
+técnico tiene un servicio en estado COMPLETED y la ventana de evaluación
+está activaCuando envía su calificación del propietario con el puntaje y
+comentario correspondienteEntonces el sistema registra la evaluaciónY
+publica el evento \texttt{TechnicianReviewSubmitted}. & EP-07 \\
+US-36 & Detección y notificación de no presentación del técnico & Como
+propietario, quiero ser notificado si el técnico no se presenta dentro
+del tiempo establecido, para poder tomar una decisión sobre qué hacer
+con mi solicitud. & \textbf{Escenario 1: Detección automática de
+no-show}Dado que un servicio está en estado SCHEDULED y el técnico no ha
+iniciado el servicio pasada la hora estimada más 60 minutosCuando el
+proceso en segundo plano detecta el retrasoEntonces el sistema publica
+el evento \texttt{TechnicianNoShowDetected}Y notifica al propietario con
+las opciones de: esperar más tiempo, cancelar con reasignación o
+cancelar sin reasignación. & EP-07 \\
+US-37 & Historial de servicios del propietario & Como propietario,
+quiero consultar el historial de servicios que he contratado, para tener
+referencia de los trabajos realizados en mis propiedades. &
+\textbf{Escenario 1: Consulta del historial de servicios}Dado que un
+propietario está autenticadoCuando consulta su historial de
+serviciosEntonces el sistema retorna todos los servicios contratados
+ordenados cronológicamente, con detalles de fecha, categoría de
+servicio, técnico asignado y estado final. & EP-07 \\
+US-38 & Historial de clientes atendidos por el técnico & Como técnico,
+quiero acceder al historial de clientes que he atendido, para dar
+seguimiento a relaciones profesionales. & \textbf{Escenario 1: Consulta
+del historial de clientes}Dado que un técnico está autenticado y ha
+completado serviciosCuando consulta su historial de clientesEntonces el
+sistema retorna la lista de propietarios atendidos con los servicios
+prestados a cada uno. & EP-07 \\
+EP-08 & Gestión de Activos y Recursos & Como usuario (propietario,
+empresa o técnico), quiero registrar y gestionar mis activos relevantes
+(propiedades, inventario de componentes, dispositivos IoT), para
+facilitar la operativa del sistema. & & \\
+US-39 & Registro de propiedad & Como propietario o empresa autenticado,
+quiero registrar una nueva propiedad con su dirección y geolocalización,
+para poder solicitar servicios en esa ubicación. & \textbf{Escenario 1:
+Registro exitoso de propiedad}Dado que un propietario o empresa está
+autenticadoCuando proporciona la información válida de una nueva
+propiedad (nombre, dirección, coordenadas geográficas y tipo de
+propiedad)Entonces el sistema registra la propiedad asociada a su
+cuentaY publica el evento \texttt{PropertyRegistered} hacia el contexto
+de Planning BCY la propiedad queda disponible para ser seleccionada en
+solicitudes de servicio.\textbf{Escenario 2: Registro con datos
+incompletos}Dado que un propietario intenta registrar una
+propiedadCuando omite la dirección o las coordenadas geográficasEntonces
+el sistema rechaza el registroY notifica los campos requeridos. &
+EP-08 \\
+US-40 & Edición de información de propiedad & Como propietario o empresa
+autenticado, quiero editar la información de mis propiedades
+registradas, para mantenerla actualizada. & \textbf{Escenario 1:
+Actualización exitosa de propiedad}Dado que un propietario tiene
+propiedades registradas y está autenticadoCuando selecciona una
+propiedad y modifica su información válidaEntonces el sistema almacena
+los cambios en la propiedad. & EP-08 \\
+US-41 & Eliminación de propiedad & Como propietario autenticado, quiero
+eliminar una propiedad de mi cuenta, para mantener organizada mi
+información activa. & \textbf{Escenario 1: Eliminación exitosa de
+propiedad}Dado que un propietario tiene una propiedad registrada sin
+servicios activos asociadosCuando solicita su eliminación y confirma la
+acciónEntonces el sistema elimina la propiedad de su cuenta. & EP-08 \\
+US-42 & Gestión de inventario de componentes del técnico & Como técnico
+autenticado, quiero registrar, actualizar y eliminar los componentes
+eléctricos de mi inventario con sus cantidades y costos, para controlar
+mi stock disponible. & \textbf{Escenario 1: Registro de nuevo componente
+en inventario}Dado que un técnico está autenticadoCuando registra un
+nuevo tipo de componente especificando nombre, cantidad inicial y
+costoEntonces el sistema añade el componente al inventario del técnico
+con el stock correspondiente.\textbf{Escenario 2: Actualización de stock
+por compra}Dado que un técnico tiene un componente en su
+inventarioCuando actualiza manualmente la cantidad de stock (por
+ejemplo, tras una compra)Entonces el sistema actualiza la cantidad
+registrada del componente. & EP-08 \\
+US-43 & Configuración de alertas de stock mínimo & Como técnico
+autenticado, quiero definir umbrales de stock mínimo para mis
+componentes, para recibir alertas cuando el stock caiga por debajo del
+nivel configurado. & \textbf{Escenario 1: Configuración de umbral
+mínimo}Dado que un técnico tiene un componente en su inventarioCuando
+establece un valor numérico de stock mínimo para ese componenteEntonces
+el sistema almacena el umbral configurado.\textbf{Escenario 2: Disparo
+de alerta por stock bajo}Dado que un componente tiene un umbral de stock
+mínimo configuradoCuando el descuento automático post-servicio hace que
+el stock caiga por debajo o igual al umbralEntonces el sistema publica
+el evento \texttt{LowStockAlert}Y notifica al técnico sobre el
+componente en alerta. & EP-08 \\
+EP-09 & Gestión de Suscripciones y Pagos & Como usuario, quiero
+gestionar mis planes de suscripción, procesar pagos de forma segura y
+consultar mi historial de facturación, para mantener mi cuenta activa y
+funcional. & & \\
+US-44 & Suscripción al plan Premium Individual & Como propietario en
+plan FREE, quiero suscribirme al plan Premium Individual, para
+desbloquear solicitudes ilimitadas y la opción de solicitud prioritaria.
+& \textbf{Escenario 1: Activación exitosa del plan Premium
+Individual}Dado que un propietario con plan FREE está autenticadoCuando
+completa el proceso de pago del plan PREMIUM\_INDIVIDUAL a través de
+StripeEntonces el sistema procesa el pago y activa el planY publica el
+evento \texttt{SubscriptionActivated}Y el propietario obtiene acceso a
+solicitudes ilimitadas y la bandera de prioridad.\textbf{Escenario 2:
+Fallo en el procesamiento de pago}Dado que un propietario intenta
+suscribirse al plan PremiumCuando el procesamiento de pago en Stripe
+fallaEntonces el sistema mantiene el plan FREE activoY notifica al
+propietario del fallo de pago. & EP-09 \\
+US-45 & Suscripción empresarial con onboarding IoT & Como empresa,
+quiero suscribirme a un plan empresarial con monitoreo IoT, para
+gestionar el consumo eléctrico de mis instalaciones con dispositivos
+inteligentes. & \textbf{Escenario 1: Inicio del onboarding
+empresarial}Dado que una empresa está autenticadaCuando selecciona un
+plan ENTERPRISE y completa el proceso de pagoEntonces el sistema
+registra la suscripción en estado PENDING\_INSTALLATIONY publica el
+evento \texttt{IoTInstallationRequired} hacia el contexto de Planning BC
+para agendar la visita de instalación.\textbf{Escenario 2: Activación
+completa tras instalación del dispositivo}Dado que una empresa tiene una
+suscripción en estado PENDING\_INSTALLATIONCuando el contexto de Assets
+publica el evento \texttt{DeviceInstalled} con el ID de instalación
+correspondienteEntonces el sistema transiciona la suscripción al estado
+ACTIVEY publica el evento \texttt{EnterpriseSubscriptionFullyActive}. &
+EP-09 \\
+US-46 & Activación del catálogo de técnico con suscripción Premium &
+Como técnico recién registrado, quiero activar mi catálogo de servicios
+mediante la suscripción a un plan Premium, para comenzar a recibir
+solicitudes del sistema. & \textbf{Escenario 1: Activación del catálogo
+tras suscripción Premium}Dado que un técnico con plan FREE está
+autenticadoCuando completa el proceso de pago del plan Premium para
+técnicosEntonces el sistema publica el evento
+\texttt{SubscriptionActivated}Y el contexto de Planning BC inicializa el
+catálogo de servicios del técnico. & EP-09 \\
+US-47 & Cancelación de suscripción & Como usuario con suscripción
+activa, quiero cancelar mi suscripción, para dejar de recibir cargos
+automáticos al finalizar el ciclo de facturación actual. &
+\textbf{Escenario 1: Cancelación de suscripción exitosa}Dado que un
+usuario tiene una suscripción activaCuando solicita la cancelación de su
+plan y confirma la decisiónEntonces el sistema programa la cancelación
+para el final del ciclo de facturación actualY publica el evento
+\texttt{SubscriptionCancelled} al vencer el cicloY el contexto de IAM
+ajusta el nivel de acceso del usuario. & EP-09 \\
+US-48 & Gestión de suscripción activa & Como usuario con plan Premium,
+quiero consultar y gestionar los detalles de mi suscripción activa, para
+mantener mi método de pago actualizado y revisar mi historial de
+facturación. & \textbf{Escenario 1: Consulta del historial de pagos}Dado
+que un usuario con suscripción activa está autenticadoCuando solicita
+acceder al detalle de su suscripciónEntonces el sistema retorna el
+historial de pagos, el método de pago registrado y el estado actual del
+plan. & EP-09 \\
+US-49 & Notificación de fallo en renovación de suscripción & Como
+usuario con plan Premium, quiero ser notificado cuando el cobro
+automático de mi renovación falle, para actualizar mis datos de pago a
+tiempo y no perder mis beneficios. & \textbf{Escenario 1: Notificación
+de fallo de pago recurrente}Dado que el sistema intenta realizar el
+cobro recurrente de la suscripción de un usuarioCuando Stripe notifica
+que el pago ha falladoEntonces el sistema registra el evento
+\texttt{PaymentFailed}Y notifica al usuario informándole del problema e
+indicando cómo actualizar su método de pago.\textbf{Escenario 2:
+Suspensión de cuenta tras fallos reiterados}Dado que el pago recurrente
+de un usuario ha fallado en tres intentos consecutivosCuando el sistema
+recibe la notificación del tercer fallo de StripeEntonces publica el
+evento \texttt{PaymentFailed} con indicador de suspensiónY el contexto
+de IAM suspende la cuenta del usuario cambiando el estado a SUSPENDED. &
+EP-09 \\
+EP-10 & Monitoreo IoT y Procesamiento de Datos & Como sistema, quiero
+procesar lecturas de sensores IoT, detectar anomalías y controlar
+circuitos de forma remota, para ofrecer monitoreo eléctrico predictivo.
+& & \\
+US-50 & Consulta del estado de conectividad de dispositivos IoT & Como
+empresa o propietario con dispositivo IoT instalado, quiero consultar el
+estado de conectividad de mis dispositivos, para saber si están
+transmitiendo datos correctamente. & \textbf{Escenario 1: Dispositivo
+conectado y enviando datos}Dado que una empresa está autenticada y tiene
+dispositivos IoT con estado INSTALLEDCuando consulta el estado de sus
+dispositivosEntonces el sistema retorna el estado de conectividad de
+cada dispositivo (CONNECTED o DISCONNECTED) y la marca de tiempo de la
+última lectura recibida.\textbf{Escenario 2: Dispositivo
+desconectado}Dado que un dispositivo IoT deja de enviar datos por un
+período mayor al umbral configuradoCuando el sistema de monitoreo
+detecta la ausencia de lecturasEntonces el sistema publica el evento
+\texttt{DeviceDisconnected}Y el contexto de Assets actualiza el estado
+de conectividad del dispositivoY notifica al cliente afectado. &
+EP-10 \\
+US-51 & Control remoto de circuito eléctrico (relé) & Como empresa o
+propietario con dispositivo IoT instalado, quiero activar o desactivar
+un circuito eléctrico de forma remota, para gestionar el consumo o
+actuar ante una emergencia. & \textbf{Escenario 1: Corte remoto de
+circuito exitoso}Dado que un usuario está autenticado y tiene un
+dispositivo IoT en estado CONNECTEDCuando envía el comando de corte del
+circuitoEntonces el sistema transmite la instrucción al dispositivo a
+través del Edge APIY el dispositivo confirma la ejecución del comandoY
+el sistema publica el evento
+\texttt{CircuitRemotelyDeactivated}.\textbf{Escenario 2: Dispositivo
+desconectado durante el comando}Dado que un usuario intenta activar o
+desactivar un circuito remotamenteCuando el dispositivo IoT está en
+estado DISCONNECTEDEntonces el sistema rechaza la operaciónY notifica
+que el dispositivo no está disponible para recibir comandos. & EP-10 \\
+EP-11 & Analytics y Dashboards de Consumo & Como propietario, empresa o
+técnico, quiero acceder a dashboards de consumo eléctrico, métricas de
+desempeño y reportes exportables, para tomar decisiones informadas. &
+& \\
+US-52 & Visualización del dashboard de consumo eléctrico & Como empresa
+con dispositivo IoT activo, quiero acceder a un dashboard de consumo
+eléctrico en tiempo real por circuito, para identificar patrones, horas
+pico y tomar decisiones de eficiencia energética. & \textbf{Escenario 1:
+Dashboard actualizado en tiempo real (plan Enterprise)}Dado que una
+empresa tiene una suscripción ENTERPRISE activa y al menos un
+dispositivo IoT en estado CONNECTEDCuando accede a su dashboard de
+consumoEntonces el sistema retorna datos de consumo actualizados por
+circuito, horas pico identificadas y una proyección de costo
+mensual.\textbf{Escenario 2: Acceso limitado según plan de
+suscripción}Dado que un propietario con plan PREMIUM\_INDIVIDUAL accede
+al dashboard de consumoCuando consulta el historialEntonces el sistema
+retorna datos históricos agregados por hora con un máximo de 12 meses de
+histórico, sin desglose en tiempo real por circuito. & EP-11 \\
+US-53 & Configuración de alertas de umbral de consumo & Como empresa o
+propietario, quiero configurar alertas que se disparen cuando el consumo
+supere umbrales definidos por mí, para tomar medidas proactivas y evitar
+costos inesperados. & \textbf{Escenario 1: Creación exitosa de alerta de
+consumo}Dado que un usuario está autenticado y tiene un plan que permite
+alertas de consumoCuando configura un umbral numérico de consumo máximo
+mensualEntonces el sistema almacena la configuración de
+alerta.\textbf{Escenario 2: Disparo de alerta al superar umbral}Dado que
+un usuario tiene una alerta de consumo configuradaCuando el dashboard de
+consumo se actualiza con una lectura que hace que el consumo acumulado
+supere el umbralEntonces el sistema publica el evento
+\texttt{ConsumptionThresholdExceeded}Y notifica al usuario sobre el
+umbral superado. & EP-11 \\
+US-54 & Exportación de reporte de consumo & Como propietario o empresa,
+quiero exportar mis datos de consumo eléctrico en formato CSV, para
+realizar análisis externos o compartirlos con terceros. &
+\textbf{Escenario 1: Exportación exitosa de datos}Dado que un usuario
+está autenticado y tiene datos de consumo registradosCuando solicita
+exportar su historial de consumo para un período determinadoEntonces el
+sistema genera un archivo CSV con los datos del período seleccionadoY
+publica el evento \texttt{ReportExported}.\textbf{Escenario 2:
+Exportación sin datos en el período}Dado que un usuario solicita
+exportar datos de consumoCuando no existen registros en el período
+seleccionadoEntonces el sistema retorna un archivo CSV vacío con los
+encabezados correspondientes. & EP-11 \\
+US-55 & Visualización de métricas de desempeño del técnico & Como
+técnico autenticado, quiero consultar mis métricas de desempeño
+(servicios completados, rating promedio, ingresos), para monitorear la
+calidad de mi servicio e identificar áreas de mejora. &
+\textbf{Escenario 1: Consulta de métricas del período actual}Dado que un
+técnico está autenticado y ha completado serviciosCuando consulta su
+panel de métricasEntonces el sistema retorna el conteo de servicios
+completados, el rating promedio y los ingresos totales del período
+seleccionado.\textbf{Escenario 2: Técnico sin servicios registrados}Dado
+que un técnico está autenticado pero no ha completado ningún
+servicioCuando consulta sus métricasEntonces el sistema retorna valores
+en cero para todas las métricas. & EP-11 \\
+EP-12 & Confianza y Transparencia del Ecosistema & Como usuario, quiero
+acceder a calificaciones, reseñas, portafolios y recomendaciones, para
+sentirme seguro al contratar servicios y tomar decisiones informadas. &
+& \\
+US-56 & Visualización de calificaciones y reseñas de técnicos & Como
+propietario, quiero ver las calificaciones y reseñas de otros usuarios
+sobre un técnico, para tomar decisiones informadas sobre la calidad del
+servicio esperado. & \textbf{Escenario 1: Consulta de reputación de un
+técnico}Dado que un propietario está autenticadoCuando consulta el
+perfil público de un técnicoEntonces el sistema retorna la calificación
+promedio del técnico y la lista de reseñas dejadas por propietarios
+anteriores con puntaje, comentario y categorías evaluadas. & EP-12 \\
+US-57 & Notificación de asignación automática de técnico & Como
+propietario, quiero recibir una notificación cuando un técnico sea
+asignado automáticamente a mi solicitud, para conocer los detalles del
+profesional que atenderá mi servicio. & \textbf{Escenario 1:
+Notificación de asignación exitosa}Dado que un propietario tiene una
+solicitud en estado PENDING\_ASSIGNMENTCuando el algoritmo de matching
+asigna exitosamente un técnico y la solicitud transiciona a
+ASSIGNEDEntonces el sistema publica el evento
+\texttt{ServiceAutomaticallyAssigned}Y notifica al propietario con los
+datos del técnico asignado.\textbf{Escenario 2: Notificación de
+solicitud expirada}Dado que una solicitud ha estado en estado
+PENDING\_ASSIGNMENT por más de 24 horas sin encontrar técnico
+disponibleCuando el proceso de retry agota todos los reintentosEntonces
+el sistema cambia el estado de la solicitud a EXPIREDY publica el evento
+\texttt{ServiceRequestExpired}Y notifica al propietario sobre la falta
+de técnicos disponibles. & EP-12 \\
+EP-13 & Navegación en la Landing Page & Como visitante, quiero navegar
+en una Landing Page que me brinde la información necesaria para tomar
+una decisión de registro informada. & & \\
+US-58 & Visualización de características y beneficios de la plataforma &
+Como visitante de la landing page, quiero ver claramente las
+características y beneficios de ElectroLink para propietarios y
+técnicos, para entender el valor del servicio y decidir si registrarme.
+& \textbf{Escenario 1: Visualización de beneficios por segmento}Dado que
+un visitante accede a la landing pageCuando navega hacia la sección de
+propuesta de valorEntonces puede identificar claramente los beneficios
+específicos para propietarios individuales, empresas y técnicosY cada
+beneficio tiene una descripción clara del valor que
+aporta.\textbf{Escenario 2: Visualización de características del
+monitoreo IoT}Dado que un visitante está explorando la landing
+pageCuando llega a la sección de características del productoEntonces
+puede identificar las funcionalidades de monitoreo IoT, asignación
+automática y analytics como diferenciadores clave. & EP-13 \\
+US-59 & Visualización de planes de suscripción & Como visitante
+interesado, quiero ver los planes de suscripción disponibles para
+propietarios, empresas y técnicos, para comparar sus características y
+precios antes de registrarme. & \textbf{Escenario 1: Comparación de
+planes para propietarios}Dado que un visitante accede a la sección de
+planesCuando revisa las opciones para propietariosEntonces puede
+distinguir claramente entre el plan FREE (con límite de solicitudes) y
+el plan PREMIUM\_INDIVIDUAL (solicitudes ilimitadas y prioridad)Y puede
+identificar las diferencias de precio y funcionalidades entre
+ambos.\textbf{Escenario 2: Visualización de planes para técnicos}Dado
+que un visitante técnico accede a la sección de planesCuando revisa las
+opciones disponiblesEntonces puede identificar el requisito de plan
+Premium para activar el catálogo de servicios y participar en el
+matching automático. & EP-13 \\
+US-60 & Visualización de información institucional de la startup & Como
+visitante, quiero acceder a información sobre la empresa detrás de
+ElectroLink, para evaluar su credibilidad y tomar una decisión
+informada. & \textbf{Escenario 1: Acceso a información corporativa}Dado
+que un visitante navega la landing pageCuando se desplaza hacia la
+sección sobre la empresaEntonces encuentra información clara sobre la
+misión, visión y equipo de ElectroLinkY la información está redactada de
+forma que genere confianza. & EP-13 \\
+US-61 & Navegación fluida y adaptativa en la landing page & Como
+visitante que accede desde distintos dispositivos, quiero que la landing
+page funcione correctamente y se adapte a mi pantalla, para tener una
+experiencia óptima independientemente del dispositivo. &
+\textbf{Escenario 1: Carga completa sin errores}Dado que un visitante
+accede a la landing page desde cualquier dispositivoCuando la carga de
+la página se completaEntonces todos los elementos informativos se
+muestran correctamenteY no existen enlaces que redirijan a destinos
+incorrectos o inexistentes. & EP-13 \\
+TS-01 & Registro de cuentas con rol diferenciado & Como plataforma,
+quiero soportar el registro diferenciado de usuarios por rol
+(OWNER\_INDIVIDUAL, COMPANY, TECHNICIAN), para que cada cuenta se cree
+con la identidad correcta y dispare los eventos de dominio
+correspondientes hacia los contextos de Profiles y Subscriptions. &
+\textbf{Escenario 1: Registro exitoso con rol válido y datos
+completos}Dado que el sistema recibe una solicitud de registro con un
+rol válido y datos completosCuando el servicio procesa la
+solicitudEntonces se crea el aggregate UserAccount en estado
+PENDING\_VERIFICATION con el rol indicadoY la contraseña se almacena
+como hashY se publica el evento
+\texttt{UserRegistered}.\textbf{Escenario 2: Registro rechazado por
+email duplicado}Dado que el sistema recibe una solicitud de
+registroCuando el email ya está asociado a un UserAccount activo
+existenteEntonces el sistema rechaza el registroY retorna un error de
+conflicto sin exponer datos del titular de la cuenta
+existente.\textbf{Escenario 3: Registro rechazado por datos
+incompletos}Dado que el sistema recibe una solicitud de registroCuando
+faltan campos obligatorios requeridos por el rol seleccionadoEntonces el
+sistema rechaza la solicitudY retorna los errores de validación
+identificados por campo. & EP-01 \\
+TS-02 & Autenticación de usuarios y emisión de tokens JWT & Como
+plataforma, quiero autenticar usuarios y emitir tokens JWT firmados que
+incluyan el rol y el plan de suscripción activo, para que todos los
+bounded contexts puedan verificar la identidad y el nivel de acceso sin
+acoplarse al contexto de IAM. & \textbf{Escenario 1: Autenticación
+exitosa con cuenta activa}Dado que el sistema recibe una solicitud de
+autenticaciónCuando las credenciales son válidas y el UserAccount se
+encuentra en estado ACTIVEEntonces se genera un token JWT firmado que
+contiene el userId, rol y plan de suscripciónY se publica el evento
+\texttt{UserAuthenticated}.\textbf{Escenario 2: Autenticación rechazada
+por credenciales inválidas}Dado que el sistema recibe una solicitud de
+autenticaciónCuando las credenciales no coinciden con ningún UserAccount
+activoEntonces el sistema rechaza la solicitudY retorna un mensaje de
+error genérico sin revelar cuál campo es incorrecto.\textbf{Escenario 3:
+Autenticación rechazada por cuenta suspendida}Dado que el sistema recibe
+una solicitud de autenticaciónCuando el UserAccount asociado al email
+tiene el estado SUSPENDEDEntonces el sistema deniega el accesoY retorna
+un error indicando que la cuenta está suspendida. & EP-01 \\
+TS-03 & Control de acceso basado en rol y plan de suscripción & Como
+plataforma, quiero aplicar control de acceso basado en rol y nivel de
+suscripción sobre todas las operaciones protegidas del sistema, para
+garantizar que cada usuario solo ejecute las acciones autorizadas para
+su perfil. & \textbf{Escenario 1: Acceso autorizado con rol y plan
+correctos}Dado que el sistema recibe una solicitud sobre una operación
+protegidaCuando el token JWT es válido y el rol del usuario tiene
+permiso sobre esa operaciónEntonces el sistema permite la ejecución de
+la operación.\textbf{Escenario 2: Acceso denegado por rol
+insuficiente}Dado que el sistema recibe una solicitud sobre una
+operación restringidaCuando el rol del usuario no tiene permiso para
+ejecutar esa operaciónEntonces el sistema rechaza la solicitudY retorna
+un error de acceso denegado.\textbf{Escenario 3: Solicitud rechazada por
+token ausente o inválido}Dado que el sistema recibe una solicitud sobre
+una operación protegidaCuando no se proporciona un token de
+autenticación o el token está expiradoEntonces el sistema rechaza la
+solicitudY retorna un error indicando que la autenticación es requerida.
+& EP-01 \\
+TS-04 & Suspensión automática de cuenta por fallo de pago reiterado &
+Como sistema, quiero reaccionar al evento \texttt{PaymentFailed}
+publicado por el contexto de Subscriptions y suspender la cuenta del
+usuario afectado tras tres fallos consecutivos, para que el acceso a la
+plataforma quede bloqueado hasta que el pago se regularice. &
+\textbf{Escenario 1: Suspensión de cuenta tras tres fallos de pago}Dado
+que el contexto de Subscriptions publica el evento
+\texttt{PaymentFailed} con indicador de suspensión tras tres reintentos
+fallidosCuando el handler de IAM procesa el eventoEntonces el sistema
+ejecuta el comando \texttt{SuspendUserAccount}Y el UserAccount pasa al
+estado SUSPENDEDY se publica el evento \texttt{UserAccountSuspended}
+hacia el contexto de Service Design.\textbf{Escenario 2: Reactivación de
+cuenta tras regularización del pago}Dado que el contexto de
+Subscriptions publica el evento \texttt{SubscriptionActivated} para un
+usuario con cuenta suspendidaCuando el handler de IAM procesa el
+eventoEntonces el sistema ejecuta el comando
+\texttt{ActivateUserAccount}Y el UserAccount pasa al estado ACTIVEY se
+publica el evento \texttt{UserAccountActivated} hacia el contexto de
+Service Design. & EP-01 \\
+TS-05 & Verificación de cuenta por token de correo electrónico & Como
+plataforma, quiero generar y validar tokens de verificación con tiempo
+de expiración en reacción al evento \texttt{UserRegistered}, para que
+las nuevas cuentas solo sean activadas después de que el usuario
+confirme su identidad. & \textbf{Escenario 1: Token generado tras
+publicación del evento UserRegistered}Dado que el evento
+\texttt{UserRegistered} es publicadoCuando el sistema procesa el
+eventoEntonces se genera un token de verificación único con tiempo de
+expiración definidoY el token se almacena asociado al userId
+correspondienteY se envía el enlace de verificación al correo registrado
+del usuario.\textbf{Escenario 2: Verificación exitosa con token
+vigente}Dado que el sistema recibe una solicitud de verificación de
+cuentaCuando el token es válido y no ha superado su tiempo de
+expiraciónEntonces el sistema actualiza el estado del UserAccount de
+PENDING\_VERIFICATION a ACTIVE.\textbf{Escenario 3: Verificación
+rechazada por token expirado}Dado que el sistema recibe una solicitud de
+verificación de cuentaCuando el token ha superado su tiempo de
+expiraciónEntonces el sistema rechaza la solicitudY retorna un error
+indicando que el token no es válido. & EP-02 \\
+TS-06 & Flujo seguro de recuperación y restablecimiento de contraseña &
+Como plataforma, quiero soportar un flujo de recuperación de contraseña
+basado en tokens temporales, para que los usuarios puedan restablecer
+sus credenciales de forma segura sin comprometer la integridad de las
+cuentas. & \textbf{Escenario 1: Generación de token de recuperación}Dado
+que el sistema recibe una solicitud de recuperación de contraseña con un
+email registradoCuando el servicio procesa la solicitudEntonces se
+genera un token de recuperación con tiempo de expiraciónY el token se
+almacena asociado al userIdY el sistema retorna una respuesta exitosa
+sin confirmar la existencia del email.\textbf{Escenario 2:
+Restablecimiento exitoso con token válido}Dado que el sistema recibe una
+solicitud de restablecimiento con un token válido y vigenteCuando la
+nueva contraseña cumple los requisitos mínimos de seguridadEntonces el
+sistema actualiza el passwordHash del UserAccount con el hash de la
+nueva contraseñaY elimina el token de recuperación
+utilizado.\textbf{Escenario 3: Restablecimiento rechazado por token
+expirado}Dado que el sistema recibe una solicitud de restablecimiento de
+contraseñaCuando el token ha superado su tiempo de expiraciónEntonces el
+sistema rechaza el restablecimientoY retorna un error indicando que el
+token no es válido. & EP-02 \\
+TS-07 & Validación de plan de suscripción en la creación de recipes de
+servicio & Como sistema, quiero verificar que solo los técnicos con
+suscripción Premium activa puedan crear recipes en su catálogo de
+servicios, para que el acceso al catálogo esté correctamente restringido
+al nivel de suscripción correspondiente. & \textbf{Escenario 1: Técnico
+Premium crea recipe con datos válidos}Dado que un técnico con
+suscripción Premium activa intenta crear un recipeCuando todos los
+componentes referenciados en la receta existen en su
+TechnicianInventoryEntonces el sistema crea el recipe en estado activo
+dentro del ServiceCatalogY publica el evento
+\texttt{ServiceRecipeCreated}Y si el catálogo estaba en estado EMPTY,
+transiciona a ACTIVE.\textbf{Escenario 2: Técnico FREE intenta crear
+recipe}Dado que un técnico con plan FREE intenta crear un recipeCuando
+el sistema verifica el plan de suscripción activoEntonces el sistema
+rechaza la operaciónY publica el evento
+\texttt{ServiceCreationDeniedDueToSubscription}.\textbf{Escenario 3:
+Recipe referencia componente inexistente en el inventario}Dado que un
+técnico Premium intenta crear un recipeCuando la receta referencia un
+componentId no registrado en su TechnicianInventoryEntonces el sistema
+rechaza la operaciónY retorna un error indicando el componente no
+encontrado. & EP-04 \\
+TS-08 & Consulta de categorías de servicio disponibles filtradas por
+zona geográfica & Como sistema, quiero consultar los catálogos activos
+de técnicos filtrados por zona de cobertura geográfica, para que solo se
+presenten al propietario las categorías que pueden ser efectivamente
+atendidas en la ubicación de su propiedad. & \textbf{Escenario 1:
+Existen técnicos con cobertura en la ubicación consultada}Dado que el
+sistema recibe una consulta de categorías disponibles con la
+geolocalización de una propiedad registradaCuando existen técnicos con
+catálogos ACTIVE cuya zona de cobertura incluye esa ubicaciónEntonces el
+sistema retorna las categorías únicas disponibles incluyendo rango de
+precios estimados y cantidad de técnicos disponibles por
+categoría.\textbf{Escenario 2: Ningún técnico cubre la zona de la
+propiedad}Dado que el sistema recibe una consulta de categorías
+disponibles con la geolocalización de una propiedadCuando ningún técnico
+con catálogo activo tiene cobertura en esa ubicaciónEntonces el sistema
+retorna una lista vacía. & EP-04 \\
+TS-09 & Validación de elegibilidad de solicitud según plan de
+suscripción & Como sistema, quiero verificar el plan de suscripción y el
+contador mensual de solicitudes de un propietario antes de permitir la
+creación de una nueva solicitud de servicio, para que los límites del
+plan FREE sean aplicados de forma consistente en toda la plataforma. &
+\textbf{Escenario 1: Propietario FREE dentro del límite mensual}Dado que
+el sistema evalúa la elegibilidad de un propietario con plan FREECuando
+el campo \texttt{monthlyRequestCount} del aggregate
+IndividualSubscription es menor al \texttt{requestLimit}
+definidoEntonces el sistema permite la creación de la solicitud en
+estado DRAFT.\textbf{Escenario 2: Propietario FREE ha alcanzado el
+límite mensual}Dado que el sistema evalúa la elegibilidad de un
+propietario con plan FREECuando el \texttt{monthlyRequestCount} ha
+alcanzado el \texttt{requestLimit} del ciclo actualEntonces el sistema
+bloquea la creación de la solicitudY publica el evento
+\texttt{RequestLimitReached}.\textbf{Escenario 3: Propietario con plan
+PREMIUM\_INDIVIDUAL}Dado que el sistema evalúa la elegibilidad de un
+propietarioCuando el plan activo es PREMIUM\_INDIVIDUALEntonces el
+sistema permite la creación de la solicitud sin verificar el contador de
+solicitudes. & EP-06 \\
+TS-10 & Confirmación de solicitud de servicio y encolamiento para
+matching & Como sistema, quiero validar y confirmar una solicitud de
+servicio y enrutarla a la cola de matching correcta según si tiene
+prioridad, para que el proceso de asignación respete los derechos del
+plan de suscripción del propietario. & \textbf{Escenario 1: Confirmación
+exitosa de solicitud estándar}Dado que el sistema recibe la confirmación
+de una solicitud con datos de recibo eléctrico válidos y sin bandera de
+prioridadCuando el propietario no activa la opción de prioridadEntonces
+el sistema cambia el estado de la solicitud a PENDING\_ASSIGNMENTY la
+encola en la cola FIFO normalY publica el evento
+\texttt{ServiceRequestCreated}.\textbf{Escenario 2: Confirmación exitosa
+de solicitud prioritaria para propietario Premium}Dado que el sistema
+recibe la confirmación de una solicitudCuando el propietario tiene plan
+PREMIUM\_INDIVIDUAL y activa la bandera \texttt{isPriority}Entonces el
+sistema cambia el estado de la solicitud a PENDING\_ASSIGNMENT con
+\texttt{isPriority\ =\ true}Y la encola en la cola de prioridad para ser
+procesada antes que las solicitudes normales.\textbf{Escenario 3:
+Intento de solicitud prioritaria desde plan FREE}Dado que el sistema
+recibe la confirmación de una solicitudCuando el propietario tiene plan
+FREE e intenta marcarla como prioritariaEntonces el sistema rechaza la
+confirmaciónY retorna un error indicando que la opción de prioridad es
+exclusiva del plan Premium. & EP-06 \\
+TS-11 & Algoritmo de matching automático para asignación de técnico &
+Como sistema, quiero asignar automáticamente el técnico más adecuado a
+cada solicitud en cola, evaluando zona de cobertura, disponibilidad de
+agenda, stock de componentes y rating, para conectar la demanda con la
+oferta sin intervención manual. & \textbf{Escenario 1: Asignación
+exitosa al técnico con mayor rating disponible}Dado que existe al menos
+una solicitud en estado PENDING\_ASSIGNMENT en la cola de matchingCuando
+el sistema evalúa técnicos con zona de cobertura válida para la
+propiedad, con un recipe activo para la categoría solicitada y con stock
+suficiente de los componentes de la recetaEntonces el sistema selecciona
+al técnico con mayor rating entre los candidatos elegiblesY crea el
+aggregate ServiceAssignment capturando el RecipeSnapshot inmutableY
+cambia el estado de la solicitud a ASSIGNEDY publica el evento
+\texttt{ServiceAutomaticallyAssigned}.\textbf{Escenario 2: Sin
+candidatos disponibles --- registro de fallo y reintento}Dado que existe
+una solicitud en estado PENDING\_ASSIGNMENTCuando ningún técnico cumple
+todos los criterios requeridosEntonces el sistema registra el intento
+fallidoY publica el evento \texttt{ServiceAssignmentFailed}Y programa un
+reintento con backoff exponencial (inmediato → 1h → 3h →
+6h).\textbf{Escenario 3: Solicitudes prioritarias se procesan antes que
+las normales}Dado que la cola de matching contiene solicitudes con y sin
+bandera \texttt{isPriority}Cuando el sistema procesa la colaEntonces las
+solicitudes con \texttt{isPriority\ =\ true} son procesadas antes que
+las normales, respetando el orden FIFO dentro de cada nivel de
+prioridad. & EP-06 \\
+TS-12 & Reinicio mensual del contador de solicitudes para plan FREE &
+Como sistema, quiero reiniciar el campo \texttt{monthlyRequestCount} de
+todos los aggregates IndividualSubscription en plan FREE al inicio de
+cada ciclo de facturación, para que los límites mensuales se apliquen
+correctamente en cada período. & \textbf{Escenario 1: Reinicio exitoso
+al inicio del ciclo de facturación}Dado que la tarea programada se
+ejecutaCuando la fecha corresponde al inicio del ciclo de facturación
+configuradoEntonces el sistema reinicia el \texttt{monthlyRequestCount}
+a cero para todos los aggregates IndividualSubscription en plan FREEY
+registra la ejecución de la tarea en los logs del
+sistema.\textbf{Escenario 2: Tarea ejecutada fuera del inicio del
+ciclo}Dado que la tarea programada se ejecutaCuando la fecha no
+corresponde al inicio del ciclo de facturaciónEntonces el sistema
+finaliza la ejecución sin realizar cambios en los contadores de ninguna
+suscripción. & EP-09 \\
+TS-13 & Gestión de transiciones de estado en el ciclo de vida de la
+ejecución del servicio & Como sistema, quiero aplicar las transiciones
+de estado válidas del aggregate ServiceExecution a lo largo de su ciclo
+de vida, para proteger las invariantes de negocio y garantizar que los
+efectos en cadena se desencadenen en los momentos correctos. &
+\textbf{Escenario 1: Transición SCHEDULED → IN\_PROGRESS}Dado que existe
+un aggregate ServiceExecution en estado SCHEDULEDCuando el técnico
+asignado solicita iniciar el servicioEntonces el sistema cambia el
+estado a IN\_PROGRESSY registra la marca de tiempo del inicioY publica
+el evento \texttt{ServiceExecutionStarted}.\textbf{Escenario 2:
+Transición IN\_PROGRESS → COMPLETED con todos los requisitos
+cumplidos}Dado que existe un ServiceExecution en estado IN\_PROGRESS con
+al menos una WorkPhoto registrada, contenido en el reporte técnico y al
+menos un ComponentUsageRecordCuando el técnico solicita completar el
+servicioEntonces el sistema cambia el estado a COMPLETEDY publica el
+evento \texttt{ServiceCompleted}.\textbf{Escenario 3: Intento de
+completar sin cumplir los requisitos de negocio}Dado que existe un
+ServiceExecution en estado IN\_PROGRESSCuando el técnico intenta
+completar el servicio sin haber registrado fotografías o con el reporte
+técnico vacíoEntonces el sistema rechaza la transiciónY retorna un error
+indicando cuáles requisitos están pendientes. & EP-07 \\
+TS-14 & Registro de evaluaciones post-servicio con ventana temporal de 7
+días & Como sistema, quiero registrar evaluaciones mutuas de
+propietarios y técnicos únicamente dentro de la ventana de 7 días
+posterior a la finalización del servicio, para que el modelo de
+reputación se alimente con datos válidos y oportunos. &
+\textbf{Escenario 1: Evaluación registrada dentro de la ventana
+activa}Dado que existe un ServiceExecution en estado COMPLETED con
+ventana de evaluación vigenteCuando se recibe una evaluación válida con
+puntaje entre 1 y 5 del actor autorizadoEntonces el sistema registra el
+aggregate ServiceEvaluation asociado al servicioY publica el evento
+\texttt{HomeownerReviewSubmitted} o \texttt{TechnicianReviewSubmitted}
+según corresponda.\textbf{Escenario 2: Evaluación rechazada con ventana
+expirada}Dado que existe un ServiceExecution en estado COMPLETEDCuando
+han transcurrido más de 7 días desde la fecha de finalizaciónEntonces el
+sistema rechaza la evaluación enviadaY retorna un error indicando que el
+período de evaluación ha expirado.\textbf{Escenario 3: Evaluación
+duplicada del mismo actor rechazada}Dado que existe un ServiceExecution
+en estado COMPLETED con ventana activaCuando el mismo actor intenta
+registrar una segunda evaluación para el mismo servicioEntonces el
+sistema rechaza la operaciónY retorna un error indicando que ya existe
+una evaluación registrada para ese rol en ese servicio. & EP-07 \\
+TS-15 & Detección automática de no-show del técnico mediante proceso en
+segundo plano & Como sistema, quiero detectar automáticamente mediante
+un background service cuando un técnico no inicia un servicio programado
+dentro del umbral de espera permitido, para notificar al propietario y
+ofrecerle opciones de acción sin necesidad de intervención manual. &
+\textbf{Escenario 1: No-show detectado tras superar el umbral de 60
+minutos}Dado que existe un ServiceExecution en estado SCHEDULEDCuando
+han transcurrido más de 60 minutos desde la hora programada sin que el
+técnico ejecute el comando StartServiceExecutionEntonces el sistema
+registra el incidente mediante el método \texttt{RecordNoShow} del
+aggregateY publica el evento \texttt{TechnicianNoShowDetected}Y notifica
+al propietario con las opciones disponibles (esperar, cancelar con
+reasignación, cancelar sin reasignación).\textbf{Escenario 2: Servicio
+iniciado antes del umbral no genera evento de no-show}Dado que existe un
+ServiceExecution en estado SCHEDULEDCuando el técnico inicia el servicio
+antes de que se supere el umbral de 60 minutosEntonces el sistema no
+genera ningún evento de no-show para esa ejecución. & EP-07 \\
+TS-16 & Expiración automática de la ventana de evaluación mediante
+proceso en segundo plano & Como sistema, quiero cerrar automáticamente
+las ventanas de evaluación de los servicios completados cuando han
+transcurrido 7 días, para que el ciclo de vida de la evaluación se
+gestione de forma consistente sin intervención manual. &
+\textbf{Escenario 1: Ventana expirada correctamente}Dado que existen
+aggregates ServiceExecution en estado COMPLETED con ventana de
+evaluación abiertaCuando el background service detecta que han
+transcurrido 7 días desde la fecha de finalización del servicioEntonces
+el sistema marca la ventana de evaluación como expirada mediante el
+método \texttt{ExpireEvaluationWindow}Y publica el evento
+\texttt{EvaluationWindowExpiredEvent}.\textbf{Escenario 2: Ventana
+vigente no es modificada}Dado que existen aggregates ServiceExecution en
+estado COMPLETEDCuando el background service evalúa el estado de la
+ventana y aún faltan días para el vencimientoEntonces el sistema no
+modifica el estado de la ventana de evaluación de esa ejecución. &
+EP-07 \\
+TS-17 & Gestión del ciclo de vida de propiedades de clientes & Como
+plataforma, quiero soportar el ciclo de vida completo de registro y
+gestión de propiedades de propietarios y empresas, para que las
+ubicaciones queden disponibles como base para la solicitud de servicios
+y la instalación de dispositivos IoT. & \textbf{Escenario 1: Propiedad
+registrada exitosamente}Dado que un propietario o empresa autenticado
+envía los datos de una nueva propiedad con nombre, dirección,
+coordenadas geográficas y tipo de propiedadCuando el sistema ejecuta el
+comando \texttt{RegisterProperty}Entonces se crea el aggregate Property
+asociado a la cuenta del propietarioY se publica el evento
+\texttt{PropertyRegistered} hacia el contexto de Service
+Design.\textbf{Escenario 2: Registro rechazado por datos obligatorios
+faltantes}Dado que el sistema recibe una solicitud de registro de
+propiedadCuando la dirección o las coordenadas geográficas están
+ausentesEntonces el sistema rechaza el registroY retorna los campos
+requeridos que están faltantes.\textbf{Escenario 3: Acceso rechazado sin
+autenticación}Dado que el sistema recibe una solicitud de gestión de
+propiedadesCuando no se proporciona un token de autenticación
+válidoEntonces el sistema rechaza la solicitudY retorna un error
+indicando que la autenticación es requerida. & EP-08 \\
+TS-18 & Gestión del inventario de componentes del técnico & Como
+plataforma, quiero administrar el ciclo de vida completo del inventario
+de componentes del aggregate TechnicianInventory, para que los datos de
+stock estén siempre actualizados y disponibles para la validación
+durante el matching automático. & \textbf{Escenario 1: Nuevo componente
+añadido al inventario}Dado que un técnico autenticado ejecuta el comando
+\texttt{AddInventoryStock} con datos válidos del componenteCuando el
+sistema procesa el comandoEntonces el componente se registra en el
+TechnicianInventory del técnico con la cantidad inicial
+indicada.\textbf{Escenario 2: Stock de componente existente
+actualizado}Dado que un técnico autenticado ejecuta el comando
+\texttt{AddInventoryStock} sobre un componente ya registradoCuando el
+sistema procesa el comando con un valor de stock válidoEntonces el
+sistema incrementa la cantidad del componente en el
+TechnicianInventory.\textbf{Escenario 3: Umbral mínimo configurado para
+un componente}Dado que un técnico ejecuta el comando
+\texttt{SetMinimumStock} sobre un componente de su inventarioCuando el
+valor de \texttt{minimumStock} es válidoEntonces el sistema almacena el
+umbral mínimo configurado para ese componenteY lo usará como referencia
+para generar alertas de stock bajo en futuros descuentos. & EP-08 \\
+TS-19 & Descuento automático de inventario en reacción al evento
+ServiceCompleted & Como sistema, quiero reaccionar al evento
+\texttt{ServiceCompleted} y descontar automáticamente los componentes
+efectivamente utilizados del TechnicianInventory correspondiente, para
+que el stock refleje siempre la realidad sin intervención manual del
+técnico. & \textbf{Escenario 1: Descuento exitoso de componentes
+utilizados}Dado que el evento \texttt{ServiceCompleted} es publicado con
+la lista de ComponentUsageRecord del servicioCuando el handler del
+contexto de Assets procesa el eventoEntonces el sistema ejecuta el
+comando \texttt{UpdateTechnicianInventory} descontando las cantidades de
+cada componente utilizadoY si el stock resultante de algún componente
+cae por debajo del campo \texttt{minimumStock}, se publica el evento
+\texttt{LowStockAlert}.\textbf{Escenario 2: Servicio completado sin
+componentes registrados en el log}Dado que el evento
+\texttt{ServiceCompleted} es publicado sin ComponentUsageRecords
+asociadosCuando el handler procesa el eventoEntonces el sistema finaliza
+el procesamiento sin modificar ningún item del TechnicianInventory. &
+EP-08 \\
+TS-20 & Activación del plan empresarial en reacción al evento
+DeviceInstalled & Como sistema, quiero reaccionar al evento
+\texttt{DeviceInstalled} publicado por el contexto de Assets y
+transicionar la suscripción empresarial del estado PENDING\_INSTALLATION
+al estado ACTIVE, para que el plan quede completamente operativo solo
+cuando el dispositivo IoT esté físicamente instalado y funcionando. &
+\textbf{Escenario 1: Suscripción empresarial activada tras instalación
+confirmada}Dado que el evento \texttt{DeviceInstalled} es publicado por
+el contexto de Assets con el \texttt{installationServiceRequestId}
+correspondienteCuando el handler del contexto de Subscriptions procesa
+el eventoEntonces el sistema busca el aggregate EnterpriseSubscription
+cuyo \texttt{installationServiceRequestId} coincideY transiciona el
+estado de PENDING\_INSTALLATION a ACTIVEY publica el evento
+\texttt{EnterpriseSubscriptionFullyActive}.\textbf{Escenario 2:
+Suscripción empresarial cancelada si la instalación no ocurre en 30
+días}Dado que existe un aggregate EnterpriseSubscription en estado
+PENDING\_INSTALLATIONCuando han transcurrido 30 días desde el inicio del
+proceso sin que el evento \texttt{DeviceInstalled} sea publicadoEntonces
+el sistema cancela la suscripción empresarialY gestiona el reembolso
+correspondiente. & EP-09 \\
+TS-21 & Sincronización del estado de suscripciones mediante webhooks de
+Stripe & Como sistema, quiero procesar los eventos del ciclo de vida de
+pagos recibidos desde los webhooks de Stripe y mantener el estado de los
+aggregates de suscripción sincronizado, para que las activaciones,
+renovaciones y cancelaciones de planes queden reflejadas con precisión
+en la plataforma. & \textbf{Escenario 1: Suscripción activada tras pago
+exitoso}Dado que Stripe envía el evento
+\texttt{checkout.session.completed} al sistemaCuando el sistema valida
+la firma del webhook y procesa el eventoEntonces el sistema actualiza el
+estado del aggregate de suscripción correspondiente a ACTIVEY publica el
+evento \texttt{SubscriptionActivated}.\textbf{Escenario 2: Evento
+rechazado por firma inválida}Dado que el sistema recibe una notificación
+de webhook de StripeCuando la firma del payload no puede ser validada
+correctamenteEntonces el sistema rechaza el eventoY no realiza ninguna
+modificación en el estado de ninguna suscripción.\textbf{Escenario 3:
+Suscripción cancelada por notificación de Stripe}Dado que Stripe envía
+el evento \texttt{customer.subscription.deleted}Cuando el sistema valida
+y procesa el eventoEntonces el sistema cambia el estado del aggregate de
+suscripción a CANCELLEDY publica el evento
+\texttt{SubscriptionCancelled} hacia los contextos de IAM y Service
+Design. & EP-09 \\
+TS-22 & Generación de sesión de autogestión de suscripción vía portal de
+Stripe & Como plataforma, quiero generar sesiones autenticadas del
+portal de cliente de Stripe para usuarios con suscripción activa, para
+que la gestión de método de pago y cancelación sea delegada de forma
+segura a Stripe sin implementación personalizada. & \textbf{Escenario 1:
+Sesión generada exitosamente para usuario con suscripción activa}Dado
+que un usuario con suscripción en estado ACTIVE solicita gestionar su
+planCuando el sistema verifica el estado de la suscripción y llama a la
+API de StripeEntonces el sistema genera y retorna una URL de sesión
+única del portal de Stripe.\textbf{Escenario 2: Solicitud rechazada para
+usuario sin suscripción activa}Dado que un usuario con plan FREE
+solicita acceso al portal de autogestión de suscripciónCuando el sistema
+verifica el estado de la suscripciónEntonces el sistema rechaza la
+solicitudY retorna un error de acceso denegado. & EP-09 \\
+TS-23 & Ingesta y autenticación de lecturas del sensor IoT en la capa
+Edge & Como sistema, quiero autenticar las lecturas de dispositivos IoT
+en la capa Edge validando el API key contra el \texttt{apiKeyHash} del
+aggregate IoTDevice en Assets, para que únicamente los dispositivos
+autorizados y activos puedan contribuir datos a la plataforma. &
+\textbf{Escenario 1: Lectura aceptada con API key válido y dispositivo
+activo}Dado que el Edge API recibe datos de lectura de un dispositivo
+IoT con un API key en el headerCuando el sistema valida el API key
+contra el \texttt{apiKeyHash} del aggregate IoTDevice en Assets y el
+dispositivo tiene estado INSTALLEDEntonces la lectura es aceptada y
+transmitida al contexto de IoT Monitoring para su
+procesamiento.\textbf{Escenario 2: Lectura rechazada de dispositivo
+descomisionado}Dado que el Edge API recibe datos de lectura de un
+dispositivoCuando el aggregate IoTDevice correspondiente tiene estado
+DECOMMISSIONEDEntonces el sistema rechaza la lectura sin procesarla,
+conforme a la ApiKeyRevocationPolicy.\textbf{Escenario 3: Lectura
+rechazada por payload inválido}Dado que el Edge API recibe datos de
+lecturaCuando el payload tiene campos requeridos faltantes o valores
+fuera de rango aceptableEntonces el sistema rechaza la lecturaY retorna
+un error de validación. & EP-10 \\
+TS-24 & Detección de anomalías eléctricas y publicación de eventos de
+negocio & Como sistema, quiero analizar las lecturas entrantes del
+sensor IoT y publicar eventos de dominio cuando se detecten anomalías o
+problemas de conectividad, para que los contextos de Analytics y Service
+Design puedan reaccionar de forma apropiada. & \textbf{Escenario 1:
+Lectura normal procesada y publicada como LecturaRecibida}Dado que el
+contexto de IoT Monitoring recibe una lectura válida del Edge APICuando
+los valores de la lectura están dentro de los rangos normales del
+dispositivoEntonces el sistema publica el evento
+\texttt{LecturaRecibida} hacia el contexto de
+Analytics.\textbf{Escenario 2: Patrón anómalo detectado en las
+lecturas}Dado que el contexto de IoT Monitoring recibe lecturas de un
+dispositivoCuando los valores conforman un patrón anómalo (pico de
+corriente, consumo sostenido fuera de rangos)Entonces el sistema publica
+el evento \texttt{AnomalíaDetectada} hacia los contextos de Service
+Design y AnalyticsY registra la anomalía en el historial del dispositivo
+correspondiente.\textbf{Escenario 3: Dispositivo sin lecturas durante
+período superior al umbral}Dado que el sistema monitorea la conectividad
+de los aggregates IoTDeviceCuando un dispositivo deja de enviar lecturas
+por un período superior al umbral configuradoEntonces el sistema publica
+el evento \texttt{DispositivoDesconectado} hacia los contextos de Assets
+y Analytics. & EP-10 \\
+TS-25 & Actualización del ConsumptionDashboard en reacción a eventos de
+lectura IoT & Como sistema, quiero actualizar el aggregate
+ConsumptionDashboard en reacción a cada evento \texttt{LecturaRecibida}
+publicado por IoT Monitoring, para que los datos de analítica de consumo
+reflejen siempre las lecturas más recientes del sensor. &
+\textbf{Escenario 1: Dashboard actualizado con nueva lectura}Dado que el
+evento \texttt{LecturaRecibida} es publicado por IoT Monitoring con el
+deviceId y los valores de la lecturaCuando el handler del contexto de
+Analytics procesa el eventoEntonces el aggregate ConsumptionDashboard
+del cliente propietario del dispositivo es actualizado con los nuevos
+datos de la serie temporal.\textbf{Escenario 2: Umbral de consumo
+superado tras actualización del dashboard}Dado que el aggregate
+ConsumptionDashboard es actualizado con una nueva lecturaCuando el
+consumo acumulado supera el umbral configurado por el cliente en sus
+preferenciasEntonces el sistema publica el evento
+\texttt{ConsumptionThresholdExceeded}Y notifica al cliente afectado. &
+EP-11 \\
+TS-26 & Registro de anomalías en el AlertLog en reacción al evento
+AnomalíaDetectada & Como sistema, quiero reaccionar al evento
+\texttt{AnomalíaDetectada} publicado por IoT Monitoring y persistir
+entradas en el aggregate AlertLog, para que los clientes cuenten con un
+historial consultable y consistente de anomalías eléctricas detectadas
+en sus propiedades. & \textbf{Escenario 1: Anomalía registrada
+exitosamente en el AlertLog}Dado que el evento
+\texttt{AnomalíaDetectada} es publicado por IoT Monitoring con el
+deviceId, tipo de anomalía y severidadCuando el handler del contexto de
+Analytics procesa el eventoEntonces el sistema ejecuta el comando
+\texttt{RecordAlertInLog} añadiendo una nueva entrada al aggregate
+AlertLog del cliente con estado pendiente de
+reconocimiento.\textbf{Escenario 2: Anomalía corresponde al umbral de
+consumo configurado por el cliente}Dado que el evento
+\texttt{AnomalíaDetectada} es procesado por el handler de
+AnalyticsCuando el tipo de anomalía corresponde a un consumo que supera
+el umbral configurado por el clienteEntonces el sistema publica
+adicionalmente el evento \texttt{ConsumptionThresholdExceeded}Y notifica
+al cliente afectado. & EP-11 \\
+TS-27 & Actualización de métricas del técnico en reacción al evento
+ServiceCompleted & Como sistema, quiero actualizar el aggregate
+TechnicianMetrics en reacción al evento \texttt{ServiceCompleted}, para
+que los dashboards de desempeño reflejen siempre datos precisos y
+actualizados por cada técnico. & \textbf{Escenario 1: Métricas
+actualizadas tras servicio completado}Dado que el evento
+\texttt{ServiceCompleted} es publicado por el contexto de Service
+OperationCuando el handler del contexto de Analytics procesa el
+eventoEntonces el sistema ejecuta el comando
+\texttt{UpdateTechnicianMetrics} sobre el aggregate del técnico
+asignadoY se incrementa el \texttt{completedServicesCount}Y se actualiza
+el \texttt{totalRevenue} con los ingresos del servicio
+finalizado.\textbf{Escenario 2: Rating promedio recalculado al procesar
+una nueva evaluación}Dado que el evento
+\texttt{HomeownerReviewSubmitted} es publicado con la calificación
+otorgada al técnicoCuando el handler de Analytics procesa el
+eventoEntonces el sistema recalcula el campo \texttt{averageRating} del
+aggregate TechnicianMetrics correspondiente al técnico evaluado. &
+EP-11 \\
+TS-28 & Generación de reportes de consumo exportables con filtro por
+período & Como plataforma, quiero generar reportes de consumo eléctrico
+exportables en formato CSV filtrados por rango de fechas, para que
+propietarios y empresas puedan analizar su historial de uso eléctrico
+fuera de la plataforma. & \textbf{Escenario 1: Reporte generado
+exitosamente con datos disponibles en el período}Dado que un usuario
+autenticado ejecuta el comando \texttt{ExportConsumptionReport} con un
+rango de fechas válidoCuando el sistema consulta los registros del
+aggregate ConsumptionDashboard para el período solicitadoEntonces el
+sistema genera un archivo CSV con los encabezados correspondientes y los
+registros del períodoY publica el evento
+\texttt{ReportExported}.\textbf{Escenario 2: Reporte generado vacío
+cuando no hay datos en el período}Dado que un usuario autenticado
+ejecuta el comando \texttt{ExportConsumptionReport} con un rango de
+fechas válidoCuando no existen registros de consumo en el aggregate para
+el período solicitadoEntonces el sistema genera un archivo CSV vacío que
+contiene únicamente los encabezados de columna definidos. & EP-11 \\
+\end{longtable}
+}
+
+\subsection{3.2. Impact
+Mapping.}\label{report__30-cap3-requirements-spec.md__impact-mapping.}
+
+\subsection{3.3. Product
+Backlog.}\label{report__30-cap3-requirements-spec.md__product-backlog.}
+
+\begin{thebibliography}{9}
+
+\bibitem{maintenance_costs}
+Keller, S., \& Owen, A. (2025).
+A Comprehensive Cost-Benefit Analysis of Preventive Maintenance Versus Corrective Maintenance.
+ResearchGate.
+
+\bibitem{electrical_costs}
+HomeYou. (2026).
+How much does it cost to get electrical services.
+https://www.homeyou.com/in/electrician-peru-costs
+
+\end{thebibliography}

@@ -269,11 +269,63 @@ En esta sección, el equipo de Hampcoders realiza el diseño de las entrevistas 
 En la presente sección se presentan las fichas de User Persona elaboradas teniendo en cuenta las entrevistas realizadas y analizadas previamente y la revisión de soluciones existentes en el mercado. En cada arquetipo se presentan las características demográficas, de personalidad, los objetivos, las motivaciones, frustraciones y preferencias de los usuarios clave de cada segmento. La construcción de estos User Persona se basa en resultados y análisis obtenidos durante la investigación previa con el objetivo de tomar decisiones de diseño y desarrollo adecuadas para resolver los problemas identificados.
 
 #### 2.3.1. User Personas
+
+#### Segmento 1:
+
+![](assets/img/cap2/RobertoSanchez.png)
+
+#### Segmento 2:
+![](assets/img/cap2/CarlosMendoza.png)
+
 #### 2.3.2. User Task Matrix
 #### 2.3.3. User Journey Mapping
+\
+
+En esta sección se presentan los User Journey Maps correspondientes a cada User Persona identificado para el proyecto ElectroLink. Estos mapas representan el recorrido completo (end-to-end journey) que siguen los usuarios en su situación actual , desde la identificación de una necesidad hasta la resolución de la misma, sin la intervención de una solución digital estructurada.
+
+**Carlos Mendoza (Técnico Electricista)**
+
+![Journey-Mapping-1](assets/img/cap1/team-images/journey-Carlos.png)
+
+
+Carlos experimenta un recorrido inestable, con diversos puntos de fricción relacionados con:
+
+- Dificultad para conseguir clientes de forma constante.
+- Dependencia de recomendaciones informales para obtener trabajo.
+- Falta de visibilidad y posicionamiento profesional.
+- Ausencia de herramientas para organizar y gestionar sus servicios.
+
+--- 
+
+**Roberto Sánchez (Jefe de Operaciones)**
+
+![Journey-Mapping-2](assets/img/cap1/team-images/journey-Roberto.png)
+
+
+Roberto atraviesa un recorrido altamente reactivo, caracterizado por múltiples puntos de fricción vinculados a:
+
+- Interrupciones operativas inesperadas.
+- Toma de decisiones bajo presión y con información limitada.
+- Dependencia de contactos informales para resolver fallas.
+- Ausencia de mantenimiento preventivo y herramientas de control.
+
+--- 
+
 #### 2.3.4. Empathy Mapping
+
+En esta sección , el equipo presenta Empathy Maps realizados por User Persona.
+
+---
+
+![Empathy-Maps-1](assets/img/cap1/team-images/Empathy-Roberto.png)
+
+---
+
+![Empathy-Maps-2](assets/img/cap1/team-images/Carlos-empathy.png)
+
 
 ### 2.4. Big Picture EventStorming
 
 ### 2.5. Ubiquitous Language
 
+\newpage
