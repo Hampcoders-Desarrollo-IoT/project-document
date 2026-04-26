@@ -1,11 +1,10 @@
+# Capítulo II: Requirements Elicitation & Analysis
 
-## Capítulo II: Requirements Elicitation & Analysis
-
-### 2.1. Competidores
+## 2.1. Competidores
 En esta sección se identifican y analizan los principales competidores directos e indirectos dentro del mercado de servicios y soluciones eléctricas, considerando plataformas digitales y modelos de intermediación similares.
 
 
-###  Competidores Directos
+#### Competidores Directos
 
 #### HomeAdvisor
 
@@ -42,7 +41,7 @@ Es un competidor directo, ya que conecta clientes con técnicos; sin embargo, no
 Compite directamente en la intermediación de servicios, destacando en confianza y reputación, pero sin integrar IoT.  
 
 
-###  Competidores Indirectos (IoT)
+#### Competidores Indirectos (IoT)
 
 #### Google Nest
 
@@ -83,7 +82,7 @@ Competidor indirecto, ya que aborda el mantenimiento preventivo mediante tecnolo
 A partir del análisis realizado, se identifica que los competidores actuales se enfocan principalmente en dos enfoques: la intermediación de servicios técnicos (HomeAdvisor y Angi) o la implementación de soluciones tecnológicas basadas en IoT (Google Nest y Schneider Electric). En este contexto, ElectroLink propone un enfoque integrador que combina ambos modelos, permitiendo no solo la conexión entre clientes y proveedores, sino también la incorporación de tecnologías IoT para el monitoreo y mantenimiento preventivo, generando así una propuesta de valor diferenciada en el mercado.
 
 
-#### 2.1.1. Análisis competitivo
+### 2.1.1. Análisis competitivo
 
 **¿Por qué llevar a cabo este análisis?**  
 Identificar el posicionamiento de ElectroLink frente a sus competidores y detectar oportunidades de diferenciación mediante la integración de servicios técnicos y tecnologías IoT.
@@ -104,7 +103,7 @@ Identificar el posicionamiento de ElectroLink frente a sus competidores y detect
 | **SWOT** | Oportunidades | Crecimiento del IoT. | Expansión digital. | Crecimiento del mercado online. | Expansión de smart grids y smart homes. |
 | **SWOT** | Amenazas | Competidores consolidados. | Nuevas plataformas innovadoras. | Competencia tecnológica. | Nuevos modelos híbridos como ElectroLink. |
 
-#### 2.1.2. Estrategias y tácticas frente a competidores
+### 2.1.2. Estrategias y tácticas frente a competidores
 
 Para enfrentar a los competidores directos e indirectos identificados, ElectroLink plantea un conjunto de estrategias y tácticas enfocadas en la diferenciación, la confianza, la innovación tecnológica y la especialización en el sector eléctrico.
 
@@ -153,8 +152,8 @@ ElectroLink enfocará sus esfuerzos en segmentos con alta necesidad de mantenimi
 - Soluciones escalables adaptadas a distintos niveles de necesidad.  
 
 
-### 2.2. Entrevistas
-#### 2.2.1. Diseño de entrevistas
+## 2.2. Entrevistas
+### 2.2.1. Diseño de entrevistas
 
 En esta sección, el equipo de Hampcoders realiza el diseño de las entrevistas a realizar por segmento objetivo
 
@@ -262,13 +261,13 @@ En esta sección, el equipo de Hampcoders realiza el diseño de las entrevistas 
 
 ---
 
-#### 2.2.2. Registro de entrevistas
-#### 2.2.3. Análisis de entrevistas
+### 2.2.2. Registro de entrevistas
+### 2.2.3. Análisis de entrevistas
 
-### 2.3. Needfinding
+## 2.3. Needfinding
 En la presente sección se presentan las fichas de User Persona elaboradas teniendo en cuenta las entrevistas realizadas y analizadas previamente y la revisión de soluciones existentes en el mercado. En cada arquetipo se presentan las características demográficas, de personalidad, los objetivos, las motivaciones, frustraciones y preferencias de los usuarios clave de cada segmento. La construcción de estos User Persona se basa en resultados y análisis obtenidos durante la investigación previa con el objetivo de tomar decisiones de diseño y desarrollo adecuadas para resolver los problemas identificados.
 
-#### 2.3.1. User Personas
+### 2.3.1. User Personas
 
 #### Segmento 1:
 
@@ -277,8 +276,8 @@ En la presente sección se presentan las fichas de User Persona elaboradas tenie
 #### Segmento 2:
 ![](assets/img/cap2/CarlosMendoza.png)
 
-#### 2.3.2. User Task Matrix
-#### 2.3.3. User Journey Mapping
+### 2.3.2. User Task Matrix
+### 2.3.3. User Journey Mapping
 \
 
 En esta sección se presentan los User Journey Maps correspondientes a cada User Persona identificado para el proyecto ElectroLink. Estos mapas representan el recorrido completo (end-to-end journey) que siguen los usuarios en su situación actual , desde la identificación de una necesidad hasta la resolución de la misma, sin la intervención de una solución digital estructurada.
@@ -311,7 +310,7 @@ Roberto atraviesa un recorrido altamente reactivo, caracterizado por múltiples 
 
 --- 
 
-#### 2.3.4. Empathy Mapping
+### 2.3.4. Empathy Mapping
 
 En esta sección , el equipo presenta Empathy Maps realizados por User Persona.
 
@@ -324,8 +323,8 @@ En esta sección , el equipo presenta Empathy Maps realizados por User Persona.
 ![Empathy-Maps-2](assets/img/cap1/team-images/Carlos-empathy.png)
 
 
-### 2.4. Big Picture EventStorming
+## 2.4. Big Picture EventStorming
 
-### 2.5. Ubiquitous Language
+## 2.5. Ubiquitous Language
 
 \newpage
