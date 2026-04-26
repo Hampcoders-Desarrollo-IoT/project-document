@@ -277,6 +277,36 @@ En la presente sección se presentan las fichas de User Persona elaboradas tenie
 ![](assets/img/cap2/CarlosMendoza.png)
 
 ### 2.3.2. User Task Matrix
+
+En esta sección se detallan las tareas que realizan los diferentes segmentos de usuarios representados por los User Personas de ElectroLink, con el objetivo de cumplir sus metas relacionadas con el monitoreo, control y mantenimiento preventivo de sistemas eléctricos mediante tecnologías IoT en entornos empresariales.
+
+#### Segmento: PyMEs
+
+| Persona | Actividad | Frecuencia | Importancia |
+|--------|----------|------------|-------------|
+| Eduardo Gonzales - Dueño de PYME | Monitorear el consumo eléctrico en tiempo real | Frecuentemente | Alta |
+| Eduardo Gonzales - Dueño de PYME | Identificar anomalías en el consumo energético | Frecuentemente | Alta |
+| Eduardo Gonzales - Dueño de PYME | Recibir alertas ante posibles fallas eléctricas | Frecuentemente | Alta |
+| Eduardo Gonzales - Dueño de PYME | Analizar reportes de consumo por circuito | Ocasionalmente | Alta |
+| Eduardo Gonzales - Dueño de PYME | Tomar decisiones para optimizar costos energéticos | Ocasionalmente | Alta |
+| Eduardo Gonzales - Dueño de PYME | Solicitar intervención de un técnico eléctrico | Ocasionalmente | Alta |
+| Eduardo Gonzales - Dueño de PYME | Supervisar historial de consumo y fallas | Ocasionalmente | Media |
+
+---
+
+#### Segmento: Electricistas
+
+| Persona | Actividad | Frecuencia | Importancia |
+|--------|----------|------------|-------------|
+| Alejandro López - Electricista independiente | Monitorear remotamente el estado eléctrico de sus clientes | Frecuentemente | Alta |
+| Alejandro López - Electricista independiente | Analizar datos para diagnosticar fallas | Frecuentemente | Alta |
+| Alejandro López - Electricista independiente | Atender alertas generadas por el sistema IoT | Frecuentemente | Alta |
+| Alejandro López - Electricista independiente | Preparar diagnósticos antes de una visita técnica | Frecuentemente | Alta |
+| Alejandro López - Electricista independiente | Gestionar servicios de mantenimiento preventivo | Ocasionalmente | Alta |
+| Alejandro López - Electricista independiente | Mantener comunicación con clientes | Frecuentemente | Media |
+| Alejandro López - Electricista independiente | Consultar historial eléctrico de instalaciones | Ocasionalmente | Media |
+
+
 ### 2.3.3. User Journey Mapping
 \
 
