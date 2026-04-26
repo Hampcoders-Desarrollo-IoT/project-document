@@ -162,6 +162,14 @@ ElectroLink enfocará sus esfuerzos en segmentos con alta necesidad de mantenimi
 En la presente sección se presentan las fichas de User Persona elaboradas teniendo en cuenta las entrevistas realizadas y analizadas previamente y la revisión de soluciones existentes en el mercado. En cada arquetipo se presentan las características demográficas, de personalidad, los objetivos, las motivaciones, frustraciones y preferencias de los usuarios clave de cada segmento. La construcción de estos User Persona se basa en resultados y análisis obtenidos durante la investigación previa con el objetivo de tomar decisiones de diseño y desarrollo adecuadas para resolver los problemas identificados.
 
 #### 2.3.1. User Personas
+
+#### Segmento 1:
+
+![](assets/img/cap2/RobertoSanchez.png)
+
+#### Segmento 2:
+![](assets/img/cap2/CarlosMendoza.png)
+
 #### 2.3.2. User Task Matrix
 #### 2.3.3. User Journey Mapping
 \
