@@ -256,7 +256,9 @@ Transformamos los supuestos anteriores en declaraciones de prueba para definir u
 
 #### 1.2.3.4 Lean UX Canvas
 
-\newpage
+
+![Lean-UX-Canva](assets/img/cap1/team-images/lean-ux-canvas.png)
+
 
 ## 1.3 Segmentos objetivo
 
