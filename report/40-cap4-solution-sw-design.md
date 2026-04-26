@@ -8,6 +8,27 @@
 #### 4.1.1.3 Bounded Context Canvases.
 
 #### 4.1.2. Context Mapping.
+\
+El Context Mapping es una técnica esencial en el diseño de ElectroLink que nos permite visualizar las relaciones estructurales y de comunicación entre los ocho Bounded Contexts identificados en el dominio de la gestión eléctrica inteligente. A través de esta técnica, hemos identificado las interacciones, dependencias y posibles puntos de integración entre los contextos, asegurando que el flujo de información desde los sensores hasta la toma de decisiones proactivas sea consistente.
+
+En el desarrollo de nuestro proyecto, el proceso se estructuró siguiendo las fases metodológicas del diseño guiado por el dominio:
+
+Identificación de Relaciones: Se comenzó por definir las interdependencias entre contextos, estableciendo roles de Upstream (U) y Downstream (D). Un ejemplo crítico es la relación entre IoT Monitoring (Upstream) y Service Design (Downstream), donde los eventos de anomalías dictan el comportamiento proactivo del sistema.
+
+Anticorruption Layer (ACL): Aplicada en Service Design para proteger el algoritmo de asignación técnica de cambios en los modelos de activos o perfiles.
+
+Shared Kernel: Utilizado entre Service Operation y Assets para gestionar el estado compartido de los dispositivos instalados en tiempo real.
+
+Open Host Service (OHS): El contexto de IoT Monitoring expone una interfaz estandarizada para el control seguro de relés eléctricos.
+
+Customer/Supplier: Establecido entre Profiles e IoT Monitoring, donde los umbrales configurados por el cliente guían la detección de anomalías.
+
+Conformist: El BC de Analytics se adhiere a los contratos de datos de telemetría impuestos por la ingesta de dispositivos para garantizar reportes precisos.
+
+A continuación, se presenta el Context Map elegido que resume visualmente estas relaciones y sirve como hoja de ruta para la implementación técnica de la solución:
+
+![](assets/img/cap4/Context-Mapping.jpg)
+
 #### 4.1.3. Software Architecture.
 
 ##### 4.1.3.1. Candidate Context Discovery.
