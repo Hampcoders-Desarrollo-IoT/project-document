@@ -45,6 +45,22 @@ Mucho gusto, soy Leandro Contreras, estudiante de la carrera de Ingeniería de S
 \vspace{1cm}
 
 ---
+<!-- Imitar esto-->
+\begin{minipage}{0.3\textwidth}
+\includegraphics[width=\linewidth]{assets/img/cap1/team-images/alessandra.png}
+\end{minipage}
+\hfill
+\begin{minipage}{0.65\textwidth}
+
+\textbf{Alessandra Nicole Becerra Tejeda} \\
+Código: U202318947  
+
+Mi nombre es Alessandra Becerra, tengo 19 años y actualmente curso el séptimo ciclo de la carrera de Ingeniería de Software. Me considero una persona comprometida, proactiva y con gran disposición para aprender nuevas tecnologías. Asimismo, me gusta trabajar en equipo y fomentar una buena relación con mis compañeros para alcanzar resultados de calidad. Por ello, en este proyecto me comprometo a cumplir con mis responsabilidades de manera eficiente, aportar ideas que contribuyan al desarrollo del equipo y finalizar las tareas asignadas dentro de los plazos establecidos.
+\end{minipage}
+
+\vspace{1cm}
+
+---
 
 \newpage
 
