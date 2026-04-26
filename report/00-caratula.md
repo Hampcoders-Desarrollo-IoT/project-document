@@ -36,11 +36,19 @@
 
 \vspace{1.25cm}
 
-Ethan Matias Aliaga Aguirre\\
+Aliaga Aguirre Ethan Matias\\
 
 \vspace{0.25cm}
 
-Leandro Saul Contreras López\\
+Becerra Tejeda Alessandra Nicole\\
+
+\vspace{0.25cm}
+
+Cabanillas Meza José Mateo\\
+
+\vspace{0.25cm}
+
+Contreras López Leandro Saul\\
 
 \vspace{0.25cm}
 
@@ -50,9 +58,6 @@ Italo Ludwing Sanchez Manrique\\
 
 Ivo Marcelo Machado Bracamonte\\
 
-\vspace{0.25cm}
-
-Cesar Arostegui Alzamora\\
 
 \vspace{1cm}
 
