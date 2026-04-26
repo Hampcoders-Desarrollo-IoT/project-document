@@ -164,6 +164,7 @@ En la presente sección se presentan las fichas de User Persona elaboradas tenie
 #### 2.3.1. User Personas
 #### 2.3.2. User Task Matrix
 #### 2.3.3. User Journey Mapping
+\
 
 En esta sección se presentan los User Journey Maps correspondientes a cada User Persona identificado para el proyecto ElectroLink. Estos mapas representan el recorrido completo (end-to-end journey) que siguen los usuarios en su situación actual , desde la identificación de una necesidad hasta la resolución de la misma, sin la intervención de una solución digital estructurada.
 
@@ -212,3 +213,4 @@ En esta sección , el equipo presenta Empathy Maps realizados por User Persona.
 
 ### 2.5. Ubiquitous Language
 
+\newpage
