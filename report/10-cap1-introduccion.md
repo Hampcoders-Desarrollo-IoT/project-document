@@ -63,6 +63,23 @@ Mi nombre es Alessandra Becerra, tengo 19 años y actualmente curso el séptimo 
 
 ---
 
+\begin{minipage}{0.3\textwidth}
+\includegraphics[width=\linewidth]{assets/img/cap1/team-images/italo-foto.jpeg}
+\end{minipage}
+\hfill
+\begin{minipage}{0.65\textwidth}
+
+\textbf{Italo Ludwing Sanchez Manrique} \\
+Código: U202316967  
+
+Mi nombre es Italo Ludwing Sanchez Manrique, soy estudiante de Ingeniería de Software en la UPC, tengo 21 años y actualmente curso el tercer ciclo académico. Destaco por mi perseverancia, tolerancia y compromiso con mis metas. En este proyecto, mi objetivo es buscar soluciones que beneficien al grupo, ya que tengo experiencia en trabajar de forma proactiva y colaborativa. Además, poseo sólidos conocimientos en lenguajes de programación como Java y C++.
+
+\end{minipage}
+
+\vspace{1cm}
+
+---
+
 \newpage
 
 ## 1.2. Solution Profile 

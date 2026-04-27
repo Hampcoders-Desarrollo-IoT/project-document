@@ -12,11 +12,11 @@
 
 \vspace{1cm}
 
-{\large 1ACC0238 | Desarrollo de Soluciones Iot}\\
+{\large 1ASI0572 | Desarrollo de Soluciones Iot}\\
 
 \vspace{0.5cm}
 
-{\large NRC: 7944}\\
+{\large NRC: 17756}\\
 
 \vspace{0.5cm}
 
@@ -32,7 +32,7 @@
 
 \vspace{0.5cm}
 
-{\large Producto: Glottia}\\
+{\large Producto: Electrolink}\\
 
 \vspace{1.25cm}
 
@@ -58,10 +58,9 @@ Italo Ludwing Sanchez Manrique\\
 
 Ivo Marcelo Machado Bracamonte\\
 
-
 \vspace{0.50cm}
 
-Noviembre 2025
+Abril 2026
 
 \end{center}
 
