@@ -12,6 +12,8 @@ En esta sección se presentan los bounded contexts identificados para la soluci�
 ## 1. Identity and Access Management (IAM)
 Gestión de autenticación, autorización y control de acceso de usuarios al sistema, incluyendo registro, inicio de sesión y manejo de roles.
 
+\
+
 ![](assets/img/cap4/IAM-bd.PNG)
 
 ---
@@ -20,6 +22,8 @@ Gestión de autenticación, autorización y control de acceso de usuarios al sis
 Gestión de planes, facturación y control de acceso a funcionalidades.
 
 ---
+
+\
 
 ![](assets/img/cap4/bd-subscription.PNG)
 
@@ -31,6 +35,8 @@ Administración de perfiles de usuarios, técnicos y configuración personalizad
 
 ---
 
+\
+
 ![](assets/img/cap4/bd-profiles.PNG)
 
 
@@ -41,6 +47,8 @@ Orquestación de servicios, solicitudes y asignación inteligente de técnicos.
 
 ---
 
+\
+
 ![](assets/img/cap4/service-desing-bd.PNG)
 
 ---
@@ -49,6 +57,8 @@ Orquestación de servicios, solicitudes y asignación inteligente de técnicos.
 Ejecución, seguimiento y cierre de servicios con evidencia y evaluación.
 
 ---
+
+\
 
 ![](assets/img/cap4/bd-service-operation.PNG)
 
@@ -59,6 +69,7 @@ Ejecución, seguimiento y cierre de servicios con evidencia y evaluación.
 Gestión de propiedades, dispositivos IoT e inventario de técnicos.
 
 ---
+\
 
 ![](assets/img/cap4/bd-assets.PNG)
 
@@ -69,6 +80,8 @@ Procesamiento de datos en tiempo real y detección de anomalías eléctricas.
 
 ---
 
+\
+
 ![](assets/img/cap4/bd-iot.PNG)
 
 ---
@@ -77,6 +90,8 @@ Procesamiento de datos en tiempo real y detección de anomalías eléctricas.
 Visualización, reportes e insights a partir de datos históricos y en tiempo real.
 
 ---
+
+\
 
 ![](assets/img/cap4/bd-analytics.PNG)
 
@@ -103,26 +118,39 @@ En el desarrollo de nuestro proyecto, el proceso se estructuró siguiendo las fa
 
 A continuación, se presenta el Context Map elegido que resume visualmente estas relaciones y sirve como hoja de ruta para la implementación técnica de la solución:
 
+\
+
 ![](assets/img/cap4/Context-Mapping-Electrolink.jpg)
 
 #### 4.1.3. Software Architecture.
 
 ##### 4.1.3.1. Candidate Context Discovery.
+
+\
+
 ![](assets/img/cap4/CCD.png)
 
 ##### 4.1.3.1. Software Architecture System Landscape Diagram.
+
+\
 
 ![](assets/img/cap4/c4-model/SystemContext.png)
 
 ##### 4.1.3.2. Software Architecture Context Level Diagrams.
 
+\
+
 ![](assets/img/cap4/c4-model/SystemContext.png)
 
 ##### 4.1.3.3. Software Architecture Container Level Diagrams.
 
+\
+
 ![](assets/img/cap4/c4-model/Containers.png)
 
 ##### 4.1.3.4. Software Architecture Deployment Diagrams.
+
+\
 
 ![](assets/img/cap4/DeploymentDiagram-dark.png)
 
@@ -323,6 +351,11 @@ En esta capa se ubican las implementaciones técnicas que permiten la persistenc
 ---
 
 #### 4.2.1.5. Bounded Context Software Architecture Component Level Diagrams.
+
+\
+
+![](assets/img/cap4/c4-model/IAMBCComponents.png)
+
 #### 4.2.1.6. Bounded Context Software Architecture Code Level Diagrams.
 
 
@@ -817,6 +850,11 @@ Las colecciones `Certifications` e `IoTCertificationHistory` se mapean a tablas 
 ---
 
 #### 4.2.2.5. Bounded Context Software Architecture Component Level Diagrams.
+
+\
+
+![](assets/img/cap4/c4-model/ProfilesBCComponents.png)
+
 #### 4.2.2.6. Bounded Context Software Architecture Code Level Diagrams.
 ##### 4.2.2.6.1. Bounded Context Domain Layer Class Diagrams.
 
@@ -1494,6 +1532,12 @@ modelBuilder.ApplyConfiguration(new IoTDeviceConfiguration());
 ---
 
 #### 4.2.3.5. Bounded Context Software Architecture Component Level Diagrams.
+
+\
+
+![](assets/img/cap4/c4-model/AssetsBCComponents.png)
+
+
 #### 4.2.3.6. Bounded Context Software Architecture Code Level Diagrams.
 ##### 4.2.3.6.1. Bounded Context Domain Layer Class Diagrams.
 
@@ -2029,7 +2073,9 @@ Todas las tablas del *Bounded Context* utilizan el prefijo `sdp_` (*Service Desi
 
 #### 4.2.4.5. Bounded Context Software Architecture Component Level Diagrams.
 
+\
 
+![](assets/img/cap4/c4-model/DesignBCComponents.png)
 
 #### 4.2.4.6. Bounded Context Software Architecture Code Level Diagrams.
 
@@ -2676,7 +2722,9 @@ Las configuraciones implementan `IEntityTypeConfiguration<T>` y se registran en 
 
 #### 4.2.5.5. Bounded Context Software Architecture Component Level Diagrams.
 
+\
 
+![](assets/img/cap4/c4-model/OperationBCComponents.png)
 
 #### 4.2.5.6. Bounded Context Software Architecture Code Level Diagrams.
 
@@ -2690,6 +2738,7 @@ En esta sección mostramos parte de la estructura de nuestra solución Electroli
 En esta sección mostramos parte de la estructura de nuestra solución Electrolink enfocado al bounded context de Service Operation & Monitoring incluyendo los datos que seran incluidos en el diagrama de diseño de base de datos.
 
 ![](assets/img/cap4/som/database.png)
+
 \
 
 ---
@@ -2705,21 +2754,306 @@ En esta sección mostramos parte de la estructura de nuestra solución Electroli
 ##### 4.2.6.6.2. Bounded Context Database Design Diagram.
 
 ### 4.2.7. Bounded Context: Analytics 
-#### 4.2.7.1. Domain Layer.
-#### 4.2.7.2. Interface Layer.
-#### 4.2.7.3. Application Layer.
-#### 4.2.7.4. Infrastructure Layer.
+#### 4.2.7.1. Domain Layer
+
+En esta capa se definen las entidades, agregados y reglas de negocio principales. El Bounded Context de Analytics & Reporting no genera datos propios, sino que consume, agrega y proyecta datos publicados por otros contextos (como IoT Monitoring y Service Operation). 
+
+**Aggregates y Entities**
+
+**ConsumptionDashboard (Aggregate Root)**
+Representa el estado actual del panel de consumo eléctrico de un cliente, reconstruyéndose incrementalmente a partir de los eventos de lecturas publicadas.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `DashboardId` | ConsumptionDashboardId | Identificador único del panel. |
+| `ClientId` | ClientId | Cliente dueño del panel. |
+| `PropertyId` | PropertyId | Propiedad o sede asociada. |
+| `DeviceIds` | List<DeviceId> | Dispositivos IoT vinculados. |
+| `PlanTier` | PlanTier | Nivel de suscripción que determina la granularidad visual. |
+| `TimeSeriesData` | List<TimeSeries> | Lecturas agregadas según la granularidad del plan. |
+| `ConsumptionByCircuit`| List<CircuitSummary> | Consumo específico por circuito (solo para plan Enterprise). |
+| `CostProjection` | Money | Proyección del costo al cierre del mes. |
+
+| Método | Descripción |
+|---|---|
+| `ApplyReading` | Incorpora una nueva lectura, la agrega según la granularidad y evalúa umbrales. |
+| `UpdateCostProjection` | Recalcula la proyección de costo basada en el consumo acumulado y la tarifa vigente. |
+
+**AlertLog (Aggregate Root) y AlertEntry (Entity)**
+Representa el historial trazable de alertas de un cliente, registrando anomalías y alertas de superación de umbrales.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `LogId` | AlertLogId | Identificador único del registro de alertas. |
+| `Entries` | List<AlertEntry> | Colección de entidades de alerta asociadas al cliente. |
+
+| Método | Descripción |
+|---|---|
+| `RecordAlert` | Añade una nueva entrada garantizando idempotencia frente al evento de origen. |
+| `AcknowledgeAlert`| Marca una alerta específica como reconocida por el cliente. |
+
+**TechnicianMetrics (Aggregate Root)**
+Mantiene un registro consolidado (snapshot) de las métricas de desempeño y financieras de un técnico durante un período mensual.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `MetricsId` | TechnicianMetricsId | Identificador único de las métricas. |
+| `CompletedServicesCount`| int | Total de servicios finalizados en el período. |
+| `AverageRating` | decimal | Calificación promedio del técnico. |
+| `TotalRevenue` | Money | Ingresos totales acumulados en el mes. |
+
+**ConsumptionReport (Aggregate Root)**
+Define un reporte exportable solicitado por el cliente, el cual se vuelve inmutable una vez generado.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `ReportId` | ConsumptionReportId | Identificador único del reporte. |
+| `PeriodStart` | DateTime | Fecha de inicio del reporte. |
+| `ExportFormat` | ExportFormat | Formato de exportación (PDF o CSV). |
+
+**Repositories (Interfaces)**
+Define los contratos de persistencia y abstracción de datos para los agregados del dominio.
+
+| Interface | Descripción |
+|---|---|
+| `IConsumptionDashboardRepository`| Contrato para operaciones de persistencia del agregado ConsumptionDashboard. |
+| `IAlertLogRepository` | Contrato para operaciones de persistencia del agregado AlertLog. |
+| `ITechnicianMetricsRepository` | Contrato para operaciones de persistencia del agregado TechnicianMetrics. |
+| `IConsumptionReportRepository` | Contrato para operaciones de persistencia del agregado ConsumptionReport. |
+
+#### 4.2.7.2. Interface Layer
+
+Esta capa actúa como límite de entrada, exponiendo los casos de uso a través de controladores REST y manejando la transformación de datos.
+
+**Resources**
+Actúan como objetos de transferencia de datos (DTOs) para solicitudes y respuestas.
+
+| Clase | Descripción |
+|---|---|
+| `ConsumptionDashboardViewResource`| Devuelve la vista principal del panel de consumo con datos granulares o agregados según el plan del cliente. |
+| `RealTimeCircuitMonitorViewResource`| Devuelve el estado en tiempo real de los circuitos (exclusivo para plan Enterprise). |
+| `AlertHistoryViewResource` | Devuelve la lista cronológica de alertas con su estado de resolución. |
+| `RequestConsumptionReportResource`| Recibe los parámetros necesarios para iniciar la generación de un reporte histórico. |
+
+**Controllers**
+Controladores REST que exponen de forma pública las consultas y comandos.
+
+| Controlador | Ruta base | Descripción |
+|---|---|---|
+| `ConsumptionDashboardController` | `/api/v1/analytics/dashboards` | Provee endpoints para la consulta de dashboards y proyecciones de costo (`GET /me`, `GET /me/cost-projection`). |
+| `AlertLogController` | `/api/v1/analytics/alerts` | Gestiona la consulta de alertas y su marcado como reconocidas (`GET /me`, `PATCH /{entryId}/acknowledge`). |
+| `TechnicianMetricsController` | `/api/v1/analytics/technicians` | Permite a los técnicos consultar su rendimiento (`GET /me/performance`). |
+| `ConsumptionReportController` | `/api/v1/analytics/reports` | Permite la generación y visualización de reportes históricos (`POST /`, `GET /me`). |
+
+---
+
+#### 4.2.X.3. Application Layer
+
+Encargada de orquestar la lógica de la aplicación y coordinar la ejecución de casos de uso sin contener reglas de negocio.
+
+**Command Services**
+
+| Clase | Descripción |
+|---|---|
+| `ConsumptionDashboardCommandService`| Gestiona la inicialización de dashboards, asimilación de nuevas lecturas, recalculo de proyecciones y actualización de planes de suscripción. |
+| `AlertLogCommandService` | Orquesta el registro de anomalías detectadas, evaluación de alertas de umbral y la resolución o actualización del estado de las alertas. |
+| `TechnicianMetricsCommandService` | Coordina la actualización de métricas tras la completación de servicios y el cálculo asíncrono de evaluaciones recibidas. |
+| `ConsumptionReportCommandService` | Coordina la solicitud y posterior generación de reportes asegurando las validaciones correspondientes de acceso a datos. |
+
+**Query Services**
+
+| Clase | Descripción |
+|---|---|
+| `ConsumptionDashboardQueryService`| Construye y proyecta los read models como `ConsumptionDashboardViewResource` de manera optimizada para lectura. |
+| `AlertLogQueryService` | Proyecta las vistas de historial de alertas y resúmenes de impacto de anomalías (RM-02, RM-07). |
+| `TechnicianMetricsQueryService` | Proyecta el panel de desempeño para los técnicos (RM-03). |
+| `ConsumptionReportQueryService` | Proyecta previas de reportes e historiales de documentos exportados. |
+
+---
+
+#### 4.2.X.4. Infrastructure Layer
+
+Maneja la persistencia de datos mediante Entity Framework Core y la integración técnica con el event bus para consumir eventos de integración.
+
+**Repositories (Implementaciones)**
+
+| Clase | Interfaz Implementada | Descripción |
+|---|---|---|
+| `ConsumptionDashboardRepository` | `IConsumptionDashboardRepository`| Implementa consultas y persistencia hacia la base de datos mapeando estructuras anidadas como `TimeSeriesData` usando `OwnsMany` de EF Core. |
+| `AlertLogRepository` | `IAlertLogRepository` | Implementa el guardado e hidratación del registro de alertas completo usando sub-entidades propias en EF Core. |
+| `TechnicianMetricsRepository` | `ITechnicianMetricsRepository` | Provee acceso para las métricas, permitiendo buscar instancias vigentes de acuerdo a rangos de fechas (mes actual). |
+| `ConsumptionReportRepository` | `IConsumptionReportRepository` | Implementa la persistencia de la metadata asociada a la solicitud de los reportes exportables. |
+
+---
+
 #### 4.2.7.5. Bounded Context Software Architecture Component Level Diagrams.
+
+\
+
+![](assets/img/cap4/c4-model/ProcessingBCComponents.png)
+
 #### 4.2.7.6. Bounded Context Software Architecture Code Level Diagrams.
 ##### 4.2.7.6.1. Bounded Context Domain Layer Class Diagrams.
 ##### 4.2.7.6.2. Bounded Context Database Design Diagram.
 
 ### 4.2.8. Bounded Context: IoT Monitoring and Edge Processing
-#### 4.2.8.1. Domain Layer.
-#### 4.2.8.2. Interface Layer.
-#### 4.2.8.3. Application Layer.
-#### 4.2.8.4. Infrastructure Layer.
+#### 4.2.8.1. Domain Layer
+
+En esta capa se define el núcleo lógico y las reglas de negocio primordiales del dominio orientadas al procesamiento de datos telemétricos, detección de anomalías eléctricas y la actuación sobre circuitos físicos a través del Edge.
+
+**Aggregates**
+
+**DeviceReadingStream**
+Representa la ventana de datos activos de un dispositivo. Actúa como el agregado principal para la evaluación continua de las lecturas y la determinación del estado operativo.
+
+| Atributo | Tipo | Descripción |
+| :--- | :--- | :--- |
+| `StreamId` | UUID | Identificador único del flujo de datos. |
+| `DeviceId` | UUID | Referencia al dispositivo físico instalado (Assets BC). |
+| `PropertyId` | UUID | Referencia a la propiedad de la instalación. |
+| `ClientId` | UUID | Referencia al propietario o empresa asignada. |
+| `Readings` | List\<Reading\> | Colección que representa la ventana deslizante de las últimas lecturas procesadas. |
+| `LastReceivedAt` | DateTime | Marca de tiempo de la última lectura ingresada exitosamente. |
+| `StreamStatus` | Enum | Estado actual de la ingesta de datos (`ACTIVE`, `DEGRADED`, `INACTIVE`). |
+| `ConsecutiveAnomalyCount` | Integer | Contador utilizado para la mitigación de falsos positivos en las reglas de detección. |
+
+**AnomalyRecord**
+Encapsula el ciclo de vida completo de una irregularidad eléctrica identificada en el suministro, desde su detección (en Edge o Cloud) hasta su resolución formal.
+
+| Atributo | Tipo | Descripción |
+| :--- | :--- | :--- |
+| `AnomalyId` | UUID | Identificador único del registro de la anomalía. |
+| `DeviceId` | UUID | Referencia al dispositivo que reportó o originó la anomalía. |
+| `AnomalyType` | Enum | Categorización de la falla (ej., `VOLTAGE_SPIKE`, `SHORT_CIRCUIT_RISK`). |
+| `Severity` | Enum | Nivel de criticidad asignado (`LOW`, `MEDIUM`, `HIGH`, `CRITICAL`). |
+| `DetectionLayer` | Enum | Capa de la arquitectura donde se detectó el evento (`EDGE`, `CLOUD`). |
+| `Status` | Enum | Estado actual de seguimiento (`ACTIVE`, `ACKNOWLEDGED`, `RESOLVED`, `SUPERSEDED`). |
+| `TriggerReadingId` | UUID | Referencia a la lectura específica que disparó la regla de detección. |
+| `DetectedAt` | DateTime | Momento exacto de la identificación de la anomalía. |
+
+**RelayControlCommand**
+Representa una orden de control remoto emitida para la conmutación de un relé físico, gestionando su autorización, reintentos y estado de ejecución.
+
+| Atributo | Tipo | Descripción |
+| :--- | :--- | :--- |
+| `CommandId` | UUID | Identificador único de la orden de control. |
+| `DeviceId` | UUID | Referencia al dispositivo destino de la orden. |
+| `TargetRelayState` | Enum | Estado físico objetivo del circuito (`OPEN`, `CLOSED`). |
+| `AuthorizationSource` | Enum | Origen de la autorización (`SERVICE_REQUEST`, `CRITICAL_ANOMALY_AUTO`). |
+| `Status` | Enum | Estado del comando (`PENDING`, `SENT`, `ACKNOWLEDGED`, `EXECUTED`, `FAILED`, `TIMEOUT`). |
+| `IssuedAt` | DateTime | Marca de tiempo de la emisión original del comando. |
+
+**Value Objects**
+
+**Reading**
+Objeto de valor inmutable que encapsula una muestra de telemetría capturada.
+
+| Atributo | Tipo | Descripción |
+| :--- | :--- | :--- |
+| `ReadingId` | UUID | Clave de idempotencia para la lectura. |
+| `Timestamp` | DateTime | Instante de la medición física en el origen. |
+| `Voltage` | Float | Tensión medida en Voltios (V). |
+| `Current` | Float | Intensidad medida en Amperios (A). |
+| `PowerFactor` | Float | Relación de potencia activa y aparente (0-1). |
+| `Frequency` | Float | Frecuencia medida en Hercios (Hz). |
+
+**Repositories (Interfaces)**
+
+| Interface | Descripción |
+| :--- | :--- |
+| `IDeviceReadingStreamRepository` | Define el contrato para la persistencia y recuperación de flujos activos de telemetría. |
+| `IAnomalyRecordRepository` | Define el contrato para la gestión de persistencia de las anomalías detectadas en la infraestructura. |
+| `IRelayControlCommandRepository` | Define el contrato para el seguimiento y auditoría de las órdenes de relé emitidas y ejecutadas. |
+
+---
+
+#### 4.2.8.2. Interface Layer
+
+Esta capa define las abstracciones utilizadas para la comunicación externa con el Bounded Context, asegurando que las reglas de negocio permanezcan aisladas de los protocolos de red.
+
+**Resources**
+
+| Clase | Descripción |
+| :--- | :--- |
+| `IngestReadingResource` | Objeto de transferencia que recibe datos telemétricos crudos desde el Edge API. |
+| `EdgeAnomalyResource` | Recurso empleado por el firmware para reportar anomalías identificadas localmente (baja latencia). |
+| `RelayCommandRequestResource` | Solicitud estructurada para el cambio de estado de un circuito físico. |
+| `AnomalyResponseResource` | Recurso de salida que expone los detalles y estado de una anomalía activa o resuelta. |
+| `DeviceStreamStatusResource` | Recurso de salida que resume la conectividad y el estado actual del flujo telemétrico. |
+
+**Assemblers**
+
+| Clase | Descripción |
+| :--- | :--- |
+| `IngestReadingCommandFromResourceAssembler` | Transforma un `IngestReadingResource` en un comando de dominio ejecutable (`IngestDeviceReadingCommand`). |
+| `IssueRelayCommandFromResourceAssembler` | Mapea la petición de actuación externa a un comando de control de dominio validado. |
+| `AnomalyResourceFromEntityAssembler` | Convierte la entidad de dominio `AnomalyRecord` en un recurso seguro para su exposición. |
+
+**Controllers**
+
+**DeviceReadingController**
+
+| Ruta específica | Método | Descripción |
+| :--- | :--- | :--- |
+| `/api/v1/iot/readings` | POST | Ingesta masiva o individual de métricas provenientes de los dispositivos IoT instalados. |
+| `/api/v1/iot/streams/{deviceId}` | GET | Consulta el estado actual de la ventana de lecturas para un dispositivo específico. |
+
+**AnomalyController**
+
+| Ruta específica | Método | Descripción |
+| :--- | :--- | :--- |
+| `/api/v1/iot/anomalies/{propertyId}` | GET | Recupera el historial y las anomalías actualmente activas en una propiedad. |
+| `/api/v1/iot/anomalies/{anomalyId}/acknowledge` | POST | Permite a un administrador o sistema reconocer una anomalía pendiente. |
+
+**RelayController**
+
+| Ruta específica | Método | Descripción |
+| :--- | :--- | :--- |
+| `/api/v1/iot/relay/commands` | POST | Emite una nueva orden de apertura o cierre del relé hacia el dispositivo físico. |
+
+---
+
+#### 4.2.8.3. Application Layer
+
+Encargada de la orquestación de los flujos de casos de uso, transformando intenciones en secuencias de acciones del dominio e interacciones con la persistencia.
+
+**Command Services**
+
+| Clase | Interfaz Implementada | Descripción |
+| :--- | :--- | :--- |
+| `DeviceReadingCommandService` | `IDeviceReadingCommandService` | Gestiona la orquestación del procesamiento de lecturas, verificando idempotencia, aplicando políticas de validación física y disparando la evaluación posterior. |
+| `AnomalyCommandService` | `IAnomalyCommandService` | Maneja la creación de nuevos registros de anomalía, así como su transición de estado (reconocimiento o resolución formal). |
+| `RelayCommandService` | `IRelayCommandService` | Orquesta la emisión de comandos de relé, asegurando que se cumplan las políticas de autorización estricta (servicios activos o protección automática crítica). |
+
+**Query Services**
+
+| Clase | Interfaz Implementada | Descripción |
+| :--- | :--- | :--- |
+| `DeviceStreamQueryService` | `IDeviceStreamQueryService` | Provee lecturas optimizadas del estado actual de los flujos de datos y la salud de conectividad de los dispositivos. |
+| `AnomalyQueryService` | `IAnomalyQueryService` | Gestiona las consultas de históricos de alertas y anomalías activas sin comprometer la integridad de los agregados. |
+
+---
+
+#### 4.2.9.4. Infrastructure Layer
+
+Esta capa concreta las abstracciones técnicas definidas en el núcleo del sistema, facilitando la persistencia y la integración mediante *Entity Framework Core*.
+
+**Implementación de los Repositories**
+
+| Clase | Interfaz Implementada | Descripción |
+| :--- | :--- | :--- |
+| `DeviceReadingStreamRepository` | `IDeviceReadingStreamRepository` | Implementa la persistencia de los flujos de datos. Utiliza mapeos relacionales optimizados en la base de datos para la manipulación eficiente de la ventana deslizante de lecturas. |
+| `AnomalyRecordRepository` | `IAnomalyRecordRepository` | Implementa el almacenamiento y consulta indexada del ciclo de vida de los incidentes eléctricos detectados. |
+| `RelayControlCommandRepository` | `IRelayControlCommandRepository` | Garantiza la persistencia transaccional y registro de auditoría de todas las órdenes emitidas a los actuadores físicos. |
+
+---
+
 #### 4.2.8.5. Bounded Context Software Architecture Component Level Diagrams.
+
+\
+
+![](assets/img/cap4/c4-model/AnalyticsBCComponents.png)
+
 #### 4.2.8.6. Bounded Context Software Architecture Code Level Diagrams.
 ##### 4.2.8.6.1. Bounded Context Domain Layer Class Diagrams.
 ##### 4.2.8.6.2. Bounded Context Database Design Diagram.
