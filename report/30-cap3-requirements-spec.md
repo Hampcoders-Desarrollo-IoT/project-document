@@ -110,6 +110,12 @@
 
 ## 3.2. Impact Mapping.
 
+En esta sección, el equipo presenta los mapas de impacto realizados.
+
+![Impact-Mapping-1](assets/img/cap1/team-images/impact-map-carlos.png)
+
+![Impact-Mapping-2](assets/img/cap1/team-images/impact-map-roberto.png)
+
 ## 3.3. Product Backlog.
 
 En esta sección, el equipo organiza el Product Backlog en base a su valor para el negocio y su peso en Story Points.

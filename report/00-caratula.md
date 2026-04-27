@@ -36,25 +36,30 @@
 
 \vspace{1.25cm}
 
-Ethan Matias Aliaga Aguirre\\
+Aliaga Aguirre Ethan Matias\\
 
-\vspace{0.25cm}
+\vspace{0.23cm}
 
-Leandro Saul Contreras López\\
+Becerra Tejeda Alessandra Nicole\\
 
-\vspace{0.25cm}
+\vspace{0.23cm}
+
+Cabanillas Meza José Mateo\\
+
+\vspace{0.23cm}
+
+Contreras López Leandro Saul\\
+
+\vspace{0.23cm}
 
 Italo Ludwing Sanchez Manrique\\
 
-\vspace{0.25cm}
+\vspace{0.23cm}
 
 Ivo Marcelo Machado Bracamonte\\
 
-\vspace{0.25cm}
 
-Cesar Arostegui Alzamora\\
-
-\vspace{1cm}
+\vspace{0.50cm}
 
 Noviembre 2025
 
