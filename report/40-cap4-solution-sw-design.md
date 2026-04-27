@@ -12,6 +12,8 @@ En esta sección se presentan los bounded contexts identificados para la soluci�
 ## 1. Identity and Access Management (IAM)
 Gestión de autenticación, autorización y control de acceso de usuarios al sistema, incluyendo registro, inicio de sesión y manejo de roles.
 
+\
+
 ![](assets/img/cap4/IAM-bd.PNG)
 
 ---
@@ -20,6 +22,8 @@ Gestión de autenticación, autorización y control de acceso de usuarios al sis
 Gestión de planes, facturación y control de acceso a funcionalidades.
 
 ---
+
+\
 
 ![](assets/img/cap4/bd-subscription.PNG)
 
@@ -31,6 +35,8 @@ Administración de perfiles de usuarios, técnicos y configuración personalizad
 
 ---
 
+\
+
 ![](assets/img/cap4/bd-profiles.PNG)
 
 
@@ -41,6 +47,8 @@ Orquestación de servicios, solicitudes y asignación inteligente de técnicos.
 
 ---
 
+\
+
 ![](assets/img/cap4/service-desing-bd.PNG)
 
 ---
@@ -49,6 +57,8 @@ Orquestación de servicios, solicitudes y asignación inteligente de técnicos.
 Ejecución, seguimiento y cierre de servicios con evidencia y evaluación.
 
 ---
+
+\
 
 ![](assets/img/cap4/bd-service-operation.PNG)
 
@@ -59,6 +69,7 @@ Ejecución, seguimiento y cierre de servicios con evidencia y evaluación.
 Gestión de propiedades, dispositivos IoT e inventario de técnicos.
 
 ---
+\
 
 ![](assets/img/cap4/bd-assets.PNG)
 
@@ -69,6 +80,8 @@ Procesamiento de datos en tiempo real y detección de anomalías eléctricas.
 
 ---
 
+\
+
 ![](assets/img/cap4/bd-iot.PNG)
 
 ---
@@ -77,6 +90,8 @@ Procesamiento de datos en tiempo real y detección de anomalías eléctricas.
 Visualización, reportes e insights a partir de datos históricos y en tiempo real.
 
 ---
+
+\
 
 ![](assets/img/cap4/bd-analytics.PNG)
 
@@ -103,26 +118,39 @@ En el desarrollo de nuestro proyecto, el proceso se estructuró siguiendo las fa
 
 A continuación, se presenta el Context Map elegido que resume visualmente estas relaciones y sirve como hoja de ruta para la implementación técnica de la solución:
 
+\
+
 ![](assets/img/cap4/Context-Mapping-Electrolink.jpg)
 
 #### 4.1.3. Software Architecture.
 
 ##### 4.1.3.1. Candidate Context Discovery.
+
+\
+
 ![](assets/img/cap4/CCD.png)
 
 ##### 4.1.3.1. Software Architecture System Landscape Diagram.
+
+\
 
 ![](assets/img/cap4/c4-model/SystemContext.png)
 
 ##### 4.1.3.2. Software Architecture Context Level Diagrams.
 
+\
+
 ![](assets/img/cap4/c4-model/SystemContext.png)
 
 ##### 4.1.3.3. Software Architecture Container Level Diagrams.
 
+\
+
 ![](assets/img/cap4/c4-model/Containers.png)
 
 ##### 4.1.3.4. Software Architecture Deployment Diagrams.
+
+\
 
 ![](assets/img/cap4/DeploymentDiagram-dark.png)
 
@@ -323,6 +351,11 @@ En esta capa se ubican las implementaciones técnicas que permiten la persistenc
 ---
 
 #### 4.2.1.5. Bounded Context Software Architecture Component Level Diagrams.
+
+\
+
+![](assets/img/cap4/c4-model/IAMBCComponents.png)
+
 #### 4.2.1.6. Bounded Context Software Architecture Code Level Diagrams.
 
 
@@ -817,6 +850,11 @@ Las colecciones `Certifications` e `IoTCertificationHistory` se mapean a tablas 
 ---
 
 #### 4.2.2.5. Bounded Context Software Architecture Component Level Diagrams.
+
+\
+
+![](assets/img/cap4/c4-model/ProfilesBCComponents.png)
+
 #### 4.2.2.6. Bounded Context Software Architecture Code Level Diagrams.
 ##### 4.2.2.6.1. Bounded Context Domain Layer Class Diagrams.
 
@@ -1494,6 +1532,12 @@ modelBuilder.ApplyConfiguration(new IoTDeviceConfiguration());
 ---
 
 #### 4.2.3.5. Bounded Context Software Architecture Component Level Diagrams.
+
+\
+
+![](assets/img/cap4/c4-model/AssetsBCComponents.png)
+
+
 #### 4.2.3.6. Bounded Context Software Architecture Code Level Diagrams.
 ##### 4.2.3.6.1. Bounded Context Domain Layer Class Diagrams.
 
@@ -2029,7 +2073,9 @@ Todas las tablas del *Bounded Context* utilizan el prefijo `sdp_` (*Service Desi
 
 #### 4.2.4.5. Bounded Context Software Architecture Component Level Diagrams.
 
+\
 
+![](assets/img/cap4/c4-model/DesignBCComponents.png)
 
 #### 4.2.4.6. Bounded Context Software Architecture Code Level Diagrams.
 
@@ -2676,7 +2722,9 @@ Las configuraciones implementan `IEntityTypeConfiguration<T>` y se registran en 
 
 #### 4.2.5.5. Bounded Context Software Architecture Component Level Diagrams.
 
+\
 
+![](assets/img/cap4/c4-model/OperationBCComponents.png)
 
 #### 4.2.5.6. Bounded Context Software Architecture Code Level Diagrams.
 
@@ -2690,6 +2738,7 @@ En esta sección mostramos parte de la estructura de nuestra solución Electroli
 En esta sección mostramos parte de la estructura de nuestra solución Electrolink enfocado al bounded context de Service Operation & Monitoring incluyendo los datos que seran incluidos en el diagrama de diseño de base de datos.
 
 ![](assets/img/cap4/som/database.png)
+
 \
 
 ---
@@ -2836,7 +2885,13 @@ Maneja la persistencia de datos mediante Entity Framework Core y la integración
 | `ConsumptionReportRepository` | `IConsumptionReportRepository` | Implementa la persistencia de la metadata asociada a la solicitud de los reportes exportables. |
 
 ---
+
 #### 4.2.7.5. Bounded Context Software Architecture Component Level Diagrams.
+
+\
+
+![](assets/img/cap4/c4-model/ProcessingBCComponents.png)
+
 #### 4.2.7.6. Bounded Context Software Architecture Code Level Diagrams.
 ##### 4.2.7.6.1. Bounded Context Domain Layer Class Diagrams.
 ##### 4.2.7.6.2. Bounded Context Database Design Diagram.
@@ -2994,6 +3049,11 @@ Esta capa concreta las abstracciones técnicas definidas en el núcleo del siste
 ---
 
 #### 4.2.8.5. Bounded Context Software Architecture Component Level Diagrams.
+
+\
+
+![](assets/img/cap4/c4-model/AnalyticsBCComponents.png)
+
 #### 4.2.8.6. Bounded Context Software Architecture Code Level Diagrams.
 ##### 4.2.8.6.1. Bounded Context Domain Layer Class Diagrams.
 ##### 4.2.8.6.2. Bounded Context Database Design Diagram.
