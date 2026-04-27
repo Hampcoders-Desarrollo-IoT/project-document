@@ -616,6 +616,59 @@ En esta sección , el equipo presenta Empathy Maps realizados por User Persona.
 
 ## 2.4. Big Picture EventStorming
 
+![BigPicture](assets/img/cap2/BIGPICTURE.png)
+
+El Big Picture Event Storming es una técnica que permite visualizar de forma completa cómo funciona un sistema a través de los eventos que ocurren en el tiempo, identificando actores, procesos, decisiones y riesgos. En el caso de Electrolink, este diagrama representa el flujo integral de una plataforma SaaS IoT orientada al monitoreo eléctrico inteligente y la gestión de servicios técnicos. El proceso inicia con el registro del usuario, la configuración de su perfil y la suscripción a un plan, habilitada mediante pagos procesados. Luego, se realiza la instalación y registro de dispositivos IoT en propiedades, permitiendo la captura de datos en tiempo real. Estas lecturas son analizadas para detectar anomalías energéticas y generar alertas, lo que puede derivar en la creación automática de servicios técnicos. Los técnicos ejecutan las intervenciones, registran evidencias y completan los servicios, mientras el sistema gestiona posibles incidencias como fallas de pago, problemas de conectividad o ausencias. Finalmente, se habilita un proceso de evaluación que permite medir la calidad del servicio y retroalimentar la plataforma. Este Big Picture evidencia cómo Electrolink integra monitoreo predictivo, operación en campo y un modelo de negocio basado en suscripción.
+
 ## 2.5. Ubiquitous Language
+
+En esta sección, el equipo presenta el lenguaje Ubicuo
+
+Glosario del Dominio del Negocio - ElectroLink Este glosario contiene términos clave relacionados al dominio del proyecto ElectroLink. Cada término está en inglés, seguido de su equivalente en español entre paréntesis. Las definiciones están redactadas en español de forma clara y sin ambigüedades, para facilitar la comunicación entre todos los miembros del equipo y stakeholders.
+
+**Stakeholders & Roles**
+PYMES  Empresas que buscan soluciones eléctricas confiables y certificadas para prevenir o resolver fallos.
+
+Service Provider (Proveedor de servicios) Técnico profesional con certificación que ofrece servicios de instalación, reparación o mantenimiento eléctrico.
+
+**Servicios y Mantenimiento**
+Preventive Maintenance (Mantenimiento preventivo) Servicio programado que permite identificar y corregir posibles fallas eléctricas antes de que ocurran.
+
+Emergency Service (Servicio de emergencia) Atención inmediata para resolver fallos eléctricos inesperados que comprometen la seguridad o funcionalidad.
+
+Electric Assessment (Evaluación eléctrica) Diagnóstico que realiza un proveedor para determinar el estado de una instalación eléctrica.
+
+Installation Service (Servicio de instalación) Proceso de conexión o implementación de componentes eléctricos en viviendas o negocios, cumpliendo estándares técnicos.
+
+Electrical Upgrade (Actualización eléctrica) Mejora o sustitución de partes de una instalación para adaptarla a nuevas necesidades o normas de seguridad.
+
+**Funcionalidades de la Plataforma**
+Service Request (Solicitud de servicio) Acción del usuario para iniciar una contratación de servicios desde la plataforma.
+
+Verified Profile (Perfil verificado) Estado de un proveedor que ha sido validado por la plataforma mediante documentación y procesos de control.
+
+Rating and Review (Calificación y reseña) Sistema de puntuación y comentarios que permite evaluar la experiencia del usuario con un proveedor.
+
+Subscription Plan (Plan de suscripción) Modalidad de pago por parte del proveedor para acceder a beneficios dentro de la plataforma (visibilidad, herramientas, clientes).
+
+Booking History (Historial de contrataciones) Registro de todos los servicios contratados, realizados y evaluados por un usuario o proveedor.
+
+**Seguridad y Cumplimiento**
+Certified Technician (Técnico certificado) Profesional acreditado por una entidad oficial para realizar trabajos eléctricos conforme a la ley.
+
+Legal Compliance (Cumplimiento legal) Condición de operar dentro de los estándares establecidos por entidades regulatorias del sector eléctrico.
+
+Risk Prevention (Prevención de riesgos) Estrategia para evitar accidentes, daños o fallos eléctricos mediante prácticas seguras y mantenimiento adecuado.
+
+Safety Assurance (Garantía de seguridad) Compromiso de que los servicios ofrecidos cumplen con medidas de protección para personas, instalaciones y equipos.
+
+**Otros conceptos del dominio**
+Electric Incident (Incidente eléctrico) Evento disruptivo como sobrecarga, cortocircuito o fallo en la instalación que requiere intervención técnica.
+
+Energy Optimization (Optimización energética) Prácticas que buscan mejorar el uso de energía eléctrica, reduciendo costos y desperdicios.
+
+Informal Market (Mercado informal) Entorno de prestación de servicios sin regulación, licencias ni garantías de seguridad.
+
+Digital Presence (Presencia digital) Visibilidad que tiene un proveedor dentro de la plataforma, influyendo en su reputación y oportunidades de negocio.
 
 \newpage
