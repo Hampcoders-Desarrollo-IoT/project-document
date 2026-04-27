@@ -14,33 +14,74 @@ Gestión de autenticación, autorización y control de acceso de usuarios al sis
 
 ![](assets/img/cap4/IAM-bd.PNG)
 
+---
+
 ## 2. Subscription and Payments
 Gestión de planes, facturación y control de acceso a funcionalidades.
+
+---
+
 ![](assets/img/cap4/bd-subscription.PNG)
+
+
+---
 
 ## 3. Profiles and Preferences
 Administración de perfiles de usuarios, técnicos y configuración personalizada.
+
+---
+
 ![](assets/img/cap4/bd-profiles.PNG)
+
+
+---
 
 ## 4. Service Design and Planning
 Orquestación de servicios, solicitudes y asignación inteligente de técnicos.
+
+---
+
 ![](assets/img/cap4/service-desing-bd.PNG)
+
+---
 
 ## 5. Service Operation and Monitoring
 Ejecución, seguimiento y cierre de servicios con evidencia y evaluación.
-![](assets/img/cap4/db-service-operation.PNG)
+
+---
+
+![](assets/img/cap4/bd-service-operation.PNG)
+
+
+---
 
 ## 6. Assets and Resource Management
 Gestión de propiedades, dispositivos IoT e inventario de técnicos.
+
+---
+
 ![](assets/img/cap4/bd-assets.PNG)
+
+---
 
 ## 7. IoT Monitoring and Edge Processing
 Procesamiento de datos en tiempo real y detección de anomalías eléctricas.
+
+---
+
 ![](assets/img/cap4/bd-iot.PNG)
+
+---
 
 ## 8. Analytics
 Visualización, reportes e insights a partir de datos históricos y en tiempo real.
+
+---
+
 ![](assets/img/cap4/bd-analytics.PNG)
+
+
+---
 
 #### 4.1.2. Context Mapping.
 \
