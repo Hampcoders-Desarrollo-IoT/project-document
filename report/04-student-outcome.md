@@ -1,4 +1,4 @@
-### Student Outcome
+## Student Outcome
 
 El curso contribuye al cumplimiento del Student Outcome ABET: **ABET – EAC - Student Outcome 5**
 
