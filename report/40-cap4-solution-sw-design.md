@@ -108,7 +108,7 @@ A continuación, se presenta el Context Map elegido que resume visualmente estas
 #### 4.1.3. Software Architecture.
 
 ##### 4.1.3.1. Candidate Context Discovery.
-![](assets/img/cap2/CCD.png)
+![](assets/img/cap4/CCD.png)
 
 ##### 4.1.3.1. Software Architecture System Landscape Diagram.
 
