@@ -111,10 +111,18 @@ A continuación, se presenta el Context Map elegido que resume visualmente estas
 ![](assets/img/cap2/CCD.png)
 
 ##### 4.1.3.1. Software Architecture System Landscape Diagram.
+
+![](assets/img/cap4/c4-model/SystemContext.png)
+
 ##### 4.1.3.2. Software Architecture Context Level Diagrams.
+
+![](assets/img/cap4/c4-model/SystemContext.png)
+
 ##### 4.1.3.3. Software Architecture Container Level Diagrams.
+
+![](assets/img/cap4/c4-model/Containers.png)
+
 ##### 4.1.3.4. Software Architecture Deployment Diagrams.
-##### 4.1.3.5. Software Architecture Deployment Diagrams.
 
 ## 4.2. Tactical-Level Domain-Driven Design
 
