@@ -1,9 +1,26 @@
 # Capítulo IV: Solution Software Design
 
 ## 4.1 Strategic-Level Domain-Driven Design.
+![](assets/img/cap4/event/EventStorming1.PNG)
+![](assets/img/cap4/event/EventStorming2.PNG)
+![](assets/img/cap4/event/EventStorming3.PNG)
+![](assets/img/cap4/event/EventStorming4.PNG)
+
+El Event Storming es una técnica colaborativa de diseño de software que permite entender un sistema a partir de los eventos de negocio, identificando cómo fluye la información, qué acciones ocurren y qué actores intervienen. En el caso de Electrolink, esta metodología nos permitió construir una visión integral de la plataforma IoT enfocada en la gestión eléctrica para PyMEs y técnicos.
+
+A partir del Big Picture, se identificaron múltiples bounded contexts que delimitan responsabilidades claras dentro del sistema. El contexto de IAM gestiona la autenticación y registro de usuarios, mientras que Profiles administra la información y personalización de cada usuario. El módulo de Subscriptions & Payments controla la activación de planes, pagos y límites del servicio.
+
+El contexto de IoT Device Management permite registrar dispositivos, validar datos y ejecutar monitoreo continuo, integrándose con Analytics, donde se procesan lecturas, se generan métricas y alertas por consumo o anomalías. Por otro lado, Service Design and Planning define el catálogo de servicios técnicos disponibles, conectando la oferta con la demanda.
+
+En Assets se gestionan propiedades, componentes eléctricos e inventario técnico, mientras que Service Operation and Monitoring coordina la ejecución del servicio, desde su asignación hasta su finalización, incluyendo reportes, evaluaciones y manejo de incidencias.
+
+En conjunto, Electrolink se modela como una plataforma modular basada en eventos, donde cada bounded context opera de forma autónoma pero conectada, permitiendo escalabilidad, trazabilidad y una mejor toma de decisiones basada en datos en tiempo real.
 ### 4.1.1. Design-Level EventStorming.
 
 #### 4.1.1.1 Candidate Context Discovery.
+
+![](assets/img/cap4/event/CCD.PNG)
+
 #### 4.1.1.2 Domain Message Flows Modeling.
 #### 4.1.1.3 Bounded Context Canvases.
 
