@@ -108,7 +108,7 @@ A continuación, se presenta el Context Map elegido que resume visualmente estas
 #### 4.1.3. Software Architecture.
 
 ##### 4.1.3.1. Candidate Context Discovery.
-![](assets/img/cap2/CCD.png)
+![](assets/img/cap4/CCD.png)
 
 ##### 4.1.3.1. Software Architecture System Landscape Diagram.
 
@@ -1501,33 +1501,2316 @@ El siguiente diagrama ERD físico representa el esquema de base de datos del Bou
 
 ### 4.2.4. Bounded Context: Service Design & Planning
 #### 4.2.4.1. Domain Layer.
+
+La capa de dominio del *Bounded Context* **Service Design and Planning** concentra las entidades, agregados, objetos de valor, comandos, eventos de dominio y los contratos de repositorio que protegen las invariantes del negocio. El modelo sigue los principios de **Domain-Driven Design (DDD)** bajo el patrón **CQRS** (*Command Query Responsibility Segregation*).
+
+---
+
+### Aggregates y Entities
+
+#### ServiceCatalog *(Aggregate Root)*
+
+**Responsabilidad:** Gestionar el catálogo de servicios de un técnico. Protege las invariantes de creación y modificación de *recipes*. Valida la certificación IoT cuando el *recipe* lo requiere
+
+**Máquina de estados:** `EMPTY` → `ACTIVE` → `INACTIVE`
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `CatalogId` | `CatalogId` | Identificador único del catálogo (prefijo `cat-`) |
+| `TechnicianId` | `TechnicianId` | Referencia al técnico propietario (cross-BC) |
+| `Status` | `ECatalogStatus` | Estado actual del catálogo (`Empty`, `Active`, `Inactive`) |
+| `Recipes` | `IReadOnlyList<ServiceRecipe>` | Colección de recetas de servicio (entidades internas) |
+
+| Método | Descripción |
+|---|---|
+| `Create(technicianId)` | Fábrica estática; crea un catálogo vacío y emite `ServiceCatalogCreatedEvent` |
+| `AddRecipe(...)` | Agrega un nuevo *recipe*; valida unicidad del nombre, certificación IoT y tipos de componentes |
+| `UpdateRecipe(...)` | Actualiza un *recipe* existente; aplica reglas de negocio sobre servicios activos |
+| `DeactivateRecipe(recipeId, reason, inProgressCount)` | Desactiva un *recipe*; verifica que no haya servicios en ejecución |
+| `DeactivateIoTRecipes(reason)` | Desactiva masivamente todos los *recipes* con `RequiresIoTCertification = true` |
+| `ReactivateRecipe(recipeId)` | Reactiva un *recipe* previamente desactivado |
+
+**Invariantes de dominio:**
+- Un técnico solo puede tener un catálogo.
+- Los nombres de *recipes* activos deben ser únicos dentro del catálogo.
+- Las categorías `IOT_INSTALLATION` e `IOT_MAINTENANCE` siempre requieren `RequiresIoTCertification = true`.
+- No se puede crear un *recipe* IoT si el técnico no posee certificación vigente.
+
+---
+
+#### ServiceRecipe *(Entity)*
+
+**Responsabilidad:** Representar la definición técnica de un servicio ofrecido por el técnico. Entidad hija de `ServiceCatalog`.
+
+**Máquina de estados:** `ACTIVE` → `INACTIVE` → `ACTIVE`
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `Id` | `RecipeId` | Identificador único del *recipe* (prefijo `recipe-`) |
+| `CatalogId` | `CatalogId` | Referencia al catálogo contenedor |
+| `TechnicianId` | `TechnicianId` | Referencia al técnico propietario |
+| `ServiceName` | `string` | Nombre único del servicio (máx. 200 caracteres) |
+| `ServiceDescription` | `string` | Descripción técnica del servicio |
+| `ServiceCategory` | `EServiceCategory` | Categoría del servicio |
+| `RequiresIoTCertification` | `bool` | Indica si el servicio requiere técnico certificado IoT |
+| `ComponentRequirements` | `IReadOnlyList<ComponentRequirementItem>` | Componentes requeridos con cantidades |
+| `EstimatedDuration` | `EstimatedDuration` | Duración estimada en horas y minutos |
+| `Pricing` | `ServicePricing` | Estructura de precios (materiales, mano de obra, total) |
+| `Prerequisites` | `IReadOnlyList<string>` | Condiciones previas requeridas |
+| `Deliverables` | `IReadOnlyList<string>` | Entregables comprometidos |
+| `WarrantyPeriod` | `WarrantyPeriod` | Período de garantía en meses |
+| `IsActive` | `bool` | Estado de activación del *recipe* |
+| `TimesRequested` | `int` | Contador de veces solicitado |
+
+| Método | Descripción |
+|---|---|
+| `Create(...)` | Fábrica estática; inicializa el *recipe* con todos sus atributos |
+| `Update(...)` | Actualiza atributos modificables; valida reglas sobre servicios activos y aumento de precio |
+| `Deactivate(reason, inProgressCount)` | Desactiva el *recipe*; verifica que no haya servicios en ejecución |
+| `Reactivate()` | Reactiva el *recipe*; valida que esté inactivo |
+| `IncrementTimesRequested()` | Incrementa el contador de solicitudes |
+
+---
+
+#### ServiceRequest *(Aggregate Root)*
+
+**Responsabilidad:** Orquestar el asistente (*wizard*) de solicitud del propietario o empresa. Soporta tres tipos de solicitud: `STANDARD`, `IOT_INSTALLATION` y `SUGGESTED_BY_SYSTEM`.
+
+**Máquina de estados:** `DRAFT` → `PROPERTY_SELECTED` → `CATEGORY_SELECTED` → `READY_TO_CONFIRM` → `PENDING_ASSIGNMENT` → `ASSIGNED` | `CANCELLED` | `EXPIRED`
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `RequestId` | `RequestId` | Identificador único de la solicitud (prefijo `req-`) |
+| `HomeownerId` | `HomeownerId?` | Referencia al propietario individual (cross-BC) |
+| `CompanyId` | `CompanyId?` | Referencia a la empresa (cross-BC) |
+| `ClientType` | `EClientType` | Tipo de cliente (`Individual`, `Company`) |
+| `Status` | `ERequestStatus` | Estado actual de la solicitud |
+| `RequestType` | `ERequestType` | Tipo de solicitud (`Standard`, `IotInstallation`, `SuggestedBySystem`) |
+| `PropertyId` | `PropertyId?` | Propiedad seleccionada (cross-BC) |
+| `Geolocation` | `Geolocation?` | Coordenadas de la propiedad |
+| `HasIoTDevice` | `bool` | Indica si la propiedad tiene dispositivo IoT instalado |
+| `InstalledDeviceId` | `DeviceId?` | Referencia al dispositivo IoT instalado (cross-BC) |
+| `RequestedCategory` | `EServiceCategory?` | Categoría de servicio seleccionada |
+| `RequiresIoTCertifiedTechnician` | `bool` | Indica si el técnico asignado debe ser certificado IoT |
+| `Preferences` | `RequestPreferences?` | Preferencias de horario y descripción del problema |
+| `ReceiptData` | `ReceiptData?` | Datos de consumo eléctrico (manual o desde sensor IoT) |
+| `IsPriority` | `bool` | Indicador de solicitud prioritaria |
+| `IoTContextSnapshot` | `IoTContextSnapshot?` | Instantánea inmutable del estado del sensor al confirmar |
+| `RecipeSnapshot` | `RecipeSnapshot?` | Instantánea inmutable del *recipe* al asignar |
+| `AssignedTechnicianId` | `TechnicianId?` | Técnico asignado por el algoritmo de *matching* |
+| `AssignmentId` | `AssignmentId?` | Referencia a la asignación creada |
+| `OriginSuggestionId` | `SuggestionId?` | Referencia a la sugerencia proactiva origen |
+| `OriginSubscriptionId` | `SubscriptionId?` | Referencia a la suscripción empresarial origen |
+| `CancellationReason` | `CancellationReason?` | Motivo de cancelación |
+
+| Método | Descripción |
+|---|---|
+| `Initiate(homeownerId, ...)` | Fábrica para propietario individual; estado inicial `DRAFT` |
+| `InitiateForCompany(companyId, ...)` | Fábrica para empresa; estado inicial `DRAFT` |
+| `CreateForIoTInstallation(...)` | Fábrica para onboarding IoT empresarial; nace directamente en `PENDING_ASSIGNMENT` |
+| `InitiateFromSuggestion(...)` | Fábrica para flujo proactivo; categoría pre-poblada desde la sugerencia |
+| `SelectProperty(propertyId, geolocation, hasIoTDevice, deviceId)` | Avanza a `PROPERTY_SELECTED` |
+| `SelectCategory(category)` | Avanza a `CATEGORY_SELECTED` |
+| `AddDetails(preferences, receiptData, isPriority)` | Avanza a `READY_TO_CONFIRM` |
+| `Confirm(frozenIoTSnapshot, recipeRequiresIoTCertification)` | Congela el `IoTContextSnapshot` y avanza a `PENDING_ASSIGNMENT` |
+| `MarkAsAssigned(assignmentId, technicianId, snapshot)` | Registra la asignación y avanza a `ASSIGNED` |
+| `Cancel(reason)` | Cancela la solicitud; no permitido en estado `ASSIGNED` o `EXPIRED` |
+| `Expire()` | Marca la solicitud como expirada desde `PENDING_ASSIGNMENT` |
+
+---
+
+#### ServiceAssignment *(Aggregate Root)*
+
+**Responsabilidad:** Registrar el resultado del algoritmo de *matching*. El `MatchingCriteria` incluye el filtro de certificación IoT.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `AssignmentId` | `AssignmentId` | Identificador único de la asignación (prefijo `assign-`) |
+| `RequestId` | `RequestId` | Referencia a la solicitud asignada |
+| `TechnicianId` | `TechnicianId?` | Técnico asignado |
+| `RecipeSnapshot` | `RecipeSnapshot?` | Instantánea del *recipe* al momento de la asignación |
+| `MatchingCriteria` | `MatchingCriteria?` | Criterios aplicados por el algoritmo de *matching* |
+| `Status` | `EAssignmentStatus` | Estado de la asignación (`Assigned`, `Failed`) |
+| `FailureReason` | `string?` | Motivo del fallo (si aplica) |
+| `RetryCount` | `int` | Número de reintentos realizados |
+
+| Método | Descripción |
+|---|---|
+| `Assign(requestId, technicianId, snapshot, criteria)` | Fábrica para asignación exitosa; emite `ServiceAutomaticallyAssignedEvent` |
+| `Fail(requestId, reason, retryCount)` | Fábrica para asignación fallida; emite `ServiceAssignmentFailedEvent` |
+
+---
+
+#### ServiceSuggestion *(Aggregate Root)*
+
+**Responsabilidad:** Encapsular una sugerencia proactiva generada a partir de una anomalía IoT. Gestiona su ciclo de vida y protege las invariantes de unicidad por propiedad y el *cooling-off period*.
+
+**Máquina de estados:** `PENDING_REVIEW` → `ACCEPTED` | `DISMISSED` | `EXPIRED`
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `SuggestionId` | `SuggestionId` | Identificador único de la sugerencia (prefijo `sugg-`) |
+| `ClientId` | `string` | Identificador del propietario o empresa afectada |
+| `ClientType` | `EClientType` | Tipo de cliente (`Individual`, `Company`) |
+| `PropertyId` | `PropertyId` | Propiedad con la anomalía detectada |
+| `AnomalyEventId` | `AnomalyEventId` | Referencia al evento de anomalía origen (cross-BC) |
+| `SuggestedServiceCategory` | `EServiceCategory` | Categoría de servicio sugerida según el tipo de anomalía |
+| `AnomalySeverity` | `EAnomalySeverity` | Severidad de la anomalía (`Low`, `Medium`, `High`, `Critical`) |
+| `Status` | `ESuggestionStatus` | Estado actual de la sugerencia |
+| `CreatedAt` | `DateTime` | Fecha y hora de creación |
+| `ExpiresAt` | `DateTime` | Fecha de expiración (`CreatedAt + 48h`) |
+| `DerivedRequestId` | `RequestId?` | Referencia a la solicitud creada al aceptar |
+
+| Método | Descripción |
+|---|---|
+| `Create(clientId, clientType, propertyId, anomalyEventId, suggestedCategory, severity)` | Fábrica; calcula `ExpiresAt` y emite `ServiceSuggestionCreatedEvent` |
+| `Accept(clientId)` | Avanza a `ACCEPTED`; genera un `RequestId` derivado |
+| `Dismiss(clientId, reason)` | Avanza a `DISMISSED` con el motivo indicado |
+| `Expire()` | Avanza a `EXPIRED`; invocado por el programador de tareas |
+
+---
+
+### Value Objects
+
+| Value Object | Atributos Principales | Descripción |
+|---|---|---|
+| `CatalogId` | `Value: string` | ID del catálogo (prefijo `cat-`); inmutable |
+| `RecipeId` | `Value: string` | ID del *recipe* (prefijo `recipe-`); inmutable |
+| `RequestId` | `Value: string` | ID de la solicitud (prefijo `req-`); inmutable |
+| `AssignmentId` | `Value: string` | ID de la asignación (prefijo `assign-`); inmutable |
+| `SuggestionId` | `Value: string` | ID de la sugerencia (prefijo `sugg-`); inmutable |
+| `TechnicianId` | `Value: string` | Referencia cross-BC al técnico |
+| `HomeownerId` | `Value: string` | Referencia cross-BC al propietario individual |
+| `CompanyId` | `Value: string` | Referencia cross-BC a la empresa |
+| `PropertyId` | `Value: string` | Referencia cross-BC a la propiedad |
+| `DeviceId` | `Value: string` | Referencia cross-BC al dispositivo IoT |
+| `AnomalyEventId` | `Value: string` | Referencia cross-BC al evento de anomalía |
+| `SubscriptionId` | `Value: string` | Referencia cross-BC a la suscripción |
+| `Money` | `Amount: decimal`, `Currency: ECurrency` | Valor monetario inmutable con moneda |
+| `ServicePricing` | `MaterialsEstimate`, `LaborCost`, `TotalPrice: Money` | Estructura de precios del servicio |
+| `EstimatedDuration` | `TotalMinutes: int` | Duración estimada del servicio |
+| `WarrantyPeriod` | `Months: int` | Período de garantía en meses |
+| `Geolocation` | `Latitude: decimal`, `Longitude: decimal` | Coordenadas geográficas de la propiedad |
+| `ComponentRequirementItem` | `ComponentTypeId`, `Quantity`, `IsRequired` | Componente requerido con cantidad mínima |
+| `RecipeSnapshot` | `RecipeId`, `ServiceName`, `RequiresIoTCertification`, `Pricing`, `EstimatedDuration` | Instantánea inmutable del *recipe* al asignar |
+| `MatchingCriteria` | `Geolocation`, `IsPriority`, `RequiresIoTCertifiedTechnician`, `PreferredTechnicianId` | Criterios del algoritmo de *matching* |
+| `RequestPreferences` | `ProblemDescription`, `PreferredDates`, `TimePreference` | Preferencias del cliente para la visita |
+| `ReceiptData` | `ConsumptionKwh`, `AmountPaid`, `DataSource: EConsumptionDataSource` | Datos del recibo eléctrico o lectura del sensor |
+| `IoTContextSnapshot` | `DeviceId`, `CapturedAt`, `StreamStatus`, `RecentReadings`, `ActiveAnomalies` | Instantánea inmutable del sensor al confirmar la solicitud |
+| `IoTReadingEntry` | `Timestamp`, `Voltage`, `Current`, `PowerFactor` | Lectura individual del sensor IoT |
+| `IoTAnomalyEntry` | `AnomalyId`, `AnomalyType`, `Severity`, `DetectedAt` | Anomalía activa al momento de la instantánea |
+| `CancellationReason` | `Value: string` | Motivo de cancelación de la solicitud |
+| `DeactivationReason` | `Value: string` | Motivo de desactivación del *recipe* |
+
+---
+
+### Domain Services (Interfaces de Contrato)
+
+#### Command Services
+
+| Interfaz | Descripción |
+|---|---|
+| `IServiceCatalogCommandService` | Define operaciones que modifican el agregado `ServiceCatalog` mediante comandos |
+| `IServiceRequestCommandService` | Define operaciones que modifican el agregado `ServiceRequest` mediante comandos |
+| `IServiceAssignmentCommandService` | Define la operación de ejecución del algoritmo de *matching* |
+| `IServiceSuggestionCommandService` | Define operaciones que modifican el agregado `ServiceSuggestion` mediante comandos |
+
+#### Query Services
+
+| Interfaz | Descripción |
+|---|---|
+| `IServiceDesignQueryService` | Define todas las consultas de solo lectura del *Bounded Context* |
+
+---
+
+### Repository Interfaces
+
+| Interfaz | Descripción |
+|---|---|
+| `IServiceCatalogRepository` | Contrato de persistencia y consulta sobre catálogos y *recipes* |
+| `IServiceRequestRepository` | Contrato de persistencia y consulta sobre solicitudes de servicio |
+| `IServiceAssignmentRepository` | Contrato de persistencia y consulta sobre asignaciones |
+| `IServiceSuggestionRepository` | Contrato de persistencia y consulta sobre sugerencias proactivas IoT |
+
+**Métodos principales de `IServiceCatalogRepository`:**
+
+| Método | Descripción |
+|---|---|
+| `FindByTechnicianIdAsync(technicianId)` | Obtiene el catálogo de un técnico incluyendo sus *recipes* |
+| `ExistsByTechnicianIdAsync(technicianId)` | Verifica si ya existe catálogo para el técnico |
+| `FindActiveRecipeByCategoryAndTechnicianAsync(category, technicianId)` | Busca un *recipe* activo por categoría y técnico |
+
+**Métodos principales de `IServiceRequestRepository`:**
+
+| Método | Descripción |
+|---|---|
+| `FindByClientIdAsync(clientId)` | Obtiene todas las solicitudes de un cliente |
+| `FindPendingAssignmentAsync()` | Obtiene solicitudes en cola de *matching* ordenadas por prioridad y fecha |
+| `HasActiveRequestForPropertyAsync(propertyId)` | Verifica si hay una solicitud activa para la propiedad |
+| `FindPendingIoTAssignedToTechnicianAsync(technicianId)` | Obtiene solicitudes IoT asignadas a un técnico específico |
+
+**Métodos principales de `IServiceSuggestionRepository`:**
+
+| Método | Descripción |
+|---|---|
+| `FindActiveSuggestionByPropertyIdAsync(propertyId)` | Busca sugerencia activa (`PENDING_REVIEW`) para una propiedad |
+| `FindByClientIdAsync(clientId, status?)` | Obtiene sugerencias de un cliente con filtro opcional de estado |
+| `FindExpiredPendingAsync()` | Obtiene sugerencias caducadas pendientes de expirar |
+
+---
+
 #### 4.2.4.2. Interface Layer.
+
+La capa de interfaces define los recursos de entrada y salida, los ensambladores de transformación y los controladores REST que exponen las capacidades del *Bounded Context* hacia los consumidores externos.
+
+---
+
+### Resources (Recursos de Entrada y Salida)
+
+#### Recursos de Entrada (Comandos de Cliente)
+
+| Clase | Atributos Principales | Descripción |
+|---|---|---|
+| `CreateServiceRecipeResource` | `ServiceName`, `ServiceDescription`, `ServiceCategory`, `RequiresIoTCertification`, `ComponentRequirements`, `EstimatedDurationHours`, `EstimatedDurationMinutes`, `Pricing`, `Prerequisites`, `Deliverables`, `WarrantyMonths` | Datos para crear un nuevo *recipe* en el catálogo |
+| `UpdateServiceRecipeResource` | `ServiceName?`, `ServiceDescription?`, `ComponentRequirements?`, `EstimatedDuration?`, `Pricing?`, `Prerequisites?`, `Deliverables?`, `WarrantyMonths?` | Datos para actualizar un *recipe* existente |
+| `DeactivateServiceRecipeResource` | `Reason: string` | Motivo de desactivación del *recipe* |
+| `SelectPropertyResource` | `PropertyId: string` | Identificador de la propiedad seleccionada |
+| `SelectServiceCategoryResource` | `Category: string` | Categoría de servicio seleccionada |
+| `AddServiceDetailsResource` | `ProblemDescription`, `ConsumptionKwh`, `ConsumptionDataSource`, `AmountPaid?`, `BillingPeriod?`, `ReceiptNumber?`, `IsPriority`, `PreferredDates`, `TimePreference` | Detalles del servicio y datos del recibo eléctrico |
+| `CancelServiceRequestResource` | `Reason: string` | Motivo de cancelación de la solicitud |
+| `AcceptServiceSuggestionResource` | `ClientId: string` | Identificador del cliente que acepta la sugerencia |
+| `DismissServiceSuggestionResource` | `ClientId: string`, `Reason: string` | Motivo del descarte de la sugerencia |
+
+#### Recursos de Salida (Respuestas al Cliente)
+
+| Clase | Atributos Principales | Descripción |
+|---|---|---|
+| `ServiceCatalogResource` | `CatalogId`, `TechnicianId`, `Status`, `Recipes: IEnumerable<ServiceRecipeDetailResource>` | Catálogo completo con sus *recipes* |
+| `ServiceRecipeDetailResource` | `RecipeId`, `ServiceName`, `ServiceCategory`, `RequiresIoTCertification`, `ComponentRequirements`, `Pricing`, `EstimatedDuration`, `WarrantyMonths`, `IsActive` | Detalle de un *recipe* individual |
+| `ServiceRequestSummaryResource` | `RequestId`, `ClientId`, `ClientType`, `Status`, `RequestType`, `RequiresIoTCertifiedTechnician`, `PropertyId`, `Geolocation`, `HasIoTDevice`, `InstalledDeviceId`, `RequestedCategory`, `IsPriority`, `IoTContext?`, `AssignedTechnicianId?`, `AssignmentId?`, `CreatedAt` | Resumen del estado actual de la solicitud |
+| `AvailableServiceResource` | `RecipeId`, `ServiceName`, `ServiceCategory`, `TotalPrice`, `Currency`, `EstimatedHours`, `RequiresIoTCertification` | Servicio disponible para seleccionar en el *wizard* |
+| `IoTContextResource` | `DeviceId`, `StreamStatus`, `CapturedAt`, `LastReading?`, `ActiveAnomalies` | Estado actual del sensor IoT de la propiedad |
+| `ServiceSuggestionResource` | `SuggestionId`, `PropertyId`, `SuggestedServiceCategory`, `AnomalySeverity`, `Status`, `CreatedAt`, `ExpiresAt` | Sugerencia proactiva del sistema |
+
+---
+
+### Assemblers (Transformadores)
+
+Los ensambladores implementan el patrón **Assembler** para desacoplar la capa de interfaz de la capa de dominio, transformando recursos en comandos y entidades en recursos de respuesta.
+
+| Clase | Descripción |
+|---|---|
+| `CreateServiceRecipeCommandFromResourceAssembler` | Transforma `CreateServiceRecipeResource` en `CreateServiceRecipeCommand`, mapeando precios, duraciones y la bandera `RequiresIoTCertification` |
+| `ServiceCatalogResourceFromEntityAssembler` | Transforma el agregado `ServiceCatalog` y su colección de `ServiceRecipe` en `ServiceCatalogResource` |
+| `ServiceRequestSummaryResourceFromEntityAssembler` | Transforma el agregado `ServiceRequest` en `ServiceRequestSummaryResource`, incluyendo el mapeo del `IoTContextSnapshot` |
+| `ServiceSuggestionResourceFromEntityAssembler` | Transforma el agregado `ServiceSuggestion` en `ServiceSuggestionResource` |
+| `IoTContextResourceFromValueObjectAssembler` | Transforma el *value object* `IoTContextSnapshot` en `IoTContextResource`, seleccionando la última lectura y las anomalías activas |
+
+---
+
+### Controllers (Controladores REST)
+
+#### ServiceCatalogController
+
+| Método HTTP | Ruta | Descripción |
+|---|---|---|
+| `POST` | `/api/v1/technicians/{technicianId}/catalog` | Crea el catálogo de servicios del técnico |
+| `GET` | `/api/v1/technicians/{technicianId}/catalog` | Obtiene el catálogo con todos sus *recipes* |
+| `POST` | `/api/v1/technicians/{technicianId}/catalog/recipes` | Agrega un nuevo *recipe* al catálogo |
+| `PUT` | `/api/v1/technicians/{technicianId}/catalog/recipes/{recipeId}` | Actualiza un *recipe* existente |
+| `PATCH` | `/api/v1/technicians/{technicianId}/catalog/recipes/{recipeId}/deactivate` | Desactiva un *recipe* |
+| `PATCH` | `/api/v1/technicians/{technicianId}/catalog/recipes/{recipeId}/reactivate` | Reactiva un *recipe* |
+| `GET` | `/api/v1/technicians/{technicianId}/catalog/recipes/{recipeId}` | Obtiene el detalle de un *recipe* específico |
+
+#### ServiceRequestController
+
+| Método HTTP | Ruta | Descripción |
+|---|---|---|
+| `POST` | `/api/v1/service-requests` | Inicia el asistente de solicitud (estado `DRAFT`) |
+| `PUT` | `/api/v1/service-requests/{requestId}/property` | Selecciona la propiedad (avanza a `PROPERTY_SELECTED`) |
+| `GET` | `/api/v1/service-requests/{requestId}/iot-context` | Obtiene el contexto IoT actual de la propiedad (solo lectura) |
+| `GET` | `/api/v1/service-requests/{requestId}/available-services` | Lista los servicios disponibles para la categoría y zona |
+| `PUT` | `/api/v1/service-requests/{requestId}/category` | Selecciona la categoría de servicio (avanza a `CATEGORY_SELECTED`) |
+| `PUT` | `/api/v1/service-requests/{requestId}/details` | Agrega detalles del problema y preferencias (avanza a `READY_TO_CONFIRM`) |
+| `POST` | `/api/v1/service-requests/{requestId}/confirm` | Confirma la solicitud, congela el snapshot IoT y dispara el *matching* |
+| `DELETE` | `/api/v1/service-requests/{requestId}` | Cancela la solicitud |
+| `GET` | `/api/v1/service-requests/{requestId}` | Obtiene el resumen actualizado de la solicitud |
+
+#### ServiceAssignmentController
+
+| Método HTTP | Ruta | Descripción |
+|---|---|---|
+| `GET` | `/api/v1/service-requests/matching-queue` | Obtiene la cola de solicitudes pendientes de asignación (uso interno) |
+
+#### ServiceSuggestionController
+
+| Método HTTP | Ruta | Descripción |
+|---|---|---|
+| `GET` | `/api/v1/suggestions` | Obtiene las sugerencias del cliente autenticado (filtro opcional por estado) |
+| `POST` | `/api/v1/suggestions/{suggestionId}/accept` | Acepta la sugerencia y crea una solicitud derivada |
+| `POST` | `/api/v1/suggestions/{suggestionId}/dismiss` | Descarta la sugerencia con un motivo |
+
+---
+
 #### 4.2.4.3. Application Layer.
+
+La capa de aplicación orquesta los casos de uso del *Bounded Context*, coordinando la interacción entre el dominio, los repositorios y los servicios externos. Implementa las interfaces de servicio definidas en la capa de dominio.
+
+---
+
+### Command Services
+
+#### ServiceCatalogCommandService
+
+Implementa `IServiceCatalogCommandService`. Coordina la creación, modificación y desactivación de catálogos y *recipes*, verificando la certificación IoT mediante el puerto de salida `IProfilesContextFacade`.
+
+| Comando Manejado | Descripción |
+|---|---|
+| `CreateServiceCatalogCommand` | Valida que el técnico no tenga catálogo previo y crea uno nuevo |
+| `CreateServiceRecipeCommand` | Verifica la certificación IoT si `RequiresIoTCertification = true`, luego delega en `ServiceCatalog.AddRecipe(...)` |
+| `UpdateServiceRecipeCommand` | Delega la actualización en el agregado; aplica reglas de negocio sobre servicios activos |
+| `DeactivateServiceRecipeCommand` | Consulta servicios en ejecución mediante `IServiceOperationContextFacade` antes de desactivar |
+| `ReactivateServiceRecipeCommand` | Reactiva el *recipe* indicado en el catálogo del técnico |
+| `DeactivateIoTRecipesDueToRevocationCommand` | Desactiva masivamente todos los *recipes* IoT al revocarse la certificación del técnico |
+
+#### ServiceRequestCommandService
+
+Implementa `IServiceRequestCommandService`. Coordina el asistente de solicitud completo, consultando propiedades (Assets BC), planes de suscripción (Subscriptions BC) y el estado del dispositivo IoT (IoT Monitoring BC).
+
+| Comando Manejado | Descripción |
+|---|---|
+| `InitiateServiceRequestCommand` | Verifica la elegibilidad del plan, crea el agregado `ServiceRequest` y persiste en estado `DRAFT` |
+| `SelectPropertyForRequestCommand` | Obtiene la geolocalización y consulta el dispositivo IoT instalado en la propiedad |
+| `SelectServiceCategoryCommand` | Avanza el estado del asistente a `CATEGORY_SELECTED` |
+| `AddServiceDetailsCommand` | Construye `RequestPreferences` y `ReceiptData`; avanza a `READY_TO_CONFIRM` |
+| `ConfirmServiceRequestCommand` | Congela el `IoTContextSnapshot` mediante `IIoTMonitoringContextFacade`; determina `RequiresIoTCertifiedTechnician` desde el *recipe* y dispara el *matching* |
+| `CancelServiceRequestCommand` | Cancela la solicitud con el motivo indicado |
+| `ScheduleIoTInstallationServiceCommand` | Crea un `ServiceRequest` de tipo `IOT_INSTALLATION` directamente en `PENDING_ASSIGNMENT` y dispara el *matching* con filtro IoT |
+
+#### ServiceAssignmentCommandService
+
+Implementa `IServiceAssignmentCommandService`. Ejecuta el algoritmo de *matching* coordinando datos de tres *Bounded Contexts* externos.
+
+| Paso del Algoritmo | Descripción |
+|---|---|
+| 1. Validación previa | Verifica que la solicitud tenga geolocalización y categoría definidas |
+| 2. Búsqueda de técnicos | Consulta `IProfilesContextFacade.GetTechniciansInAreaAsync(lat, lon)` |
+| 3. Filtrado de candidatos | Por *recipe* activo en la categoría, certificación IoT (si aplica) y stock de componentes |
+| 4. Selección | Ordena candidatos por calificación descendente y selecciona el primero |
+| 5. Asignación | Crea `RecipeSnapshot`, `MatchingCriteria`, `ServiceAssignment` y actualiza la solicitud |
+| 6. Fallo | Si no hay candidatos, crea `ServiceAssignment` en estado `Failed` con contador de reintentos |
+
+#### ServiceSuggestionCommandService
+
+Implementa `IServiceSuggestionCommandService`. Orquesta la generación, aceptación y descarte de sugerencias proactivas.
+
+| Comando Manejado | Descripción |
+|---|---|
+| `GenerateServiceSuggestionCommand` | Verifica condiciones anti-spam (una sugerencia activa o solicitud activa por propiedad) antes de crear la sugerencia |
+| `AcceptServiceSuggestionCommand` | Acepta la sugerencia, verifica la elegibilidad del plan y delega la creación de `ServiceRequest` derivado |
+| `DismissServiceSuggestionCommand` | Descarta la sugerencia con el motivo indicado por el cliente |
+
+---
+
+### Query Services
+
+#### ServiceDesignQueryService
+
+Implementa `IServiceDesignQueryService`. Proporciona todas las consultas de solo lectura del *Bounded Context*.
+
+| Consulta Manejada | Descripción |
+|---|---|
+| `GetServiceCatalogQuery` | Obtiene el catálogo completo del técnico |
+| `GetServiceRecipeDetailsQuery` | Obtiene el detalle de un *recipe* específico |
+| `GetRequestEligibilityQuery` | Consulta la elegibilidad del cliente mediante `ISubscriptionContextFacade` |
+| `GetAvailableServicesQuery` | Construye la lista de servicios disponibles cruzando técnicos en área, *recipes* activos y stock |
+| `GetServiceRequestSummaryQuery` | Obtiene el estado actualizado de una solicitud |
+| `GetMatchingQueueQuery` | Obtiene la cola de solicitudes pendientes de asignación |
+| `GetIoTContextForPropertyQuery` | Consulta lecturas recientes y anomalías activas mediante `IIoTMonitoringContextFacade` |
+| `GetServiceSuggestionsQuery` | Obtiene las sugerencias del cliente con filtro opcional de estado |
+
+---
+
+### Event Handlers (Políticas de Reacción)
+
+| Manejador | Evento Disparador | Acción |
+|---|---|---|
+| `SubscriptionActivatedEventHandler` | `SubscriptionActivated` (Subscriptions BC) | Crea el catálogo automáticamente para técnicos Premium |
+| `IoTInstallationRequiredEventHandler` | `IoTInstallationRequired` (Subscriptions BC) | Ejecuta `ScheduleIoTInstallationServiceCommand` |
+| `AnomalyDetectedEventHandler` | `AnomalyDetected` (IoT Monitoring BC) | Evalúa condiciones y ejecuta `GenerateServiceSuggestionCommand` para severidades `MEDIUM`, `HIGH` o `CRITICAL` |
+| `IoTCertificationGrantedEventHandler` | `IoTCertificationGranted` (Profiles BC) | Registra la habilitación del técnico para *recipes* IoT |
+| `IoTCertificationRevokedEventHandler` | `IoTCertificationRevoked` (Profiles BC) | Desactiva *recipes* IoT masivamente y re-dispara el *matching* para solicitudes afectadas |
+
+---
+
+### Outbound Service Ports (Puertos de Salida)
+
+| Interfaz | *Bounded Context* Destino | Propósito |
+|---|---|---|
+| `ISubscriptionContextFacade` | Subscriptions BC | Verificar elegibilidad del plan, límites de solicitudes y marcado como prioritaria |
+| `IAssetsContextFacade` | Assets BC | Obtener geolocalización de propiedad, stock de componentes y dispositivo IoT instalado |
+| `IProfilesContextFacade` | Profiles BC | Obtener técnicos en área, verificar certificación IoT, validar estado del cliente |
+| `IServiceOperationContextFacade` | Service Operation BC | Contar servicios activos o en ejecución para un *recipe* específico |
+| `IIoTMonitoringContextFacade` | IoT Monitoring BC | Obtener lecturas recientes y anomalías activas del dispositivo IoT instalado |
+
+---
+
 #### 4.2.4.4. Infrastructure Layer.
+
+La capa de infraestructura contiene las implementaciones concretas de los repositorios y las configuraciones de persistencia mediante **Entity Framework Core**.
+
+---
+
+### Configuraciones EF Core
+
+Todas las tablas del *Bounded Context* utilizan el prefijo `sdp_` (*Service Design and Planning*). Los *Value Objects* complejos se persisten como columnas de tipo `JSONB` en PostgreSQL.
+
+#### ServiceCatalogConfiguration
+
+| Tabla | `sdp_service_catalogs` |
+|---|---|
+| Clave primaria | `id` (`CatalogId`) |
+| Índices | `technician_id` (único) |
+| Mapeo de VO | `Status` como `string`; `TechnicianId` mediante conversión |
+| Relación | `HasMany<ServiceRecipe>` con `OnDelete(Cascade)` |
+
+#### ServiceRecipeConfiguration
+
+| Tabla | `sdp_service_recipes` |
+|---|---|
+| Clave primaria | `id` (`RecipeId`) |
+| Columnas relevantes | `requires_iot_certification BOOLEAN NOT NULL DEFAULT false` |
+| Columnas JSONB | `component_requirements`, `prerequisites`, `deliverables` |
+| Columnas embebidas | `estimated_duration_min`, `materials_estimate`, `labor_cost`, `total_price`, `currency`, `warranty_months` |
+| Índices | `(catalog_id, service_name)` (único), `(requires_iot_certification, is_active)` |
+
+#### ServiceRequestConfiguration
+
+| Tabla | `sdp_service_requests` |
+|---|---|
+| Clave primaria | `id` (`RequestId`) |
+| Columnas relevantes | `company_id`, `client_type`, `request_type`, `has_iot_device`, `installed_device_id`, `requires_iot_certified_tech` |
+| Columnas JSONB | `receipt_data`, `preferences`, `iot_context_snapshot`, `recipe_snapshot` |
+| Columnas de trazabilidad | `origin_suggestion_id`, `origin_subscription_id` |
+| Índices | Cola de *matching*: `(is_priority DESC, created_at ASC) WHERE status = 'PendingAssignment'` |
+
+#### ServiceAssignmentConfiguration
+
+| Tabla | `sdp_service_assignments` |
+|---|---|
+| Clave primaria | `id` (`AssignmentId`) |
+| Columnas JSONB | `recipe_snapshot`, `matching_criteria` |
+| Clave foránea | `request_id → sdp_service_requests(id)` |
+
+#### ServiceSuggestionConfiguration
+
+| Tabla | `sdp_service_suggestions` |
+|---|---|
+| Clave primaria | `id` (`SuggestionId`) |
+| Columnas relevantes | `client_id`, `client_type`, `property_id`, `anomaly_event_id`, `suggested_service_category`, `anomaly_severity`, `status`, `expires_at` |
+| Índices | `(property_id, status)`, `(client_id, status)`, `(expires_at) WHERE status = 'PendingReview'` (parcial) |
+
+---
+
+### Implementación de Repositorios
+
+| Clase | Interfaz Implementada | Descripción |
+|---|---|---|
+| `ServiceCatalogRepository` | `IServiceCatalogRepository` | Incluye carga ansiosa (`Include`) de *recipes*; implementa búsqueda por `TechnicianId` y por categoría activa |
+| `ServiceRequestRepository` | `IServiceRequestRepository` | Implementa cola de *matching* ordenada por prioridad; consultas de solicitudes activas por propiedad y por técnico IoT |
+| `ServiceAssignmentRepository` | `IServiceAssignmentRepository` | Implementa consulta por `RequestId` y conteo de reintentos |
+| `ServiceSuggestionRepository` | `IServiceSuggestionRepository` | Implementa búsqueda de sugerencias activas por propiedad y consulta de caducadas para el programador de tareas |
+
+---
+
 #### 4.2.4.5. Bounded Context Software Architecture Component Level Diagrams.
+
+
+
 #### 4.2.4.6. Bounded Context Software Architecture Code Level Diagrams.
+
 ##### 4.2.4.6.1. Bounded Context Domain Layer Class Diagrams.
+
+En esta sección mostramos parte de la estructura de nuestra solución Electrolink y los datos que seran incluidos en el diagrama de clases.
+
+![](assets/img/cap4/sdp/class.png)
+\
+```plantuml
+@startuml Service_Design_Planning_Domain_Layer
+
+!define AGGREGATE_COLOR #DDE5FF
+!define ENTITY_COLOR #D5F5E3
+!define VO_COLOR #FEF9E7
+!define INTERFACE_COLOR #FDEBD0
+!define ENUM_COLOR #F5EEF8
+
+skinparam class {
+  BackgroundColor White
+  BorderColor #4A4A4A
+  ArrowColor #4A4A4A
+  FontSize 11
+}
+
+skinparam linetype ortho
+
+' ─────────────────────────────────────────
+' AGGREGATES
+' ─────────────────────────────────────────
+
+package "Aggregates" AGGREGATE_COLOR {
+
+  class ServiceCatalog <<Aggregate Root>> AGGREGATE_COLOR {
+    + CatalogId : CatalogId
+    + TechnicianId : TechnicianId
+    + Status : ECatalogStatus
+    - _recipes : List<ServiceRecipe>
+    + Recipes : IReadOnlyList<ServiceRecipe>
+    --
+    + {static} Create(technicianId) : ServiceCatalog
+    + AddRecipe(name, desc, cat, requiresIoT, ...) : void
+    + UpdateRecipe(recipeId, ...) : void
+    + DeactivateRecipe(recipeId, reason, inProgress) : void
+    + DeactivateIoTRecipes(reason) : IReadOnlyList<RecipeId>
+    + ReactivateRecipe(recipeId) : void
+  }
+
+  class ServiceRequest <<Aggregate Root>> AGGREGATE_COLOR {
+    + RequestId : RequestId
+    + HomeownerId : HomeownerId?
+    + CompanyId : CompanyId?
+    + ClientType : EClientType
+    + Status : ERequestStatus
+    + RequestType : ERequestType
+    + PropertyId : PropertyId?
+    + Geolocation : Geolocation?
+    + HasIoTDevice : bool
+    + InstalledDeviceId : DeviceId?
+    + RequestedCategory : EServiceCategory?
+    + RequiresIoTCertifiedTechnician : bool
+    + Preferences : RequestPreferences?
+    + ReceiptData : ReceiptData?
+    + IsPriority : bool
+    + IoTContextSnapshot : IoTContextSnapshot?
+    + RecipeSnapshot : RecipeSnapshot?
+    + AssignedTechnicianId : TechnicianId?
+    + AssignmentId : AssignmentId?
+    + OriginSuggestionId : SuggestionId?
+    + OriginSubscriptionId : SubscriptionId?
+    + CancellationReason : CancellationReason?
+    --
+    + {static} Initiate(homeownerId, ...) : ServiceRequest
+    + {static} InitiateForCompany(companyId, ...) : ServiceRequest
+    + {static} CreateForIoTInstallation(...) : ServiceRequest
+    + {static} InitiateFromSuggestion(...) : ServiceRequest
+    + SelectProperty(propertyId, geo, hasIoT, deviceId) : void
+    + SelectCategory(category) : void
+    + AddDetails(prefs, receipt, isPriority) : void
+    + Confirm(iotSnapshot, recipeRequiresIoT) : void
+    + MarkAsAssigned(assignId, techId, snapshot) : void
+    + Cancel(reason) : void
+    + Expire() : void
+  }
+
+  class ServiceAssignment <<Aggregate Root>> AGGREGATE_COLOR {
+    + AssignmentId : AssignmentId
+    + RequestId : RequestId
+    + TechnicianId : TechnicianId?
+    + RecipeSnapshot : RecipeSnapshot?
+    + MatchingCriteria : MatchingCriteria?
+    + Status : EAssignmentStatus
+    + FailureReason : string?
+    + RetryCount : int
+    --
+    + {static} Assign(requestId, techId, snapshot, criteria) : ServiceAssignment
+    + {static} Fail(requestId, reason, retryCount) : ServiceAssignment
+  }
+
+  class ServiceSuggestion <<Aggregate Root>> AGGREGATE_COLOR {
+    + SuggestionId : SuggestionId
+    + ClientId : string
+    + ClientType : EClientType
+    + PropertyId : PropertyId
+    + AnomalyEventId : AnomalyEventId
+    + SuggestedServiceCategory : EServiceCategory
+    + AnomalySeverity : EAnomalySeverity
+    + Status : ESuggestionStatus
+    + CreatedAt : DateTime
+    + ExpiresAt : DateTime
+    + DerivedRequestId : RequestId?
+    --
+    + {static} Create(clientId, clientType, propertyId, ...) : ServiceSuggestion
+    + Accept(clientId) : RequestId
+    + Dismiss(clientId, reason) : void
+    + Expire() : void
+  }
+}
+
+@enduml
+```
+
 ##### 4.2.4.6.2. Bounded Context Database Design Diagram.
 
+En esta sección mostramos parte de la estructura de nuestra solución Electrolink y los datos que seran incluidos en el diagrama de diseño de base de datos.
+
+![](assets/img/cap4/sdp/database.png)
+\
+```plantuml
+@startuml Service_Design_Planning_Database
+
+!define TABLE(name,desc) class name as "desc" << (T,#DDDDFF) >>
+!define PK(x) <u>x</u>
+!define FK(x) <i>x</i>
+
+skinparam class {
+  BackgroundColor #F8F9FA
+  BorderColor #4A4A4A
+  ArrowColor #4A4A4A
+  FontSize 10
+}
+
+skinparam linetype ortho
+
+' ─────────────────────────────────────────
+' TABLES
+' ─────────────────────────────────────────
+
+TABLE(sdp_service_catalogs, "sdp_service_catalogs") {
+  PK(id) VARCHAR(60) NOT NULL
+  --
+  technician_id VARCHAR(100) NOT NULL UNIQUE
+  status VARCHAR(20) NOT NULL
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  updated_at TIMESTAMPTZ
+}
+
+TABLE(sdp_service_recipes, "sdp_service_recipes") {
+  PK(id) VARCHAR(60) NOT NULL
+  --
+  FK(catalog_id) VARCHAR(60) NOT NULL
+  technician_id VARCHAR(100) NOT NULL
+  service_name VARCHAR(200) NOT NULL
+  service_description TEXT NOT NULL
+  service_category VARCHAR(50) NOT NULL
+  requires_iot_certification BOOLEAN NOT NULL DEFAULT false
+  component_requirements JSONB NOT NULL
+  estimated_duration_min INT NOT NULL
+  materials_estimate DECIMAL(10,2) NOT NULL
+  labor_cost DECIMAL(10,2) NOT NULL
+  total_price DECIMAL(10,2) NOT NULL
+  currency VARCHAR(3) NOT NULL
+  prerequisites JSONB NOT NULL
+  deliverables JSONB NOT NULL
+  warranty_months INT NOT NULL
+  is_active BOOLEAN NOT NULL DEFAULT true
+  times_requested INT NOT NULL DEFAULT 0
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  updated_at TIMESTAMPTZ
+  UNIQUE(catalog_id, service_name)
+}
+
+TABLE(sdp_service_requests, "sdp_service_requests") {
+  PK(id) VARCHAR(60) NOT NULL
+  --
+  homeowner_id VARCHAR(100)
+  company_id VARCHAR(100)
+  client_type VARCHAR(20) NOT NULL
+  status VARCHAR(30) NOT NULL
+  request_type VARCHAR(30) NOT NULL DEFAULT 'Standard'
+  property_id VARCHAR(100)
+  geolocation_lat DECIMAL(9,6)
+  geolocation_lon DECIMAL(9,6)
+  has_iot_device BOOLEAN NOT NULL DEFAULT false
+  installed_device_id VARCHAR(100)
+  requested_category VARCHAR(50)
+  requires_iot_certified_tech BOOLEAN NOT NULL DEFAULT false
+  receipt_data JSONB
+  preferences JSONB
+  iot_context_snapshot JSONB
+  recipe_snapshot JSONB
+  assigned_technician_id VARCHAR(100)
+  assignment_id VARCHAR(60)
+  origin_suggestion_id VARCHAR(60)
+  origin_subscription_id VARCHAR(100)
+  is_priority BOOLEAN NOT NULL DEFAULT false
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  updated_at TIMESTAMPTZ
+  CHECK (homeowner_id IS NOT NULL OR company_id IS NOT NULL)
+}
+
+TABLE(sdp_service_assignments, "sdp_service_assignments") {
+  PK(id) VARCHAR(60) NOT NULL
+  --
+  FK(request_id) VARCHAR(60) NOT NULL
+  technician_id VARCHAR(100)
+  recipe_snapshot JSONB
+  matching_criteria JSONB
+  status VARCHAR(20) NOT NULL
+  failure_reason VARCHAR(100)
+  retry_count INT NOT NULL DEFAULT 0
+  assigned_at TIMESTAMPTZ NOT NULL DEFAULT now()
+}
+
+TABLE(sdp_service_suggestions, "sdp_service_suggestions") {
+  PK(id) VARCHAR(60) NOT NULL
+  --
+  client_id VARCHAR(100) NOT NULL
+  client_type VARCHAR(20) NOT NULL
+  property_id VARCHAR(100) NOT NULL
+  anomaly_event_id VARCHAR(100) NOT NULL
+  suggested_service_category VARCHAR(50) NOT NULL
+  anomaly_severity VARCHAR(20) NOT NULL
+  status VARCHAR(30) NOT NULL
+  derived_request_id VARCHAR(60)
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  expires_at TIMESTAMPTZ NOT NULL
+}
+
+TABLE(sdp_domain_events_outbox, "sdp_domain_events_outbox") {
+  PK(id) UUID NOT NULL DEFAULT gen_random_uuid()
+  --
+  event_name VARCHAR(100) NOT NULL
+  aggregate_id VARCHAR(60) NOT NULL
+  payload JSONB NOT NULL
+  occurred_at TIMESTAMPTZ NOT NULL
+  processed_at TIMESTAMPTZ
+  retry_count INT NOT NULL DEFAULT 0
+  error_message TEXT
+  is_published BOOLEAN NOT NULL DEFAULT false
+}
+@enduml
+```
+---
+
 ### 4.2.5. Bounded Context: Service Operation & Monitoring
+
+Este Bounded Context gestiona el ciclo de vida completo de la ejecución de un servicio eléctrico en campo: desde la recepción del evento `ServiceAutomaticallyAssigned` —publicado por el Bounded Context de Service Design and Planning— hasta la compleción del servicio, su eventual cancelación y el proceso de evaluación mutua posterior. Con la integración de dispositivos IoT, el contexto incorpora soporte para la captura inmutable de un snapshot del contexto del sensor, el control remoto del relé durante la ejecución y el flujo especial de instalación de dispositivos.
+
+---
+
 #### 4.2.5.1. Domain Layer.
+
+La capa de dominio encapsula las reglas de negocio, las invariantes y el estado central del sistema. Toda la lógica de decisión reside en los aggregates y entidades, sin dependencia de infraestructura.
+
+### Aggregates
+
+#### `ServiceExecution` (Aggregate Principal)
+
+Constituye la raíz de agregado principal del Bounded Context. Gestiona el ciclo de vida de una ejecución de servicio desde el estado `SCHEDULED` hasta `COMPLETED` o `CANCELLED`. A partir de la integración IoT, incorpora el snapshot inmutable del contexto del sensor, la colección de acciones de relé y las invariantes adicionales para servicios de instalación de dispositivos.
+
+**Identidad:** `ServiceExecutionId` — identificador tipado con prefijo semántico `exec-{Guid}`.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `Id` | `ServiceExecutionId` | Identificador único de la ejecución |
+| `AssignmentId` | `AssignmentId` | Identificador de la asignación proveniente de Planning BC; actúa como identificador del servicio en este BC |
+| `RequestId` | `RequestId` | Referencia a la solicitud original en Planning BC |
+| `TechnicianId` | `TechnicianId` | Referencia cruzada al técnico asignado en Profiles BC |
+| `ClientId` | `ClientId` | Referencia cruzada al cliente (propietario individual o empresa) en Profiles BC |
+| `PropertyId` | `PropertyId` | Referencia cruzada a la propiedad donde se ejecuta el servicio |
+| `RecipeSnapshot` | `RecipeSnapshot` | Copia inmutable del ServiceRecipe al momento de la asignación |
+| `ServiceType` | `EServiceType` | Tipo de servicio: `Standard` o `IotDeviceInstallation` |
+| `IoTContextSnapshot` | `IoTContextSnapshot?` | Snapshot inmutable del contexto del sensor capturado en Planning BC; nunca se reconsulta durante la ejecución |
+| `DeviceId` | `DeviceId?` | Identificador del dispositivo IoT (nullable; presente solo cuando la propiedad tiene un dispositivo asignado) |
+| `RequiresIoTCertifiedTechnician` | `bool` | Indica si el servicio requiere técnico certificado en IoT |
+| `ScheduledAt` | `DateTime` | Fecha y hora acordada para la ejecución del servicio |
+| `StartedAt` | `DateTime?` | Momento en que el técnico inició el servicio en campo |
+| `CompletedAt` | `DateTime?` | Momento de compleción del servicio |
+| `CancelledAt` | `DateTime?` | Momento de cancelación (si aplica) |
+| `IsPriority` | `bool` | Indica si el servicio fue marcado como prioritario |
+| `Status` | `EExecutionStatus` | Estado del ciclo de vida: `Scheduled`, `InProgress`, `Completed`, `Cancelled` |
+| `TechnicalReportContent` | `string?` | Contenido principal del reporte técnico |
+| `TechnicalReportFindings` | `string?` | Hallazgos registrados por el técnico |
+| `TechnicalReportRecommendations` | `string?` | Recomendaciones del técnico post-servicio |
+| `TechnicalReportIotFindings` | `string?` | Hallazgos específicos del contexto IoT (opcional; solo en servicios IoT) |
+| `TechnicalReportVersion` | `int` | Versión del reporte (se incrementa en cada actualización) |
+| `NoShowDetectedAt` | `DateTime?` | Momento en que el sistema detectó la no presentación del técnico |
+| `WaitExtendedUntil` | `DateTime?` | Nueva fecha límite de espera tras extensión solicitada por el cliente |
+| `EvaluationWindowExpiresAt` | `DateTime?` | Fecha de vencimiento de la ventana de evaluación mutua (7 días post-compleción) |
+| `EvaluationWindowExpired` | `bool` | Indica si la ventana de evaluación ha caducado |
+
+**Colecciones:**
+
+| Colección | Tipo de elemento | Descripción |
+|---|---|---|
+| `Photos` | `WorkPhoto` | Fotografías del trabajo (tipo: `Before`, `During`, `After`) |
+| `ComponentsUsed` | `ComponentUsageRecord` | Componentes efectivamente utilizados durante el servicio |
+| `RelayActions` | `RelayActionRecord` | Historial de comandos de relé emitidos durante la ejecución (IoT) |
+| `Evaluations` | `ServiceEvaluation` | Evaluaciones mutuas post-servicio (cliente → técnico, técnico → cliente) |
+
+**Métodos de dominio:**
+
+| Método | Pre-condición | Efecto principal | Evento publicado |
+|---|---|---|---|
+| `Create(command)` | — | Inicializa el aggregate en estado `Scheduled` | `ServiceExecutionCreatedEvent` |
+| `Start(technicianId, startedAt)` | `Status == Scheduled` + propiedad del técnico | Transiciona a `InProgress` | `ServiceExecutionStartedEvent` |
+| `UploadWorkPhoto(...)` | `Status == InProgress` + propiedad del técnico | Agrega `WorkPhoto` a la colección | `WorkPhotoUploadedEvent` |
+| `RecordComponentsUsed(...)` | `Status == InProgress` + propiedad del técnico | Reemplaza la colección de componentes usados | `ComponentsActuallyUsedRecordedEvent` |
+| `UpdateTechnicalReport(...)` | `Status == InProgress` + propiedad del técnico | Actualiza el reporte e incrementa la versión | `TechnicalReportUpdatedEvent` |
+| `RequestCircuitToggle(...)` | `Status == InProgress` + propiedad del técnico + `DeviceId != null` | Crea un `RelayActionRecord` en estado `Pending` | `CircuitToggleRequestedEvent` |
+| `RecordCircuitToggle(...)` | Existe `RelayActionRecord` en estado `Pending` para el dispositivo | Confirma el estado del relé (`Executed` o `Failed`) | `CircuitToggleRecordedEvent` |
+| `Complete(technicianId, completedAt)` | `Status == InProgress` + ≥1 foto + reporte no vacío + ≥1 componente; si es instalación IoT: requiere foto de tipo `After` | Transiciona a `Completed` | `ServiceCompletedEvent` |
+| `Cancel(actorId, cancelledBy, reason, notes, requestReassignment)` | `Status != Completed && Status != Cancelled` | Transiciona a `Cancelled` | `ServiceExecutionCancelledEvent` |
+| `OpenEvaluationWindow()` | `Status == Completed` | Establece `EvaluationWindowExpiresAt = now + 7 días` | `EvaluationWindowOpenedEvent` |
+| `SubmitClientReview(...)` | `Status == Completed` + ventana abierta + propiedad del cliente + sin evaluación previa del mismo rol | Agrega `ServiceEvaluation` con rol `Client` | `ClientReviewSubmittedEvent` |
+| `SubmitTechnicianReview(...)` | `Status == Completed` + ventana abierta + propiedad del técnico + sin evaluación previa del mismo rol | Agrega `ServiceEvaluation` con rol `Technician` | `TechnicianReviewSubmittedEvent` |
+| `ExpireEvaluationWindow()` | `EvaluationWindowExpired == false` | Marca la ventana como expirada | `EvaluationWindowExpiredEvent` |
+| `RecordNoShow(detectedAt, minutesLate)` | `Status == Scheduled` | Registra la no presentación del técnico | `TechnicianNoShowDetectedEvent` |
+| `ExtendWaitTime(clientId, extendMinutes, requestedAt)` | `Status == Scheduled` + propiedad del cliente | Extiende el plazo de espera | `ServiceWaitTimeExtendedEvent` |
+| `AlertActiveAnomaly(anomalyId, anomalyType, severity, detectedAt)` | — | Emite alerta sin modificar el estado de la ejecución | `ActiveServiceAnomalyAlertedEvent` |
+
+**Invariantes privadas:** `EnsureStatus(expected)`, `EnsureTechnicianOwnership(technicianId)`, `EnsureClientOwnership(clientId)`, `EnsureEvaluationWindowOpen()`.
+
+---
+
+#### `ServiceCancellationRequest` (Aggregate Auxiliar)
+
+Registra la solicitud formal de cancelación de un servicio. Garantiza que la solicitud de reasignación solo pueda ser efectuada por el cliente, nunca por el técnico.
+
+**Identidad:** `CancellationRequestId` — prefijo semántico `cxreq-{Guid}`.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `Id` | `CancellationRequestId` | Identificador único de la solicitud de cancelación |
+| `ExecutionId` | `ServiceExecutionId` | Referencia a la ejecución cancelada |
+| `AssignmentId` | `AssignmentId` | Referencia a la asignación origen |
+| `RequestedBy` | `ECancelledBy` | Actor que solicitó la cancelación: `Client` o `Technician` |
+| `Reason` | `ECancellationReason` | Motivo de cancelación |
+| `Notes` | `string?` | Notas adicionales opcionales del solicitante |
+| `ReassignRequested` | `bool` | Solicitud de reasignación; siempre `false` cuando `RequestedBy == Technician` |
+| `RequestedAt` | `DateTime` | Marca temporal de la solicitud |
+
+---
+
+### Entities
+
+#### `WorkPhoto`
+
+Representa una fotografía tomada durante la ejecución del servicio. Los tipos permitidos (`Before`, `During`, `After`) permiten documentar el estado previo, el proceso y el resultado del trabajo.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `Id` | `WorkPhotoId` | Identificador único con prefijo `photo-{Guid}` |
+| `ExecutionId` | `ServiceExecutionId` | Referencia al aggregate padre |
+| `PhotoType` | `EPhotoType` | Tipo de fotografía: `Before`, `During` o `After` |
+| `PhotoUrl` | `string` | URL de la fotografía almacenada (no puede ser vacía) |
+| `TakenAt` | `DateTime` | Momento en que fue tomada la fotografía |
+| `Notes` | `string?` | Notas descriptivas opcionales |
+
+---
+
+#### `ComponentUsageRecord`
+
+Registra el consumo real de un tipo de componente durante el servicio. Permite detectar desviaciones (`Delta`) respecto a la reserva inicial definida en el `RecipeSnapshot`.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `Id` | `ComponentUsageId` | Identificador único con prefijo `cusage-{Guid}` |
+| `ExecutionId` | `ServiceExecutionId` | Referencia al aggregate padre |
+| `ComponentTypeId` | `string` | Identificador del tipo de componente en Assets BC |
+| `ComponentTypeName` | `string` | Nombre descriptivo del tipo de componente |
+| `QuantityUsed` | `int` | Cantidad efectivamente utilizada en el servicio |
+| `QuantityReserved` | `int` | Cantidad reservada originalmente según el recipe |
+| `Delta` _(computado)_ | `int` | Diferencia `QuantityUsed - QuantityReserved`; no se persiste |
+
+---
+
+#### `RelayActionRecord`
+
+Registra cada comando de corte o restauración de circuito emitido durante una ejecución activa. Su estado transiciona de `Pending` a `Executed` o `Failed` de forma asincrónica, al recibir el evento `RelayCommandExecuted` desde el Bounded Context de IoT Monitoring.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `Id` | `RelayActionId` | Identificador único con prefijo `relay-{Guid}` |
+| `ExecutionId` | `ServiceExecutionId` | Referencia al aggregate padre |
+| `DeviceId` | `DeviceId` | Identificador del dispositivo IoT sobre el que se emitió el comando |
+| `RequestedRelayState` | `ERelayState` | Estado de relé solicitado: `On` (restaurar) u `Off` (cortar) |
+| `Status` | `ERelayActionStatus` | Estado del comando: `Pending`, `Executed` o `Failed` |
+| `Reason` | `string` | Justificación técnica del comando (obligatoria; no puede ser vacía) |
+| `RequestedAt` | `DateTime` | Momento en que el técnico emitió el comando |
+| `ExecutedAt` | `DateTime?` | Momento de confirmación de ejecución por el dispositivo (nullable) |
+
+**Método:** `Confirm(confirmedStatus, executedAt)` — solo ejecutable desde estado `Pending`.
+
+---
+
+#### `ServiceEvaluation`
+
+Representa la evaluación unidireccional de una parte hacia la otra al término de un servicio. El índice único `(execution_id, reviewer_role)` en base de datos garantiza la invariante de una sola evaluación por rol por ejecución.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `Id` | `EvaluationId` | Identificador único con prefijo `eval-{Guid}` |
+| `ExecutionId` | `ServiceExecutionId` | Referencia al aggregate padre |
+| `ReviewerId` | `string` | Identificador del evaluador |
+| `ReviewedId` | `string` | Identificador del evaluado |
+| `ReviewerRole` | `string` | Rol del evaluador: `"Client"` o `"Technician"` |
+| `Rating` | `int` | Calificación numérica entre 1 y 5 |
+| `Comment` | `string?` | Comentario cualitativo opcional |
+| `CategoriesJson` | `string` | Calificaciones por categoría serializadas en formato JSONB |
+| `SubmittedAt` | `DateTime` | Marca temporal del envío de la evaluación |
+
+---
+
+### Value Objects
+
+| Value Object | Prefijo / Descripción |
+|---|---|
+| `ServiceExecutionId` | `exec-{Guid}` — ID propio del BC |
+| `WorkPhotoId` | `photo-{Guid}` |
+| `ComponentUsageId` | `cusage-{Guid}` |
+| `RelayActionId` | `relay-{Guid}` |
+| `EvaluationId` | `eval-{Guid}` |
+| `CancellationRequestId` | `cxreq-{Guid}` |
+| `AssignmentId` | Referencia cruzada a Planning BC |
+| `TechnicianId` | Referencia cruzada a Profiles BC |
+| `ClientId` | Referencia cruzada a Profiles BC (propietario individual o empresa) |
+| `PropertyId` | Referencia cruzada a Assets BC |
+| `RequestId` | Referencia cruzada a Planning BC |
+| `DeviceId` | Referencia cruzada a Assets BC (IoTDevice) |
+| `RecipeSnapshot` | Owned Value Object: copia inmutable del ServiceRecipe al momento de la asignación (persistido con campos aplanados + JSONB para los componentes) |
+| `IoTContextSnapshot` | Owned Value Object: snapshot inmutable del contexto del sensor (campos aplanados: `iot_device_id`, `iot_device_status`, `iot_stream_status` + payload completo en `iot_snapshot_json` JSONB) |
+| `EExecutionStatus` | Enumeración: `Scheduled`, `InProgress`, `Completed`, `Cancelled` |
+| `EPhotoType` | Enumeración: `Before`, `During`, `After` |
+| `ECancellationReason` | Enumeración de motivos de cancelación |
+| `ECancelledBy` | Enumeración: `Client`, `Technician` |
+| `EEvaluationCategory` | Enumeración de categorías de evaluación |
+| `EServiceType` | Enumeración: `Standard`, `IotDeviceInstallation` |
+| `ERelayState` | Enumeración: `On`, `Off` |
+| `ERelayActionStatus` | Enumeración: `Pending`, `Executed`, `Failed` |
+
+Todos los Value Objects de identidad propia utilizan el tipo `record` de C# con constructor privado y factory method estático (`From` o `NewId`).
+
+---
+
+### Domain Services (Interfaces)
+
+El Bounded Context define dos interfaces de servicio de dominio que actúan como contratos para la capa de aplicación.
+
+#### `IServiceExecutionCommandService`
+
+Define las operaciones que producen cambios de estado sobre el aggregate `ServiceExecution` mediante comandos del dominio.
+
+| Método | Comando asociado | Descripción |
+|---|---|---|
+| `Handle(CreateServiceExecutionCommand)` | `CreateServiceExecutionCommand` | Crea una nueva ejecución de servicio |
+| `Handle(StartServiceExecutionCommand)` | `StartServiceExecutionCommand` | Inicia el servicio en campo |
+| `Handle(UploadWorkPhotoCommand)` | `UploadWorkPhotoCommand` | Registra una fotografía del trabajo |
+| `Handle(RecordComponentsUsedCommand)` | `RecordComponentsUsedCommand` | Registra los componentes efectivamente utilizados |
+| `Handle(UpdateTechnicalReportCommand)` | `UpdateTechnicalReportCommand` | Actualiza el reporte técnico |
+| `Handle(CompleteServiceExecutionCommand)` | `CompleteServiceExecutionCommand` | Marca el servicio como completado |
+| `Handle(RemotelyToggleCircuitCommand)` | `RemotelyToggleCircuitCommand` | Solicita el corte o restauración del circuito vía relé IoT |
+| `Handle(RecordCircuitToggleCommand)` | `RecordCircuitToggleCommand` | Confirma la ejecución del comando de relé recibida desde IoT Monitoring BC |
+| `Handle(CancelServiceExecutionCommand)` | `CancelServiceExecutionCommand` | Cancela el servicio |
+| `Handle(ExtendServiceWaitTimeCommand)` | `ExtendServiceWaitTimeCommand` | Extiende el tiempo de espera del cliente |
+| `Handle(SubmitClientReviewCommand)` | `SubmitClientReviewCommand` | Registra la evaluación del cliente hacia el técnico |
+| `Handle(SubmitTechnicianReviewCommand)` | `SubmitTechnicianReviewCommand` | Registra la evaluación del técnico hacia el cliente |
+
+#### `IServiceExecutionQueryService`
+
+Define las operaciones de consulta sobre el aggregate sin producir cambios de estado.
+
+| Método | Consulta asociada | Descripción |
+|---|---|---|
+| `Handle(GetServiceExecutionByIdQuery)` | `GetServiceExecutionByIdQuery` | Obtiene una ejecución por su identificador |
+| `Handle(GetAssignedServicesByTechnicianQuery)` | `GetAssignedServicesByTechnicianQuery` | Retorna los servicios activos asignados a un técnico |
+| `Handle(GetActiveServiceByClientQuery)` | `GetActiveServiceByClientQuery` | Retorna el servicio activo de un cliente |
+| `Handle(GetServiceHistoryByClientQuery)` | `GetServiceHistoryByClientQuery` | Retorna el historial de servicios de un cliente |
+| `Handle(GetServiceHistoryByTechnicianQuery)` | `GetServiceHistoryByTechnicianQuery` | Retorna el historial de servicios de un técnico |
+
+---
+
+### Contrato de Repositorio
+
+#### `IServiceExecutionRepository`
+
+Extiende `IBaseRepository<ServiceExecution, string>` con métodos de consulta específicos del dominio.
+
+| Método | Descripción |
+|---|---|
+| `FindByIdAsync(executionId)` | Carga el aggregate completo incluyendo sus colecciones (fotos, componentes, acciones de relé, evaluaciones) |
+| `FindByAssignmentIdAsync(assignmentId)` | Busca por identificador de asignación (utilizado para idempotencia en la creación) |
+| `FindByTechnicianIdAsync(technicianId)` | Retorna los servicios activos (`Scheduled` o `InProgress`) de un técnico |
+| `FindActiveByClientIdAsync(clientId)` | Retorna el servicio activo de un cliente |
+| `FindHistoryByClientIdAsync(clientId)` | Retorna el historial completado o cancelado de un cliente |
+| `FindHistoryByTechnicianIdAsync(technicianId)` | Retorna el historial completado o cancelado de un técnico |
+| `FindScheduledPastDeadlineAsync(threshold)` | Utilizado por el proceso en segundo plano para detectar no presentaciones |
+| `FindCompletedWithExpiredWindowAsync(now)` | Utilizado por el proceso en segundo plano para vencer ventanas de evaluación |
+| `FindActiveByPropertyIdAsync(propertyId)` | Busca servicios activos en una propiedad; utilizado al recibir alertas de anomalía IoT |
+
+---
+
 #### 4.2.5.2. Interface Layer.
+
+La capa de interfaces expone las capacidades del Bounded Context hacia el exterior mediante endpoints REST. Los recursos actúan como objetos de transferencia de datos tipados; los ensambladores encapsulan la transformación entre recursos y entidades de dominio.
+
+### Resources
+
+#### Resources de Entrada (Comandos)
+
+**`CreateServiceExecutionResource`**
+
+Representa los datos necesarios para registrar una nueva ejecución de servicio. Es invocado internamente a través de la facade ACL, no directamente por clientes externos.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `AssignmentId` | `string` | Identificador de la asignación proveniente de Planning BC |
+| `RequestId` | `string` | Identificador de la solicitud original |
+| `TechnicianId` | `string` | Identificador del técnico asignado |
+| `ClientId` | `string` | Identificador del cliente (propietario o empresa) |
+| `PropertyId` | `string` | Identificador de la propiedad |
+| `ServiceType` | `string` | Tipo de servicio: `"Standard"` o `"IotDeviceInstallation"` |
+| `RequiresIoTCertifiedTechnician` | `bool` | Indica si se requiere técnico certificado IoT |
+| `DeviceId` | `string?` | Identificador del dispositivo IoT (nullable) |
+| `IoTContextSnapshot` | `IoTContextSnapshotDto?` | Snapshot del contexto del sensor al momento de la confirmación (nullable) |
+| `RecipeSnapshot` | `RecipeSnapshotDto` | Copia inmutable del recipe del servicio |
+| `ScheduledDateTime` | `DateTime` | Fecha y hora acordada para la ejecución |
+| `IsPriority` | `bool` | Indica si el servicio es prioritario |
+
+**`StartServiceExecutionResource`**
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `StartedAt` | `DateTime` | Marca temporal del inicio en campo |
+
+**`UploadWorkPhotoResource`**
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `PhotoType` | `string` | Tipo de fotografía: `"Before"`, `"During"` o `"After"` |
+| `PhotoUrl` | `string` | URL de la imagen almacenada |
+| `TakenAt` | `DateTime` | Momento de captura de la fotografía |
+| `Notes` | `string?` | Notas descriptivas opcionales |
+
+**`RecordComponentsUsedResource`**
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `ComponentsUsed` | `IReadOnlyList<ComponentUsageItemResource>` | Lista de componentes utilizados con sus cantidades |
+| `RecordedAt` | `DateTime` | Marca temporal del registro |
+
+**`UpdateTechnicalReportResource`**
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `ReportContent` | `string` | Contenido principal del reporte |
+| `Findings` | `string` | Hallazgos técnicos identificados |
+| `Recommendations` | `string` | Recomendaciones del técnico |
+| `IotFindings` | `string?` | Hallazgos específicos del contexto IoT (opcional) |
+| `UpdatedAt` | `DateTime` | Marca temporal de la actualización |
+
+**`RemotelyToggleCircuitResource`**
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `RelayState` | `string` | Estado solicitado del relé: `"On"` (restaurar) o `"Off"` (cortar) |
+| `Reason` | `string` | Justificación técnica obligatoria del comando |
+| `RequestedAt` | `DateTime` | Marca temporal de la solicitud |
+
+**`CancelServiceExecutionResource`**
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `CancelledBy` | `string` | Actor que cancela: `"Client"` o `"Technician"` |
+| `Reason` | `string` | Motivo de cancelación |
+| `Notes` | `string?` | Notas adicionales opcionales |
+| `RequestReassignment` | `bool` | Solicitud de reasignación (solo válida para el cliente) |
+
+**`ExtendWaitTimeResource`**
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `ExtendMinutes` | `int` | Minutos adicionales de espera solicitados |
+
+**`SubmitReviewResource`**
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `Rating` | `int` | Calificación entre 1 y 5 |
+| `Comment` | `string?` | Comentario cualitativo opcional |
+| `Categories` | `Dictionary<string, int>` | Calificaciones por categoría |
+
+---
+
+#### Resources de Salida (Consultas)
+
+**`ServiceExecutionResource`**
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `ExecutionId` | `string` | Identificador de la ejecución |
+| `AssignmentId` | `string` | Identificador de la asignación |
+| `TechnicianId` | `string` | Identificador del técnico |
+| `ClientId` | `string` | Identificador del cliente |
+| `PropertyId` | `string` | Identificador de la propiedad |
+| `Status` | `string` | Estado actual de la ejecución |
+| `ServiceType` | `string` | Tipo de servicio |
+| `RequiresIoTCertifiedTechnician` | `bool` | Indicador de certificación IoT requerida |
+| `DeviceId` | `string?` | Identificador del dispositivo IoT (nullable) |
+| `HasIoTContext` | `bool` | Indica si existe un snapshot IoT asociado |
+| `ScheduledAt` | `DateTime` | Fecha y hora programada |
+| `StartedAt` | `DateTime?` | Momento de inicio |
+| `CompletedAt` | `DateTime?` | Momento de compleción |
+| `ServiceName` | `string` | Nombre del servicio según el recipe |
+| `ServiceCategory` | `string` | Categoría del servicio |
+| `TotalPrice` | `decimal` | Precio total del servicio |
+| `EstimatedDuration` | `int` | Duración estimada en minutos |
+| `IsPriority` | `bool` | Indicador de prioridad |
+| `WorkLog` | `WorkLogSummaryResource` | Resumen del registro de trabajo |
+
+**`IoTContextResource`**
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `ExecutionId` | `string` | Identificador de la ejecución |
+| `DeviceId` | `string?` | Identificador del dispositivo IoT |
+| `HasIoTDevice` | `bool` | Indica si existe un snapshot IoT |
+| `DeviceStatus` | `string?` | Estado del dispositivo al momento de la captura del snapshot |
+| `StreamStatus` | `string?` | Estado del flujo de datos del sensor |
+| `SnapshotJson` | `string?` | Payload completo del snapshot en formato JSON |
+| `CapturedAt` | `DateTime?` | Momento de captura del snapshot |
+
+**`RelayStatusResource`**
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `ExecutionId` | `string` | Identificador de la ejecución |
+| `DeviceId` | `string?` | Identificador del dispositivo IoT |
+| `TotalRelayActions` | `int` | Total de acciones de relé registradas |
+| `RelayActions` | `IReadOnlyList<RelayActionItemResource>` | Detalle de cada acción de relé |
+
+**`ActiveAnomalyResource`**
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `ExecutionId` | `string` | Identificador de la ejecución afectada |
+| `DeviceId` | `string?` | Identificador del dispositivo que generó la anomalía |
+| `AnomalyId` | `string` | Identificador de la anomalía en IoT Monitoring BC |
+| `AnomalyType` | `string` | Tipo de anomalía detectada |
+| `Severity` | `string` | Nivel de severidad: `"HIGH"` o `"CRITICAL"` |
+| `DetectedAt` | `DateTime` | Momento de detección de la anomalía |
+
+**`WorkLogResource`**
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `ExecutionId` | `string` | Identificador de la ejecución |
+| `Photos` | `IReadOnlyList<PhotoResource>` | Fotografías del trabajo |
+| `ReportContent` | `string?` | Contenido principal del reporte |
+| `Findings` | `string?` | Hallazgos técnicos |
+| `Recommendations` | `string?` | Recomendaciones |
+| `IotFindings` | `string?` | Hallazgos IoT (opcional) |
+| `ReportVersion` | `int` | Versión del reporte |
+| `Components` | `IReadOnlyList<ComponentUsageResource>` | Componentes utilizados |
+| `RelayActions` | `IReadOnlyList<RelayActionItemResource>` | Historial de acciones de relé |
+
+---
+
+### Assemblers
+
+| Clase | Método | Descripción |
+|---|---|---|
+| `ServiceExecutionResourceFromEntityAssembler` | `ToResourceFromEntity(execution)` | Transforma un `ServiceExecution` en `ServiceExecutionResource` |
+| `ServiceExecutionResourceFromEntityAssembler` | `ToWorkLogResourceFromEntity(execution)` | Transforma el worklog de un `ServiceExecution` en `WorkLogResource` |
+| `ServiceExecutionResourceFromEntityAssembler` | `ToIoTContextResourceFromEntity(execution)` | Proyecta el `IoTContextSnapshot` del aggregate en `IoTContextResource` |
+| `ServiceExecutionResourceFromEntityAssembler` | `ToRelayStatusResourceFromEntity(execution)` | Proyecta la colección de `RelayActions` en `RelayStatusResource` |
+| `CreateServiceExecutionCommandFromResourceAssembler` | `ToCommandFromResource(resource)` | Transforma `CreateServiceExecutionResource` en `CreateServiceExecutionCommand` |
+| `WorkLogResourceFromEntityAssembler` | `ToResourceFromEntity(execution)` | Ensamblador auxiliar para el worklog detallado |
+| `IoTContextResourceFromEntityAssembler` | `ToResourceFromEntity(execution)` | Ensamblador auxiliar para el contexto IoT |
+
+---
+
+### Controllers
+
+#### `ServiceExecutionsController`
+
+Controlador principal del Bounded Context. Gestiona las operaciones CRUD del ciclo de vida de las ejecuciones de servicio.
+
+**Ruta base:** `api/v1/service-executions`
+
+| Método HTTP | Ruta | Descripción | Respuesta exitosa |
+|---|---|---|---|
+| `GET` | `/{executionId}` | Recupera el detalle de una ejecución por su identificador | `200 OK` + `ServiceExecutionResource` |
+| `GET` | `/by-assignment/{assignmentId}` | Recupera una ejecución por el identificador de asignación | `200 OK` + `ServiceExecutionResource` |
+| `GET` | `/technician/{technicianId}` | Lista los servicios activos de un técnico | `200 OK` + `IEnumerable<ServiceExecutionResource>` |
+| `GET` | `/client/{clientId}/active` | Recupera el servicio activo del cliente | `200 OK` + `ServiceExecutionResource` |
+| `GET` | `/client/{clientId}/history` | Lista el historial de servicios de un cliente | `200 OK` + `IEnumerable<ServiceExecutionResource>` |
+| `GET` | `/technician/{technicianId}/history` | Lista el historial de servicios de un técnico | `200 OK` + `IEnumerable<ServiceExecutionResource>` |
+| `GET` | `/{executionId}/work-log` | Recupera el registro de trabajo detallado | `200 OK` + `WorkLogResource` |
+| `GET` | `/{executionId}/no-show-alert` | Recupera la alerta de no presentación | `200 OK` + `NoShowAlertResource` |
+
+#### `ServiceExecutionActionsController`
+
+Gestiona las transiciones de estado del aggregate y las operaciones de registro del trabajo.
+
+**Ruta base:** `api/v1/service-executions/{executionId}`
+
+| Método HTTP | Ruta | Descripción | Respuesta exitosa |
+|---|---|---|---|
+| `POST` | `/start` | Inicia el servicio en campo (técnico) | `200 OK` + `ServiceExecutionResource` |
+| `POST` | `/photos` | Carga una fotografía del trabajo | `200 OK` + `ServiceExecutionResource` |
+| `POST` | `/components` | Registra los componentes efectivamente utilizados | `200 OK` + `ServiceExecutionResource` |
+| `PUT` | `/technical-report` | Actualiza el reporte técnico | `200 OK` + `ServiceExecutionResource` |
+| `POST` | `/complete` | Completa el servicio (técnico) | `200 OK` + `ServiceExecutionResource` |
+| `POST` | `/cancel` | Cancela el servicio (cliente o técnico) | `200 OK` + `ServiceExecutionResource` |
+| `POST` | `/extend-wait` | Extiende el tiempo de espera (cliente) | `200 OK` + `ServiceExecutionResource` |
+| `POST` | `/reviews/client` | Registra la evaluación del cliente | `204 No Content` |
+| `POST` | `/reviews/technician` | Registra la evaluación del técnico | `204 No Content` |
+
+#### `ServiceExecutionIoTController`
+
+Controlador dedicado a las capacidades IoT del Bounded Context. Agrupa los endpoints de consulta del contexto del sensor, control remoto del relé y consulta de alertas de anomalías activas.
+
+**Ruta base:** `api/v1/service-executions/{executionId}`
+
+| Método HTTP | Ruta | Descripción | Respuesta exitosa |
+|---|---|---|---|
+| `GET` | `/iot-context` | Retorna el snapshot IoT inmutable para consulta pre-campo del técnico | `200 OK` + `IoTContextResource` |
+| `GET` | `/relay-status` | Retorna el historial de comandos de relé de la ejecución | `200 OK` + `RelayStatusResource` |
+| `POST` | `/relay/toggle` | Solicita el corte o restauración del circuito (técnico en servicio activo) | `200 OK` + `RelayStatusResource` |
+
+---
+
 #### 4.2.5.3. Application Layer.
+
+La capa de aplicación orquesta los casos de uso coordinando la carga del estado desde el repositorio, la invocación de métodos de dominio, la persistencia mediante la unidad de trabajo y la publicación de eventos de dominio vía `IMediator`.
+
+### Command Services
+
+#### `ServiceExecutionCommandService`
+
+Implementa `IServiceExecutionCommandService`. Es el único punto de escritura del Bounded Context. Cada manejador sigue el mismo patrón: cargar el aggregate, invocar el método de dominio correspondiente, persistir mediante `IUnitOfWork` y publicar los eventos de dominio a través de `IMediator`.
+
+| Operación | Descripción |
+|---|---|
+| `Handle(CreateServiceExecutionCommand)` | Verifica idempotencia por `AssignmentId`, instancia el aggregate y lo persiste |
+| `Handle(StartServiceExecutionCommand)` | Carga el aggregate e invoca `Start()`; verifica propiedad del técnico y estado previo |
+| `Handle(UploadWorkPhotoCommand)` | Invoca `UploadWorkPhoto()` sobre el aggregate cargado |
+| `Handle(RecordComponentsUsedCommand)` | Invoca `RecordComponentsUsed()` sobre el aggregate cargado |
+| `Handle(UpdateTechnicalReportCommand)` | Invoca `UpdateTechnicalReport()` e incrementa la versión del reporte |
+| `Handle(CompleteServiceExecutionCommand)` | Invoca `Complete()` y orquesta las invariantes de compleción |
+| `Handle(RemotelyToggleCircuitCommand)` | Verifica que `DeviceId` no sea nulo e invoca `RequestCircuitToggle()` |
+| `Handle(RecordCircuitToggleCommand)` | Busca el `RelayActionRecord` pendiente e invoca `RecordCircuitToggle()` para confirmar el estado |
+| `Handle(CancelServiceExecutionCommand)` | Invoca `Cancel()` y crea un `ServiceCancellationRequest` como registro auxiliar |
+| `Handle(ExtendServiceWaitTimeCommand)` | Invoca `ExtendWaitTime()` sobre el aggregate cargado |
+| `Handle(SubmitClientReviewCommand)` | Invoca `SubmitClientReview()` con las verificaciones de ventana y propiedad |
+| `Handle(SubmitTechnicianReviewCommand)` | Invoca `SubmitTechnicianReview()` con las verificaciones de ventana y propiedad |
+
+---
+
+### Query Services
+
+#### `ServiceExecutionQueryService`
+
+Implementa `IServiceExecutionQueryService`. Delega directamente en el repositorio sin modificar el estado del dominio.
+
+| Operación | Delegación | Descripción |
+|---|---|---|
+| `Handle(GetServiceExecutionByIdQuery)` | `repository.FindByIdAsync()` | Recupera el aggregate completo con todas sus colecciones |
+| `Handle(GetAssignedServicesByTechnicianQuery)` | `repository.FindByTechnicianIdAsync()` | Lista servicios activos del técnico |
+| `Handle(GetActiveServiceByClientQuery)` | `repository.FindActiveByClientIdAsync()` | Recupera el servicio activo del cliente |
+| `Handle(GetServiceHistoryByClientQuery)` | `repository.FindHistoryByClientIdAsync()` | Lista el historial del cliente |
+| `Handle(GetServiceHistoryByTechnicianQuery)` | `repository.FindHistoryByTechnicianIdAsync()` | Lista el historial del técnico |
+
+---
+
+### Event Handlers
+
+Los event handlers implementan `INotificationHandler<TEvent>` de MediatR y encapsulan los efectos secundarios post-evento.
+
+| Clase | Evento manejado | Efectos principales |
+|---|---|---|
+| `ServiceCompletedEventHandler` | `ServiceCompletedEvent` | (1) Descuenta inventario en Assets BC; (2) Registra historial de mantenimiento; (3) Actualiza métricas en Analytics BC; (4) Si es instalación IoT: registra instalación del dispositivo en Assets BC; (5) Abre ventana de evaluación |
+| `ServiceExecutionCancelledEventHandler` | `ServiceExecutionCancelledEvent` | (1) Libera reservas en Assets BC; (2) Si es instalación IoT cancelada: verifica estado del dispositivo; (3) Si se solicita reasignación: reactiva la solicitud en Planning BC |
+| `ServiceExecutionCreatedEventHandler` | `ServiceExecutionCreatedEvent` | Registro y notificación al técnico vía Notifications BC |
+| `RelayCommandExecutedEventHandler` | `RelayCommandExecutedExternalEvent` | Confirma el estado del relé en el worklog invocando `RecordCircuitToggleCommand` |
+| `AnomalyDetectedEventHandler` | `AnomalyDetectedExternalEvent` | Busca servicio activo en la propiedad afectada; si existe, invoca `AlertActiveAnomaly()` |
+| `ClientReviewSubmittedEventHandler` | `ClientReviewSubmittedEvent` | Publica métricas de evaluación hacia Analytics BC |
+| `TechnicianReviewSubmittedEventHandler` | `TechnicianReviewSubmittedEvent` | Publica métricas de evaluación hacia Analytics BC |
+
+Cada efecto en `ServiceCompletedEventHandler` se ejecuta en un bloque `try/catch` independiente, garantizando que el fallo de un efecto no bloquee la ejecución de los restantes.
+
+---
+
+### Outbound Services
+
+| Clase | Facade invocada | Responsabilidad |
+|---|---|---|
+| `ExternalAssetsService` | `IAssetsContextFacade` | Libera reservas, descuenta inventario, registra mantenimiento y registra instalación de dispositivos IoT |
+| `ExternalMonitoringService` | `IServiceDesignContextFacade` | Reactiva solicitudes de servicio para reasignación en Planning BC |
+| `ExternalAnalyticsService` | `IAnalyticsContextFacade` | Publica eventos de compleción y evaluación para actualizar métricas |
+| `ExternalIoTService` | `IIoTMonitoringContextFacade` | Solicita la ejecución del comando de relé sobre el hardware al Bounded Context de IoT Monitoring |
+
+---
+
+## 4.2.X.4. Infrastructure Layer
+
+La capa de infraestructura proporciona las implementaciones concretas de los repositorios y la configuración de mapeo objeto-relacional mediante Entity Framework Core.
+
+### Implementación del Repositorio
+
+#### `ServiceExecutionRepository`
+
+Extiende `BaseRepository<ServiceExecution, string>` e implementa `IServiceExecutionRepository`. Utiliza el `AppDbContext` compartido del monolito modular.
+
+| Clase | Interfaz implementada | Descripción |
+|---|---|---|
+| `ServiceExecutionRepository` | `IServiceExecutionRepository` | Implementa todos los métodos de consulta y persistencia del aggregate `ServiceExecution`, incluyendo la carga explícita de las colecciones `Photos`, `ComponentsUsed`, `RelayActions` y `Evaluations` mediante `Include()` |
+
+Las consultas de solo lectura utilizan `AsNoTracking()` para optimizar el rendimiento. Las consultas de escritura cargan el aggregate con todas sus colecciones para permitir que EF Core rastree los cambios sobre las entidades hijo.
+
+---
+
+### Configuraciones de Persistencia (EF Core)
+
+Las configuraciones implementan `IEntityTypeConfiguration<T>` y se registran en `ModelBuilderExtensions`.
+
+| Clase de configuración | Entidad configurada | Aspectos clave |
+|---|---|---|
+| `ServiceExecutionConfiguration` | `ServiceExecution` | Tabla `som_service_executions`; columnas IoT (`iot_device_id`, `iot_device_status`, `iot_stream_status`, `iot_snapshot_json` JSONB, `iot_snapshot_captured_at`); columnas del `RecipeSnapshot` aplanadas + `recipe_components_json` JSONB; conversión de `ServiceExecutionId` a `string`; índice `UNIQUE` sobre `assignment_id` para idempotencia; índice sobre `device_id` para consultas IoT |
+| `WorkPhotoConfiguration` | `WorkPhoto` | Tabla `som_work_photos`; relación de composición con `ServiceExecution`; conversión de `WorkPhotoId` a `string` |
+| `ComponentUsageRecordConfiguration` | `ComponentUsageRecord` | Tabla `som_component_usage_records`; relación de composición con `ServiceExecution`; propiedad `Delta` ignorada (computada en memoria) |
+| `RelayActionRecordConfiguration` | `RelayActionRecord` | Tabla `som_relay_action_records`; relación de composición con `ServiceExecution`; conversión de `RelayActionId` a `string`; índice sobre `device_id` |
+| `ServiceEvaluationConfiguration` | `ServiceEvaluation` | Tabla `som_service_evaluations`; índice `UNIQUE` compuesto sobre `(execution_id, reviewer_role)` para garantizar a nivel de base de datos la invariante de una sola evaluación por rol por ejecución |
+
+---
+
 #### 4.2.5.4. Infrastructure Layer.
+
+La capa de infraestructura proporciona las implementaciones concretas de los repositorios y la configuración de mapeo objeto-relacional mediante Entity Framework Core.
+
+### Implementación del Repositorio
+
+#### `ServiceExecutionRepository`
+
+Extiende `BaseRepository<ServiceExecution, string>` e implementa `IServiceExecutionRepository`. Utiliza el `AppDbContext` compartido del monolito modular.
+
+| Clase | Interfaz implementada | Descripción |
+|---|---|---|
+| `ServiceExecutionRepository` | `IServiceExecutionRepository` | Implementa todos los métodos de consulta y persistencia del aggregate `ServiceExecution`, incluyendo la carga explícita de las colecciones `Photos`, `ComponentsUsed`, `RelayActions` y `Evaluations` mediante `Include()` |
+
+Las consultas de solo lectura utilizan `AsNoTracking()` para optimizar el rendimiento. Las consultas de escritura cargan el aggregate con todas sus colecciones para permitir que EF Core rastree los cambios sobre las entidades hijo.
+
+---
+
+### Configuraciones de Persistencia (EF Core)
+
+Las configuraciones implementan `IEntityTypeConfiguration<T>` y se registran en `ModelBuilderExtensions`.
+
+| Clase de configuración | Entidad configurada | Aspectos clave |
+|---|---|---|
+| `ServiceExecutionConfiguration` | `ServiceExecution` | Tabla `som_service_executions`; columnas IoT (`iot_device_id`, `iot_device_status`, `iot_stream_status`, `iot_snapshot_json` JSONB, `iot_snapshot_captured_at`); columnas del `RecipeSnapshot` aplanadas + `recipe_components_json` JSONB; conversión de `ServiceExecutionId` a `string`; índice `UNIQUE` sobre `assignment_id` para idempotencia; índice sobre `device_id` para consultas IoT |
+| `WorkPhotoConfiguration` | `WorkPhoto` | Tabla `som_work_photos`; relación de composición con `ServiceExecution`; conversión de `WorkPhotoId` a `string` |
+| `ComponentUsageRecordConfiguration` | `ComponentUsageRecord` | Tabla `som_component_usage_records`; relación de composición con `ServiceExecution`; propiedad `Delta` ignorada (computada en memoria) |
+| `RelayActionRecordConfiguration` | `RelayActionRecord` | Tabla `som_relay_action_records`; relación de composición con `ServiceExecution`; conversión de `RelayActionId` a `string`; índice sobre `device_id` |
+| `ServiceEvaluationConfiguration` | `ServiceEvaluation` | Tabla `som_service_evaluations`; índice `UNIQUE` compuesto sobre `(execution_id, reviewer_role)` para garantizar a nivel de base de datos la invariante de una sola evaluación por rol por ejecución |
+
+---
+
 #### 4.2.5.5. Bounded Context Software Architecture Component Level Diagrams.
+
+
+
 #### 4.2.5.6. Bounded Context Software Architecture Code Level Diagrams.
+
 ##### 4.2.5.6.1. Bounded Context Domain Layer Class Diagrams.
+
+En esta sección mostramos parte de la estructura de nuestra solución Electrolink enfocada en el bounded context de Service Operation & Monitoring, incluyendo datos que seran incluidos en el diagrama de clases.
+\
+```plantuml
+@startuml SOM_DomainLayer
+
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+skinparam packageStyle rectangle
+skinparam linetype ortho
+
+package "ServiceOperation.Domain.Model" {
+
+  package "Aggregates" {
+
+    class ServiceExecution <<Aggregate Root>> {
+      + Id : ServiceExecutionId
+      + AssignmentId : AssignmentId
+      + RequestId : RequestId
+      + TechnicianId : TechnicianId
+      + ClientId : ClientId
+      + PropertyId : PropertyId
+      + RecipeSnapshot : RecipeSnapshot
+      + IoTContextSnapshot : IoTContextSnapshot?
+      + DeviceId : DeviceId?
+      + ServiceType : EServiceType
+      + RequiresIoTCertifiedTechnician : bool
+      + ScheduledAt : DateTime
+      + StartedAt : DateTime?
+      + CompletedAt : DateTime?
+      + CancelledAt : DateTime?
+      + IsPriority : bool
+      + Status : EExecutionStatus
+      + TechnicalReportContent : string?
+      + TechnicalReportFindings : string?
+      + TechnicalReportRecommendations : string?
+      + TechnicalReportIotFindings : string?
+      + TechnicalReportVersion : int
+      + NoShowDetectedAt : DateTime?
+      + WaitExtendedUntil : DateTime?
+      + EvaluationWindowExpiresAt : DateTime?
+      + EvaluationWindowExpired : bool
+      --
+      + {static} Create(command) : ServiceExecution
+      + Start(technicianId, startedAt)
+      + UploadWorkPhoto(photoType, url, takenAt, notes)
+      + RecordComponentsUsed(components, recordedAt)
+      + UpdateTechnicalReport(content, findings, recs, iotFindings, updatedAt)
+      + RequestCircuitToggle(technicianId, relayState, reason, requestedAt)
+      + RecordCircuitToggle(deviceId, relayState, confirmedByDevice, executedAt)
+      + Complete(technicianId, completedAt)
+      + Cancel(actorId, cancelledBy, reason, notes, requestReassignment)
+      + OpenEvaluationWindow()
+      + SubmitClientReview(clientId, rating, comment, categories, submittedAt)
+      + SubmitTechnicianReview(technicianId, rating, comment, categories, submittedAt)
+      + ExpireEvaluationWindow()
+      + RecordNoShow(detectedAt, minutesLate)
+      + ExtendWaitTime(clientId, extendMinutes, requestedAt)
+      + AlertActiveAnomaly(anomalyId, type, severity, detectedAt)
+      -- private --
+      - EnsureStatus(expected)
+      - EnsureTechnicianOwnership(technicianId)
+      - EnsureClientOwnership(clientId)
+      - EnsureEvaluationWindowOpen()
+    }
+
+    class ServiceCancellationRequest <<Aggregate Root>> {
+      + Id : CancellationRequestId
+      + ExecutionId : ServiceExecutionId
+      + AssignmentId : AssignmentId
+      + RequestedBy : ECancelledBy
+      + Reason : ECancellationReason
+      + Notes : string?
+      + ReassignRequested : bool
+      + RequestedAt : DateTime
+      --
+      + {static} Create(...) : ServiceCancellationRequest
+    }
+  }
+}
+
+@enduml
+```
+
 ##### 4.2.5.6.2. Bounded Context Database Design Diagram.
+
+En esta sección mostramos parte de la estructura de nuestra solución Electrolink enfocado al bounded context de Service Operation & Monitoring incluyendo los datos que seran incluidos en el diagrama de diseño de base de datos.
+
+![](assets/img/cap4/som/database.png)
+\
+```plantuml
+@startuml SOM_DatabaseDesign
+
+skinparam linetype ortho
+skinparam databaseBackgroundColor #FAFAFA
+skinparam tableBorderColor #555555
+skinparam tableFontSize 11
+
+!define PK <color:#b5651d><b>PK</b></color>
+!define FK <color:#1a6b8a><b>FK</b></color>
+!define UQ <color:#5a7a00><i>UQ</i></color>
+!define IX <color:#777777><i>IX</i></color>
+
+entity "som_service_executions" as SE {
+  PK  id : VARCHAR(60)
+  --
+  UQ  assignment_id : VARCHAR(60) NOT NULL
+      request_id : VARCHAR(60) NOT NULL
+  IX  technician_id : VARCHAR(60) NOT NULL
+  IX  client_id : VARCHAR(60) NOT NULL
+  IX  property_id : VARCHAR(60) NOT NULL
+  ..
+  ' IoT fields
+  IX  device_id : VARCHAR(60) NULL
+      service_type : VARCHAR(40) NOT NULL DEFAULT 'Standard'
+      requires_iot_certified_technician : BOOLEAN NOT NULL DEFAULT FALSE
+      iot_device_id : VARCHAR(60) NULL
+      iot_device_status : VARCHAR(20) NULL
+      iot_stream_status : VARCHAR(20) NULL
+      iot_snapshot_json : JSONB NULL
+      iot_snapshot_captured_at : TIMESTAMPTZ NULL
+  ..
+  ' Recipe Snapshot (aplanado)
+      recipe_id : VARCHAR(60) NOT NULL
+      recipe_service_name : VARCHAR(200) NOT NULL
+      recipe_service_category : VARCHAR(60) NOT NULL
+      recipe_total_price : DECIMAL(10,2) NOT NULL
+      recipe_estimated_duration : INTEGER NOT NULL
+      recipe_warranty_months : INTEGER NOT NULL
+      recipe_components_json : JSONB NOT NULL
+  ..
+  ' Lifecycle
+  IX  status : VARCHAR(20) NOT NULL DEFAULT 'Scheduled'
+      scheduled_at : TIMESTAMPTZ NOT NULL
+      started_at : TIMESTAMPTZ NULL
+      completed_at : TIMESTAMPTZ NULL
+      cancelled_at : TIMESTAMPTZ NULL
+      is_priority : BOOLEAN NOT NULL DEFAULT FALSE
+  ..
+  ' Technical Report
+      report_content : TEXT NULL
+      report_findings : TEXT NULL
+      report_recommendations : TEXT NULL
+      report_iot_findings : TEXT NULL
+      report_version : INTEGER NOT NULL DEFAULT 0
+  ..
+  ' No-show / Wait Extension
+      no_show_detected_at : TIMESTAMPTZ NULL
+      wait_extended_until : TIMESTAMPTZ NULL
+  ..
+  ' Evaluation Window
+      eval_window_expires_at : TIMESTAMPTZ NULL
+      eval_window_expired : BOOLEAN NOT NULL DEFAULT FALSE
+  ..
+  ' Audit
+      created_at : TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      updated_at : TIMESTAMPTZ NULL
+}
+
+entity "som_work_photos" as WP {
+  PK  id : VARCHAR(60)
+  --
+  FK  IX  execution_id : VARCHAR(60) NOT NULL
+      photo_type : VARCHAR(20) NOT NULL
+      photo_url : VARCHAR(500) NOT NULL
+      taken_at : TIMESTAMPTZ NOT NULL
+      notes : VARCHAR(500) NULL
+}
+
+entity "som_component_usage_records" as CUR {
+  PK  id : VARCHAR(60)
+  --
+  FK  IX  execution_id : VARCHAR(60) NOT NULL
+      component_type_id : VARCHAR(60) NOT NULL
+      component_type_name : VARCHAR(200) NOT NULL
+      quantity_used : INTEGER NOT NULL
+      quantity_reserved : INTEGER NOT NULL
+}
+
+entity "som_relay_action_records" as RAR {
+  PK  id : VARCHAR(60)
+  --
+  FK  IX  execution_id : VARCHAR(60) NOT NULL
+  IX  device_id : VARCHAR(60) NOT NULL
+      requested_relay_state : VARCHAR(10) NOT NULL
+      status : VARCHAR(20) NOT NULL
+      reason : VARCHAR(500) NOT NULL
+      requested_at : TIMESTAMPTZ NOT NULL
+      executed_at : TIMESTAMPTZ NULL
+}
+
+entity "som_service_evaluations" as SEV {
+  PK  id : VARCHAR(60)
+  --
+  FK  IX  execution_id : VARCHAR(60) NOT NULL
+      reviewer_id : VARCHAR(60) NOT NULL
+      reviewed_id : VARCHAR(60) NOT NULL
+      reviewer_role : VARCHAR(20) NOT NULL
+      rating : INTEGER NOT NULL CHECK (1..5)
+      comment : VARCHAR(1000) NULL
+      categories_json : JSONB NOT NULL
+      submitted_at : TIMESTAMPTZ NOT NULL
+  ..
+  UQ  UNIQUE (execution_id, reviewer_role)
+}
+@enduml
+```
+---
 
 ### 4.2.6. Bounded Context: Subscriptions and Payment Management
 #### 4.2.6.1. Domain Layer.
+
+El Domain Layer del Bounded Context **Subscriptions & Payments** constituye el núcleo del dominio. Implementa el patrón **CQRS** (Command Query Responsibility Segregation) junto con **DDD** (Domain-Driven Design), y define las invariantes de negocio que rigen el ciclo de vida completo de las suscripciones de plataforma para los tres roles de negocio: `TECHNICIAN`, `HOMEOWNER` y `COMPANY`.
+
+---
+
+### Aggregates
+
+#### `Subscription` — Aggregate Root Principal
+
+Representa el contrato de suscripción de un usuario con ElectroLink. Gestiona el ciclo de vida completo desde el estado inicial hasta la cancelación o expiración, incluyendo el sub-ciclo empresarial de instalación IoT para el rol `COMPANY`. No procesa pagos de forma directa; delega dicha responsabilidad a Stripe y reacciona a los webhooks que este emite.
+
+**Invariantes globales:**
+- Un `userId` únicamente puede tener **una** suscripción activa de manera simultánea.
+- `stripeCustomerId` se genera en el momento de la creación y nunca puede ser nulo.
+- El Value Object `UsageCounters` es exclusivo del rol `HOMEOWNER` con plan `BASIC`; para los demás roles es nulo por contrato.
+- Los campos `activeDeviceCount`, `pricePerDevice` e `installationServiceRequestId` son exclusivos del rol `COMPANY`.
+- `billingCycle` es nulo para los planes `BASIC` y `ENTERPRISE_BASIC`, dado que no generan facturación recurrente.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `Id` | `SubscriptionId` | Identificador único del aggregate. Prefijo `sub-{GUID}`. |
+| `UserId` | `UserId` | Referencia al usuario en el BC de IAM. |
+| `BusinessRole` | `BusinessRole` | Rol de negocio: `Technician`, `Homeowner` o `Company`. |
+| `PlanType` | `PlanType` | Plan activo: `Basic`, `Premium`, `EnterpriseBasic` o `EnterprisePremium`. |
+| `Status` | `SubscriptionStatus` | Estado del ciclo de vida de la suscripción. |
+| `BillingCycle` | `BillingCycle?` | Ciclo de facturación: `Monthly` o `Annual`. Nulo para planes gratuitos. |
+| `StripeCustomerId` | `string` | Identificador del cliente en Stripe. Único e invariable. |
+| `StripeSubscriptionId` | `string?` | Identificador de la suscripción activa en Stripe. |
+| `CurrentPeriodStart` | `DateTime?` | Inicio del período de facturación vigente. |
+| `CurrentPeriodEnd` | `DateTime?` | Fin del período de facturación vigente. |
+| `CancelAtPeriodEnd` | `bool` | Indica si la cancelación está diferida al fin del período. |
+| `GracePeriodEndsAt` | `DateTime?` | Fecha límite del período de gracia (7 días) ante fallo de pago. |
+| `UsageCounters` | `UsageCounters?` | Contador de solicitudes mensuales. Exclusivo de `HOMEOWNER BASIC`. |
+| `InstallationServiceRequestId` | `string?` | Referencia a la solicitud de instalación IoT en Service Design BC. Exclusivo de `COMPANY`. |
+| `InstallationDeadlineAt` | `DateTime?` | Plazo máximo para completar la instalación IoT (30 días desde el pago). Exclusivo de `COMPANY`. |
+| `ActiveDeviceCount` | `int?` | Cantidad de dispositivos IoT activos. Exclusivo de `COMPANY`. |
+| `PricePerDevice` | `int?` | Precio unitario por dispositivo activo en centavos USD. Exclusivo de `COMPANY`. |
+| `CreatedAt` | `DateTime` | Fecha y hora de creación del registro. |
+| `UpdatedAt` | `DateTime?` | Fecha y hora de la última modificación. |
+
+| Método | Descripción |
+|---|---|
+| `Create(userId, businessRole, stripeCustomerId)` | Factory method estático. Crea la suscripción con plan `BASIC` o `ENTERPRISE_BASIC` según el rol. Emite `SubscriptionInitializedEvent`. |
+| `InitiateCheckout(billingCycle, stripeCheckoutSessionId)` | Registra el inicio de un proceso de pago individual. Emite `CheckoutInitiatedEvent`. Solo válido para planes `BASIC` de roles no empresariales. |
+| `Activate(stripeSubscriptionId, stripeInvoiceId, billingCycle, periodStart, periodEnd)` | Activa el plan `PREMIUM` tras confirmar el pago individual. Emite `SubscriptionActivatedEvent`. |
+| `InitiateEnterpriseCheckout(enterprisePlan, initialDeviceCount, pricePerDevice, billingCycle, stripeCheckoutSessionId)` | Inicia el proceso de pago empresarial IoT. Emite `EnterpriseCheckoutInitiatedEvent`. Exclusivo de `COMPANY`. |
+| `ActivateEnterprisePendingInstallation(...)` | Transiciona el estado a `PENDING_INSTALLATION` tras confirmar el pago empresarial. Emite `EnterpriseSubscriptionPendingInstallationEvent`. Establece un plazo de 30 días para la instalación. |
+| `ActivateEnterpriseFullyActive(installationServiceRequestId, confirmedAt)` | Activa el plan empresarial de forma completa tras confirmar la instalación del dispositivo IoT. Emite `EnterpriseSubscriptionFullyActiveEvent`. |
+| `RecordSuccessfulRenewal(newPeriodStart, newPeriodEnd, wasInGracePeriod)` | Registra la renovación exitosa de un plan individual. Emite `PaymentProcessedEvent`. |
+| `RecordEnterpriseRenewal(newPeriodStart, newPeriodEnd, newActiveDeviceCount, wasInGracePeriod)` | Registra la renovación empresarial actualizando el conteo de dispositivos. Emite `EnterprisePaymentProcessedEvent`. |
+| `StartGracePeriod(stripeInvoiceId)` | Inicia el período de gracia de 7 días ante fallo de pago. Idempotente. Emite `GracePeriodStartedEvent`. |
+| `Degrade(reason)` | Degrada el plan al nivel inferior correspondiente al rol. Emite `SubscriptionDegradedEvent`. |
+| `ScheduleCancellation(reason)` | Programa la cancelación voluntaria al fin del período vigente. Emite `SubscriptionCancellationScheduledEvent`. |
+| `UpdateActiveDeviceCount(newCount, source)` | Actualiza el contador de dispositivos activos. Emite `ActiveDeviceCountUpdatedEvent` y, si el conteo llega a cero, `EnterpriseSubscriptionNoDevicesRemainingEvent`. |
+| `IncrementMonthlyRequestCounter(limit)` | Incrementa el contador de solicitudes mensuales para `HOMEOWNER BASIC`. Emite `MonthlyRequestLimitReachedEvent` al alcanzar el límite. |
+| `ResetMonthlyCounters()` | Restablece los contadores mensuales a cero. Emite `MonthlyCountersResetEvent`. |
+
+---
+
+#### `PaymentRecord` — Aggregate Auxiliar
+
+Registra el historial inmutable de pagos asociados a una suscripción. Funciona como un log de auditoría de solo escritura (*append-only*). Cada entrada corresponde a un evento de `invoice.payment_succeeded` o `invoice.payment_failed` recibido desde Stripe. La idempotencia ante webhooks duplicados se garantiza mediante un índice único sobre `stripe_invoice_id`.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `Id` | `PaymentRecordId` | Identificador único del registro de pago. Prefijo `pay-{GUID}`. |
+| `SubscriptionId` | `SubscriptionId` | Referencia a la suscripción asociada. |
+| `StripeInvoiceId` | `string` | Identificador de la factura en Stripe. Valor único; garantiza idempotencia. |
+| `Amount` | `Money` | Importe del pago representado como Value Object. |
+| `Status` | `PaymentStatus` | Estado del pago: `Succeeded`, `Failed` o `Refunded`. |
+| `ActiveDeviceCount` | `int?` | Instantánea del conteo de dispositivos al momento del pago. Exclusivo de `COMPANY`. |
+| `ProcessedAt` | `DateTime` | Fecha y hora en que se procesó el pago. |
+
+| Método | Descripción |
+|---|---|
+| `CreateSucceeded(subscriptionId, stripeInvoiceId, amountCents, currency, activeDeviceCount?)` | Factory method que crea un registro de pago exitoso. |
+| `CreateFailed(subscriptionId, stripeInvoiceId, amountCents, currency)` | Factory method que crea un registro de pago fallido. |
+
+---
+
+### Value Objects
+
+| Value Object | Atributos | Descripción |
+|---|---|---|
+| `SubscriptionId` | `Value: string` | Identificador tipado del aggregate `Subscription`. Formato: `sub-{GUID}`. Inmutable. |
+| `PaymentRecordId` | `Value: string` | Identificador tipado del aggregate `PaymentRecord`. Formato: `pay-{GUID}`. Inmutable. |
+| `UserId` | `Value: string` | Referencia al usuario en el IAM BC. Sin prefijo propio. |
+| `Money` | `AmountCents: int`, `Currency: string` | Representa un importe monetario en centavos. Valida que el monto no sea negativo y normaliza la moneda a minúsculas. |
+| `UsageCounters` | `MonthlyRequestsUsed: int` | Contador de solicitudes mensuales para `HOMEOWNER BASIC`. Inmutable; cada incremento produce una nueva instancia. |
+
+**Enumeraciones:**
+
+| Enumeración | Valores | Descripción |
+|---|---|---|
+| `PlanType` | `Basic`, `Premium`, `EnterpriseBasic`, `EnterprisePremium` | Define el nivel de plan de la suscripción. |
+| `SubscriptionStatus` | `Active`, `PendingInstallation`, `GracePeriod`, `CancelledPending`, `Degraded`, `Expired`, `CancelledRefunded` | Define el estado del ciclo de vida de la suscripción. |
+| `BusinessRole` | `Technician`, `Homeowner`, `Company` | Define el rol de negocio del usuario en la plataforma. |
+| `BillingCycle` | `Monthly`, `Annual` | Define la frecuencia del ciclo de facturación. |
+| `PaymentStatus` | `Succeeded`, `Failed`, `Refunded` | Define el resultado de un intento de pago. |
+
+---
+
+### Commands
+
+| Clase | Descripción |
+|---|---|
+| `CreateSubscriptionCommand` | Crea la suscripción inicial al completarse el perfil del usuario. |
+| `InitiateCheckoutCommand` | Inicia el proceso de pago para un plan Premium individual. |
+| `ActivateSubscriptionCommand` | Activa el plan Premium tras confirmar el pago vía webhook de Stripe. |
+| `InitiateEnterpriseCheckoutCommand` | Inicia el proceso de pago para un plan Enterprise IoT. |
+| `ActivateEnterpriseSubscriptionPendingInstallationCommand` | Transiciona la suscripción empresarial a `PENDING_INSTALLATION` tras confirmar el pago. |
+| `ActivateEnterpriseSubscriptionCommand` | Activa el plan empresarial de forma completa tras confirmar la instalación del dispositivo. |
+| `CancelEnterpriseSubscriptionWithRefundCommand` | Cancela la suscripción empresarial con reembolso ante vencimiento del plazo de instalación. |
+| `RecordSuccessfulRenewalCommand` | Registra la renovación exitosa de un plan individual. |
+| `RecordEnterpriseRenewalCommand` | Registra la renovación exitosa de un plan empresarial con actualización del conteo de dispositivos. |
+| `StartGracePeriodCommand` | Inicia el período de gracia de 7 días ante un fallo de pago. |
+| `DegradeSubscriptionCommand` | Degrada el plan al nivel inferior correspondiente al rol. |
+| `CancelSubscriptionCommand` | Programa la cancelación voluntaria de la suscripción. |
+| `UpdateActiveDeviceCountCommand` | Actualiza el conteo de dispositivos activos para suscripciones empresariales. |
+| `IncrementMonthlyRequestCounterCommand` | Incrementa el contador de solicitudes mensuales para `HOMEOWNER BASIC`. |
+| `ResetMonthlyRequestCountersCommand` | Restablece los contadores mensuales de todas las suscripciones `HOMEOWNER BASIC`. |
+| `OpenCustomerPortalCommand` | Genera la URL de sesión del Stripe Customer Portal. |
+
+---
+
+### Queries
+
+| Clase | Descripción |
+|---|---|
+| `GetMySubscriptionQuery` | Obtiene el estado completo de la suscripción del usuario autenticado. |
+| `GetRequestEligibilityQuery` | Verifica si el usuario puede crear una nueva solicitud de servicio en función de su plan. |
+| `GetPaymentHistoryQuery` | Obtiene el historial paginado de pagos de la suscripción. |
+| `GetStatusAlertQuery` | Obtiene la alerta de estado activa: período de gracia, límite alcanzado o instalación pendiente. |
+| `GetEnterpriseDeviceBillingQuery` | Obtiene el desglose de facturación empresarial: dispositivos activos, precio unitario y monto proyectado. |
+
+---
+
+### Domain Services (Interfaces)
+
+| Interfaz | Descripción |
+|---|---|
+| `ISubscriptionCommandService` | Define las operaciones que producen cambios de estado sobre los aggregates del BC. Implementa el lado de escritura del patrón CQRS. |
+| `ISubscriptionQueryService` | Define las operaciones de solo lectura para consultar el estado de las suscripciones. Implementa el lado de lectura del patrón CQRS. |
+
+---
+
+### Repository Interfaces
+
+| Interfaz | Descripción |
+|---|---|
+| `ISubscriptionRepository` | Define el contrato de persistencia y consulta sobre el aggregate `Subscription`. Extiende `IBaseRepository<Subscription, SubscriptionId>`. |
+| `IPaymentRecordRepository` | Define el contrato de persistencia y consulta sobre el aggregate `PaymentRecord`. Extiende `IBaseRepository<PaymentRecord, PaymentRecordId>`. |
+
+**Métodos de `ISubscriptionRepository`:**
+
+| Método | Retorno | Descripción |
+|---|---|---|
+| `FindByUserIdAsync(userId)` | `Task<Subscription?>` | Localiza la suscripción asociada a un usuario. |
+| `FindByStripeCustomerIdAsync(stripeCustomerId)` | `Task<Subscription?>` | Localiza la suscripción por el identificador de cliente de Stripe. |
+| `FindByStripeSubscriptionIdAsync(stripeSubscriptionId)` | `Task<Subscription?>` | Localiza la suscripción por el identificador de suscripción de Stripe. |
+| `ExistsByUserIdAsync(userId)` | `Task<bool>` | Verifica la existencia de una suscripción para un usuario. Garantiza la invariante de unicidad. |
+| `FindPendingInstallationExpiredAsync(threshold)` | `Task<IEnumerable<Subscription>>` | Retorna suscripciones empresariales con plazo de instalación vencido. Empleado por el job de cancelación automática. |
+| `FindCompanySubscriptionsActiveAsync()` | `Task<IEnumerable<Subscription>>` | Retorna todas las suscripciones empresariales activas. Empleado para el proceso de renovación. |
+
+**Métodos de `IPaymentRecordRepository`:**
+
+| Método | Retorno | Descripción |
+|---|---|---|
+| `ExistsByStripeInvoiceIdAsync(stripeInvoiceId)` | `Task<bool>` | Verifica si un invoice ya fue procesado. Mecanismo central de idempotencia ante webhooks duplicados. |
+| `FindBySubscriptionIdAsync(subscriptionId, page, pageSize)` | `Task<IEnumerable<PaymentRecord>>` | Retorna el historial de pagos paginado de una suscripción. |
+
+---
+
 #### 4.2.6.2. Interface Layer.
+
+La Interface Layer expone la funcionalidad del BC hacia el exterior a través de dos mecanismos diferenciados: una API REST autenticada orientada al usuario y un controlador de webhooks público cuya autenticidad se verifica mediante firma HMAC de Stripe.
+
+---
+
+### Resources (Entrada)
+
+Los Resources de entrada representan la abstracción de las solicitudes recibidas desde el cliente.
+
+**`InitiateCheckoutResource`**
+
+Representa la solicitud para iniciar el proceso de pago de un plan Premium individual.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `BillingCycle` | `string` | Ciclo de facturación deseado: `"MONTHLY"` o `"ANNUAL"`. |
+| `SuccessUrl` | `string` | URL de redirección ante pago exitoso en Stripe. |
+| `CancelUrl` | `string` | URL de redirección ante cancelación del pago en Stripe. |
+
+---
+
+**`InitiateEnterpriseCheckoutResource`**
+
+Representa la solicitud para iniciar el proceso de pago de un plan Enterprise IoT.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `EnterprisePlan` | `string` | Plan empresarial solicitado: `"ENTERPRISE_PREMIUM"`. |
+| `InitialDeviceCount` | `int` | Cantidad inicial de dispositivos IoT a contratar. Mínimo: 1. |
+| `BillingCycle` | `string` | Ciclo de facturación: `"MONTHLY"` o `"ANNUAL"`. |
+| `SuccessUrl` | `string` | URL de redirección ante pago exitoso. |
+| `CancelUrl` | `string` | URL de redirección ante cancelación. |
+
+---
+
+**`CancelSubscriptionResource`**
+
+Representa la solicitud de cancelación voluntaria de la suscripción.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `Reason` | `string` | Motivo de la cancelación. |
+| `Feedback` | `string?` | Comentario adicional del usuario. Opcional. |
+
+---
+
+**`OpenCustomerPortalResource`**
+
+Representa la solicitud para generar una sesión en el Stripe Customer Portal.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `ReturnUrl` | `string` | URL de retorno al salir del portal de Stripe. |
+
+---
+
+### Resources (Salida)
+
+Los Resources de salida representan la abstracción de las respuestas enviadas al cliente.
+
+**`SubscriptionResponseResource`**
+
+Representa el estado completo de la suscripción del usuario autenticado.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `SubscriptionId` | `string` | Identificador de la suscripción. |
+| `UserId` | `string` | Identificador del usuario propietario. |
+| `BusinessRole` | `string` | Rol de negocio del usuario. |
+| `PlanType` | `string` | Plan activo. |
+| `Status` | `string` | Estado actual del ciclo de vida. |
+| `BillingCycle` | `string?` | Ciclo de facturación. Nulo para planes sin facturación. |
+| `CurrentPeriodEnd` | `DateTime?` | Fecha de vencimiento del período vigente. |
+| `CancelAtPeriodEnd` | `bool` | Indica si la cancelación está programada al fin del período. |
+| `GracePeriodEndsAt` | `DateTime?` | Fecha límite del período de gracia. |
+| `MonthlyRequestsUsed` | `int?` | Solicitudes mensuales consumidas. Exclusivo de `HOMEOWNER BASIC`. |
+| `InstallationPending` | `bool?` | Indica si la instalación IoT está pendiente. Exclusivo de `COMPANY`. |
+| `InstallationDeadlineAt` | `DateTime?` | Plazo máximo para la instalación. Exclusivo de `COMPANY`. |
+| `ActiveDeviceCount` | `int?` | Dispositivos IoT activos. Exclusivo de `COMPANY`. |
+| `PricePerDevice` | `int?` | Precio unitario por dispositivo en centavos. Exclusivo de `COMPANY`. |
+
+---
+
+**`RequestEligibilityResponseResource`**
+
+Representa la elegibilidad del usuario para crear una nueva solicitud de servicio.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `CanRequest` | `bool` | Indica si el usuario puede crear una solicitud. |
+| `IsPriorityAllowed` | `bool` | Indica si la solicitud puede ser prioritaria. |
+| `RemainingRequests` | `int?` | Solicitudes restantes en el mes. Aplica solo a `HOMEOWNER BASIC`. |
+| `PlanType` | `string` | Plan activo del usuario. |
+| `UpgradeRequired` | `bool` | Indica si es necesario actualizar el plan para continuar operando. |
+| `HasIoTContext` | `bool` | Indica si el usuario tiene contexto IoT activo. |
+| `InstallationPending` | `bool` | Indica si la instalación IoT está en curso. |
+
+---
+
+**`PaymentHistoryResponseResource`**
+
+Representa la respuesta paginada del historial de pagos.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `Page` | `int` | Número de página actual. |
+| `PageSize` | `int` | Cantidad de registros por página. |
+| `Items` | `IEnumerable<PaymentRecordItemResource>` | Colección de registros de pago. |
+
+**`PaymentRecordItemResource`**
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `PaymentRecordId` | `string` | Identificador del registro. |
+| `StripeInvoiceId` | `string` | Identificador de la factura en Stripe. |
+| `AmountCents` | `int` | Importe en centavos. |
+| `Currency` | `string` | Moneda del pago. |
+| `Status` | `string` | Estado del pago. |
+| `ActiveDeviceCount` | `int?` | Dispositivos activos al momento del pago. Exclusivo de `COMPANY`. |
+| `ProcessedAt` | `DateTime` | Fecha y hora de procesamiento. |
+
+---
+
+**`StatusAlertResponseResource`**
+
+Representa una alerta de estado activa para el usuario.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `AlertType` | `string` | Tipo de alerta: `PAYMENT_FAILED`, `PENDING_INSTALLATION` o `MONTHLY_LIMIT_REACHED`. |
+| `Message` | `string` | Mensaje descriptivo para el usuario. |
+| `GracePeriodEndsAt` | `DateTime?` | Fecha límite del período de gracia. |
+| `InstallationDeadlineAt` | `DateTime?` | Fecha límite de instalación IoT. |
+
+---
+
+**`CustomerPortalResponseResource`**
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `PortalUrl` | `string` | URL de la sesión del Stripe Customer Portal. |
+
+---
+
+**`EnterpriseDeviceBillingResponseResource`**
+
+Representa el desglose de facturación dinámica empresarial.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `ActiveDeviceCount` | `int` | Dispositivos IoT activos en el período vigente. |
+| `PricePerDevice` | `int` | Precio unitario por dispositivo en centavos USD. |
+| `CurrentMonthlyAmount` | `int` | Monto mensual total calculado (`ActiveDeviceCount × PricePerDevice`). |
+| `BillingCycle` | `string?` | Ciclo de facturación activo. |
+| `NextPeriodEnd` | `DateTime?` | Fecha de vencimiento del próximo período. |
+
+---
+
+### Assemblers (Transforms)
+
+Los Assemblers son clases estáticas que transforman Resources en Commands y entidades de dominio en Resources, desacoplando la capa de interfaz de la lógica de dominio.
+
+| Clase | Método | Descripción |
+|---|---|---|
+| `InitiateCheckoutCommandFromResourceAssembler` | `ToCommand(userId, resource)` | Transforma un `InitiateCheckoutResource` en un `InitiateCheckoutCommand`. |
+| `InitiateEnterpriseCheckoutCommandFromResourceAssembler` | `ToCommand(userId, resource)` | Transforma un `InitiateEnterpriseCheckoutResource` en un `InitiateEnterpriseCheckoutCommand`. |
+| `CancelSubscriptionCommandFromResourceAssembler` | `ToCommand(userId, resource)` | Transforma un `CancelSubscriptionResource` en un `CancelSubscriptionCommand`. |
+| `SubscriptionResponseResourceFromEntityAssembler` | `ToResource(subscription)` | Transforma la entidad `Subscription` en un `SubscriptionResponseResource`. |
+| `RequestEligibilityResponseResourceFromEntityAssembler` | `ToResource(eligibility)` | Transforma el objeto de elegibilidad del QueryService en un `RequestEligibilityResponseResource`. |
+| `PaymentHistoryResponseResourceFromEntityAssembler` | `ToResource(records, page, pageSize)` | Transforma la colección de `PaymentRecord` en un `PaymentHistoryResponseResource` paginado. |
+| `StatusAlertResponseResourceFromEntityAssembler` | `ToResource(alert)` | Transforma el objeto de alerta del QueryService en un `StatusAlertResponseResource`. |
+| `EnterpriseDeviceBillingResponseResourceFromEntityAssembler` | `ToResource(billing)` | Transforma el objeto de facturación del QueryService en un `EnterpriseDeviceBillingResponseResource`. |
+
+---
+
+### Controllers
+
+#### `SubscriptionsController`
+
+**Ruta base:** `api/v1/subscriptions`
+**Autorización:** Bearer token requerido (`[Authorize]`)
+
+| Método HTTP | Ruta | Descripción |
+|---|---|---|
+| `GET` | `/me` | Retorna el estado completo de la suscripción del usuario autenticado. |
+| `GET` | `/me/eligibility` | Retorna la elegibilidad del usuario para crear una solicitud de servicio. |
+| `GET` | `/me/payment-history` | Retorna el historial de pagos paginado (`?page=1&pageSize=20`). |
+| `GET` | `/me/status-alert` | Retorna la alerta de estado activa. Devuelve `204 No Content` si no hay alertas. |
+| `GET` | `/me/device-billing` | Retorna el desglose de facturación dinámica empresarial. Exclusivo de `COMPANY`. |
+| `POST` | `/me/checkout` | Inicia el proceso de pago para un plan Premium individual. Retorna `checkoutUrl`. |
+| `POST` | `/me/enterprise-checkout` | Inicia el proceso de pago para un plan Enterprise IoT. Retorna `checkoutUrl`. |
+| `POST` | `/me/portal` | Genera la URL de sesión del Stripe Customer Portal. |
+| `DELETE` | `/me` | Programa la cancelación voluntaria de la suscripción. |
+
+---
+
+#### `StripeWebhookController`
+
+**Ruta base:** `api/v1/webhooks/stripe`
+**Autorización:** Acceso anónimo (`[AllowAnonymous]`). La autenticidad se verifica mediante firma HMAC con el `WebhookSecret` de Stripe.
+
+| Método HTTP | Ruta | Evento Stripe | Descripción |
+|---|---|---|---|
+| `POST` | `/` | `invoice.payment_succeeded` (creación individual) | Activa el plan Premium o Enterprise tras el primer pago exitoso. |
+| `POST` | `/` | `invoice.payment_succeeded` (renovación) | Registra la renovación exitosa del ciclo de facturación. |
+| `POST` | `/` | `invoice.payment_failed` | Inicia el período de gracia de 7 días. |
+| `POST` | `/` | `customer.subscription.deleted` | Degrada la suscripción por fallo de pago o cancelación. |
+| `POST` | `/` | `customer.subscription.updated` | Registra el cambio de ciclo de facturación. |
+
+---
+
 #### 4.2.6.3. Application Layer.
+
+La Application Layer orquesta los casos de uso del BC mediante la implementación concreta de los servicios de dominio definidos en la Domain Layer. Actúa como punto de coordinación entre el dominio, los repositorios, los servicios externos (Stripe, Assets BC) y el bus de eventos de dominio (MediatR).
+
+---
+
+### Command Services
+
+**`SubscriptionCommandService`**
+
+**Ubicación:** `Subscriptions/Application/Internal/CommandServices/SubscriptionCommandService.cs`
+
+Implementa la interfaz `ISubscriptionCommandService`. Es responsable de la orquestación de todos los casos de uso que producen cambios de estado en los aggregates del BC. Coordina la validación de invariantes, la interacción con repositorios, la invocación a servicios externos y la publicación de eventos de dominio.
+
+| Interfaz Implementada | Descripción |
+|---|---|
+| `ISubscriptionCommandService` | Contrato de dominio que define todas las operaciones de escritura del BC. |
+
+**Dependencias inyectadas:**
+
+| Dependencia | Tipo | Propósito |
+|---|---|---|
+| `subscriptionRepository` | `ISubscriptionRepository` | Persistencia y recuperación del aggregate `Subscription`. |
+| `paymentRecordRepository` | `IPaymentRecordRepository` | Persistencia y recuperación del aggregate `PaymentRecord`. |
+| `unitOfWork` | `IUnitOfWork` | Coordinación transaccional de operaciones de escritura. |
+| `mediator` | `IMediator` | Publicación de eventos de dominio hacia otros handlers o BCs. |
+| `stripeService` | `IStripeService` | Puerto de salida hacia el proveedor de pagos Stripe. |
+| `assetsContextFacade` | `IAssetsContextFacade` | Puerto de salida hacia el BC de Assets para consulta síncrona de dispositivos activos. |
+| `logger` | `ILogger<SubscriptionCommandService>` | Registro de trazabilidad operacional. |
+
+**Operaciones principales orquestadas:**
+
+- **`Handle(CreateSubscriptionCommand)`**: Verifica idempotencia mediante `ExistsByUserIdAsync`, crea el cliente en Stripe, instancia el aggregate y persiste la suscripción inicial.
+- **`Handle(InitiateCheckoutCommand)`**: Valida el estado del aggregate, invoca a Stripe para crear la sesión de checkout y retorna la URL al controller.
+- **`Handle(ActivateSubscriptionCommand)`**: Verifica idempotencia por `StripeInvoiceId`, activa el aggregate, persiste el `PaymentRecord` y publica `SubscriptionActivatedEvent`.
+- **`Handle(InitiateEnterpriseCheckoutCommand)`**: Para reactivaciones, consulta Assets antes de crear la sesión; determina si el plan puede saltar directamente a `ACTIVE` o debe pasar por `PENDING_INSTALLATION`.
+- **`Handle(ActivateEnterpriseSubscriptionPendingInstallationCommand)`**: Transiciona a `PENDING_INSTALLATION`, establece el plazo de instalación de 30 días y publica `EnterpriseSubscriptionPendingInstallationEvent`.
+- **`Handle(ActivateEnterpriseSubscriptionCommand)`**: Recibe el evento `DeviceInstalled` de Assets, activa el plan empresarial por completo y publica `EnterpriseSubscriptionFullyActiveEvent`.
+- **`Handle(UpdateActiveDeviceCountCommand)`**: Consulta Assets para obtener el conteo real de dispositivos y actualiza el aggregate.
+- **`Handle(ResetMonthlyRequestCountersCommand)`**: Obtiene todas las suscripciones `HOMEOWNER BASIC` y restablece sus contadores de forma atómica.
+
+---
+
+### Query Services
+
+**`SubscriptionQueryService`**
+
+**Ubicación:** `Subscriptions/Application/Internal/QueryServices/SubscriptionQueryService.cs`
+
+Implementa la interfaz `ISubscriptionQueryService`. Es responsable de resolver todas las consultas de solo lectura del BC, sin producir cambios de estado en los aggregates. Proyecta el estado del dominio hacia objetos de respuesta que el controller transforma en Resources.
+
+| Interfaz Implementada | Descripción |
+|---|---|
+| `ISubscriptionQueryService` | Contrato de dominio que define todas las operaciones de consulta del BC. |
+
+**Dependencias inyectadas:**
+
+| Dependencia | Tipo | Propósito |
+|---|---|---|
+| `subscriptionRepository` | `ISubscriptionRepository` | Consulta del estado del aggregate `Subscription`. |
+| `paymentRecordRepository` | `IPaymentRecordRepository` | Consulta del historial de pagos. |
+| `logger` | `ILogger<SubscriptionQueryService>` | Registro de trazabilidad operacional. |
+
+**Operaciones principales resueltas:**
+
+- **`Handle(GetMySubscriptionQuery)`**: Retorna el aggregate completo; el assembler proyecta sus propiedades hacia el resource de respuesta.
+- **`Handle(GetRequestEligibilityQuery)`**: Evalúa el estado del aggregate mediante una expresión `switch` sobre `PlanType` y `Status`, retornando un objeto anónimo con las propiedades de elegibilidad.
+- **`Handle(GetPaymentHistoryQuery)`**: Delega la paginación al repositorio y retorna la colección de `PaymentRecord`.
+- **`Handle(GetStatusAlertQuery)`**: Evalúa el estado de la suscripción y retorna la alerta activa o `null` si no existe ninguna.
+- **`Handle(GetEnterpriseDeviceBillingQuery)`**: Retorna el desglose de facturación dinámica calculado a partir del aggregate para suscripciones `COMPANY`.
+
+---
+
+### Outbound Services (Puertos de Salida)
+
+| Interfaz | Propósito |
+|---|---|
+| `IStripeService` | Puerto de salida hacia Stripe. Define operaciones para crear clientes, sesiones de checkout, actualizar cantidades, cancelar con reembolso, programar cancelaciones diferidas y generar sesiones del Customer Portal. |
+| `IAssetsContextFacade` | Puerto de salida hacia el BC de Assets. Define la operación `GetActiveDeviceCountAsync(companyUserId)` para obtener el conteo real de dispositivos IoT instalados en una empresa. |
+
+---
+
 #### 4.2.6.4. Infrastructure Layer.
+
+La Infrastructure Layer provee las implementaciones concretas de los contratos definidos en la Domain Layer, utilizando Entity Framework Core como ORM y PostgreSQL como motor de base de datos.
+
+---
+
+### Implementación de los Repositories
+
+| Clase | Interfaz Implementada | Descripción |
+|---|---|---|
+| `SubscriptionRepository` | `ISubscriptionRepository` | Implementa los métodos de consulta y persistencia del aggregate `Subscription`. Extiende `BaseRepository<Subscription, SubscriptionId>`. |
+| `PaymentRecordRepository` | `IPaymentRecordRepository` | Implementa los métodos de consulta y persistencia del aggregate `PaymentRecord`. Extiende `BaseRepository<PaymentRecord, PaymentRecordId>`. |
+
+---
+
+### Configuraciones de Persistencia (EF Core)
+
+#### `SubscriptionConfiguration`
+
+**Ubicación:** `Subscriptions/Infrastructure/Persistence/EFC/Configurations/SubscriptionConfiguration.cs`
+
+Implementa `IEntityTypeConfiguration<Subscription>`. Define el mapeo entre el aggregate `Subscription` y la tabla `subscriptions`.
+
+| Propiedad del Dominio | Columna | Tipo SQL | Restricciones |
+|---|---|---|---|
+| `Id` | `id` | `VARCHAR(100)` | `PRIMARY KEY`, `NOT NULL`, conversión de/hacia `SubscriptionId`. |
+| `UserId` | `user_id` | `VARCHAR(100)` | `NOT NULL`, `UNIQUE`, conversión de/hacia `UserId`. |
+| `BusinessRole` | `business_role` | `VARCHAR(20)` | `NOT NULL`, almacenado como cadena. |
+| `PlanType` | `plan_type` | `VARCHAR(30)` | `NOT NULL`, almacenado como cadena. |
+| `Status` | `status` | `VARCHAR(30)` | `NOT NULL`, almacenado como cadena. |
+| `BillingCycle` | `billing_cycle` | `VARCHAR(10)` | Nullable, almacenado como cadena. |
+| `StripeCustomerId` | `stripe_customer_id` | `VARCHAR(100)` | `NOT NULL`, `UNIQUE`. |
+| `StripeSubscriptionId` | `stripe_subscription_id` | `VARCHAR(100)` | Nullable, `UNIQUE`. |
+| `CurrentPeriodStart` | `current_period_start` | `TIMESTAMPTZ` | Nullable. |
+| `CurrentPeriodEnd` | `current_period_end` | `TIMESTAMPTZ` | Nullable. |
+| `CancelAtPeriodEnd` | `cancel_at_period_end` | `BOOLEAN` | `NOT NULL`, valor por defecto `false`. |
+| `GracePeriodEndsAt` | `grace_period_ends_at` | `TIMESTAMPTZ` | Nullable. |
+| `UsageCounters.MonthlyRequestsUsed` | `monthly_requests_used` | `INTEGER` | Aplano del VO. Valor por defecto `0`. |
+| `InstallationServiceRequestId` | `installation_service_request_id` | `VARCHAR(100)` | Nullable. Solo `COMPANY`. |
+| `InstallationDeadlineAt` | `installation_deadline_at` | `TIMESTAMPTZ` | Nullable. Solo `COMPANY`. |
+| `ActiveDeviceCount` | `active_device_count` | `INTEGER` | Nullable. Solo `COMPANY`. |
+| `PricePerDevice` | `price_per_device` | `INTEGER` | Nullable. Solo `COMPANY`. Valor en centavos USD. |
+| `CreatedAt` | `created_at` | `TIMESTAMPTZ` | `NOT NULL`, valor por defecto `NOW()`. |
+| `UpdatedAt` | `updated_at` | `TIMESTAMPTZ` | Nullable. |
+
+**Índices configurados:**
+
+| Nombre del Índice | Columna | Tipo |
+|---|---|---|
+| `idx_subscriptions_stripe_customer_id` | `stripe_customer_id` | No único |
+| `idx_subscriptions_stripe_subscription_id` | `stripe_subscription_id` | No único |
+| `idx_subscriptions_status_pending` | `status` | Parcial: `WHERE status = 'PendingInstallation'` |
+| `idx_subscriptions_business_role` | `business_role` | No único |
+
+---
+
+#### `PaymentRecordConfiguration`
+
+**Ubicación:** `Subscriptions/Infrastructure/Persistence/EFC/Configurations/PaymentRecordConfiguration.cs`
+
+Implementa `IEntityTypeConfiguration<PaymentRecord>`. Define el mapeo entre el aggregate `PaymentRecord` y la tabla `payment_records`.
+
+| Propiedad del Dominio | Columna | Tipo SQL | Restricciones |
+|---|---|---|---|
+| `Id` | `id` | `VARCHAR(100)` | `PRIMARY KEY`, `NOT NULL`. |
+| `SubscriptionId` | `subscription_id` | `VARCHAR(100)` | `NOT NULL`, `FOREIGN KEY` → `subscriptions(id)`. |
+| `StripeInvoiceId` | `stripe_invoice_id` | `VARCHAR(100)` | `NOT NULL`, `UNIQUE`. Garantiza idempotencia. |
+| `Amount.AmountCents` | `amount_cents` | `INTEGER` | `NOT NULL`. Aplano del VO `Money`. |
+| `Amount.Currency` | `currency` | `VARCHAR(3)` | `NOT NULL`, valor por defecto `'usd'`. Aplano del VO `Money`. |
+| `Status` | `status` | `VARCHAR(20)` | `NOT NULL`, almacenado como cadena. |
+| `ActiveDeviceCount` | `active_device_count` | `INTEGER` | Nullable. Instantánea empresarial al momento del pago. |
+| `ProcessedAt` | `processed_at` | `TIMESTAMPTZ` | `NOT NULL`, valor por defecto `NOW()`. |
+
+**Índices configurados:**
+
+| Nombre del Índice | Columna | Tipo |
+|---|---|---|
+| `idx_payment_records_subscription_id` | `subscription_id` | No único |
+| `idx_payment_records_stripe_invoice_id` | `stripe_invoice_id` | No único |
+| `idx_payment_records_processed_at` | `processed_at DESC` | No único |
+
+---
+
+### Background Jobs (Infrastructure)
+
+| Clase | Tipo | Descripción |
+|---|---|---|
+| `InstallationTimeoutJob` | `IHostedService` | Se ejecuta diariamente. Detecta suscripciones `COMPANY` en estado `PENDING_INSTALLATION` con el plazo vencido y emite `CancelEnterpriseSubscriptionWithRefundCommand`. |
+| `MonthlyCounterResetJob` | `IHostedService` | Se ejecuta el primer día de cada mes a las 00:00 UTC. Restablece los contadores de solicitudes de todas las suscripciones `HOMEOWNER BASIC`. |
+
+---
+
 #### 4.2.6.5. Bounded Context Software Architecture Component Level Diagrams.
+
+
+
 #### 4.2.6.6. Bounded Context Software Architecture Code Level Diagrams.
+
 ##### 4.2.6.6.1. Bounded Context Domain Layer Class Diagrams.
+
+En esta sección mostramos parte de la estructura de nuestra solución Electrolink enfocada en el bounded context de Subscriptions, incluyendo datos que seran incluidos en el diagrama de clases.
+\
+```plantuml
+@startuml SubscriptionsBC_DomainLayer
+
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+skinparam packageStyle Rectangle
+skinparam class {
+  BackgroundColor White
+  BorderColor #333333
+  ArrowColor #333333
+}
+
+package "Subscriptions.Domain.Model" {
+
+  package "Aggregates" {
+
+    class Subscription {
+      + Id : SubscriptionId
+      + UserId : UserId
+      + BusinessRole : BusinessRole
+      + PlanType : PlanType
+      + Status : SubscriptionStatus
+      + BillingCycle : BillingCycle?
+      + StripeCustomerId : string
+      + StripeSubscriptionId : string?
+      + CurrentPeriodStart : DateTime?
+      + CurrentPeriodEnd : DateTime?
+      + CancelAtPeriodEnd : bool
+      + GracePeriodEndsAt : DateTime?
+      + UsageCounters : UsageCounters?
+      + InstallationServiceRequestId : string?
+      + InstallationDeadlineAt : DateTime?
+      + ActiveDeviceCount : int?
+      + PricePerDevice : int?
+      + CreatedAt : DateTime
+      + UpdatedAt : DateTime?
+      --
+      + {static} Create(userId, businessRole, stripeCustomerId) : Subscription
+      + InitiateCheckout(billingCycle, sessionId) : void
+      + Activate(stripeSubId, invoiceId, billingCycle, periodStart, periodEnd) : void
+      + InitiateEnterpriseCheckout(...) : void
+      + ActivateEnterprisePendingInstallation(...) : void
+      + ActivateEnterpriseFullyActive(installationServiceRequestId, confirmedAt) : void
+      + RecordSuccessfulRenewal(periodStart, periodEnd, wasInGracePeriod) : void
+      + RecordEnterpriseRenewal(periodStart, periodEnd, deviceCount, wasInGracePeriod) : void
+      + StartGracePeriod(stripeInvoiceId) : void
+      + Degrade(reason) : void
+      + ScheduleCancellation(reason) : void
+      + UpdateActiveDeviceCount(newCount, source) : void
+      + IncrementMonthlyRequestCounter(limit) : void
+      + ResetMonthlyCounters() : void
+    }
+
+    class PaymentRecord {
+      + Id : PaymentRecordId
+      + SubscriptionId : SubscriptionId
+      + StripeInvoiceId : string
+      + Amount : Money
+      + Status : PaymentStatus
+      + ActiveDeviceCount : int?
+      + ProcessedAt : DateTime
+      --
+      + {static} CreateSucceeded(subscriptionId, invoiceId, amountCents, currency, deviceCount?) : PaymentRecord
+      + {static} CreateFailed(subscriptionId, invoiceId, amountCents, currency) : PaymentRecord
+    }
+  } 
+}
+
+@enduml
+```
+
+---
+
 ##### 4.2.6.6.2. Bounded Context Database Design Diagram.
+
+En esta sección mostramos parte de la estructura de nuestra solución Electrolink enfocado al bounded context de Subscriptions incluyendo los datos que seran incluidos en el diagrama de diseño de base de datos.
+
+![](assets/img/cap4/subscriptions/database.png)
+
+> El prefijo de tablas de este Bounded Context es `sub_`. Las tablas son `subscriptions` y `payment_records`, sin prefijo adicional, dado que residen en el esquema compartido de la base de datos única de ElectroLink (`AppDbContext`).
+
+```plantuml
+@startuml SubscriptionsBC_DatabaseDesign
+
+skinparam linetype ortho
+skinparam shadowing false
+skinparam class {
+  BackgroundColor White
+  BorderColor #333333
+  ArrowColor #555555
+}
+
+entity "subscriptions" as SUB {
+  * id : VARCHAR(100) <<PK>>
+  --
+  * user_id : VARCHAR(100) <<UNIQUE, NOT NULL>>
+  * business_role : VARCHAR(20) <<NOT NULL>>
+  * plan_type : VARCHAR(30) <<NOT NULL>>
+  * status : VARCHAR(30) <<NOT NULL>>
+  billing_cycle : VARCHAR(10)
+  * stripe_customer_id : VARCHAR(100) <<UNIQUE, NOT NULL>>
+  stripe_subscription_id : VARCHAR(100) <<UNIQUE>>
+  current_period_start : TIMESTAMPTZ
+  current_period_end : TIMESTAMPTZ
+  * cancel_at_period_end : BOOLEAN <<NOT NULL, DEFAULT FALSE>>
+  grace_period_ends_at : TIMESTAMPTZ
+  monthly_requests_used : INTEGER <<DEFAULT 0>>
+  installation_service_request_id : VARCHAR(100)
+  installation_deadline_at : TIMESTAMPTZ
+  active_device_count : INTEGER
+  price_per_device : INTEGER
+  * created_at : TIMESTAMPTZ <<NOT NULL, DEFAULT NOW()>>
+  updated_at : TIMESTAMPTZ
+}
+
+@enduml
+```
+---
 
 ### 4.2.7. Bounded Context: Analytics 
 #### 4.2.7.1. Domain Layer.
