@@ -262,7 +262,268 @@ En esta sección, el equipo de Hampcoders realiza el diseño de las entrevistas 
 ---
 
 ### 2.2.2. Registro de entrevistas
+
+#### Segmento #1: Propietarios de hogares urbanos
+
+##### Entrevista: Piero Tenorio
+
+- **Sexo:** Masculino  
+- **Edad:** 26  
+- **Link:** [Ver entrevista](https://youtu.be/_z8UNTi_cmA?si=1AkwIH2MlGNTcfxm)  
+- **Inicia en:** 0:01  
+- **Duración:** 9:54  
+
+![Entrevista PYME 01](assets/img/cap2/Entrevista-PYME-01.png)
+
+##### Resumen de entrevista:
+
+**Perfil general y características subjetivas:**
+Piero es un empresario dedicado a la venta de autopartes, con múltiples sucursales en el distrito de Independencia. Se mostró seguro, práctico y directo durante la entrevista. Tiene una personalidad resolutiva y orientada a la eficiencia operativa de su negocio. Aunque inicialmente realizaba algunas tareas técnicas él mismo, ha aprendido a delegar conforme ha crecido su empresa. Muestra un alto grado de apertura hacia soluciones tecnológicas si estas le aportan funcionalidad y control sobre sus procesos. Tiene conocimientos básicos sobre mantenimiento eléctrico y reconoce su importancia, aunque aún no implementa un sistema formal o automatizado para ello.
+
+**Respuesta emocional ante fallas eléctricas:** 
+Las fallas eléctricas no son frecuentes en sus locales, pero cuando ocurren le generan frustración, ya que afectan directamente la atención al cliente, especialmente porque el sistema de inventario y los escáneres QR dependen completamente de la energía eléctrica. Percibe que estas interrupciones no solo ralentizan el trabajo, sino que pueden generar pérdida de ventas y dañar la imagen del negocio ante los clientes.
+
+**Acciones ante problemas eléctricos:**
+Suele apoyarse en su equipo para resolver incidencias menores. Cuando se trata de problemas más complejos, busca soluciones en internet, tutoriales en video e incluso ha usado herramientas de inteligencia artificial para obtener diagnósticos preliminares. En casos más serios, recurre a técnicos conocidos o recomendados, aunque no siempre verifica certificaciones formales.
+
+**Criterios de elección de un proveedor:**
+Valora la calidad del servicio, la garantía ofrecida y la formalidad del proveedor. Aunque no ha tenido malas experiencias personales, ha escuchado de casos en los que proveedores informales han generado mayores problemas. Prefiere trabajar con personas que ofrezcan respaldo técnico y legal. La confianza, reputación y cumplimiento son esenciales en su decisión.
+
+**Mantenimiento preventivo:** 
+Actualmente, no cuenta con un plan preventivo estructurado. Las acciones de mantenimiento son esporádicas y se ejecutan solo cuando surge un inconveniente. Considera que sería útil contar con alertas o recordatorios periódicos sobre el estado de las instalaciones, lo que le permitiría prevenir interrupciones en la operación diaria.
+
+**Experiencias previas y resolución de problemas:**
+Ha experimentado algunas fallas menores que afectaron temporalmente el servicio, como fallos en el sistema de cámaras o escáneres. Estos problemas los ha resuelto recurriendo a soluciones momentáneas, como el trabajo manual o el uso de inventarios en papel, aunque reconoce que estas no son soluciones sostenibles.
+
+**Uso de tecnología y hábitos digitales:** 
+Piero tiene un perfil digital activo. Usa navegadores web, buscadores, redes sociales y contenido en video como YouTube para resolver dudas técnicas. También ha interactuado con inteligencia artificial como herramienta de diagnóstico. Está dispuesto a incorporar tecnología en su negocio siempre que le proporcione eficiencia y facilidad de uso.
+
+**Preferencia de dispositivos y canales de interacción:** 
+Utiliza principalmente computadoras en el trabajo para gestionar operaciones, pero también el teléfono móvil para búsquedas rápidas, comunicación con proveedores y consumo de contenido educativo. Le gustaría contar con una plataforma que centralice información técnica, proveedores confiables y herramientas de gestión energética.
+
+**Opinión sobre una plataforma como ElectroLink:** 
+Considera valiosa una plataforma que conecte a empresas como la suya con técnicos certificados, especialmente si incluye funciones como monitoreo de consumo eléctrico, historial de mantenimientos, alertas de fallos y acceso a reseñas de proveedores. Aprecia la posibilidad de tomar decisiones informadas basadas en datos y opiniones verificadas. Aunque no ve una ventaja competitiva directa, sí reconoce que reducir el tiempo de inactividad le daría una ventaja operativa frente a negocios que se ven forzados a cerrar por problemas eléctricos.
+
+
+
+#### Segmento #2: Proveedores de componentes o servicios eléctricos certificados
+
+##### Entrevista:Marcos Contreras 
+
+- **Sexo:** Masculino  
+- **Edad:** 24  
+- **Link:** [Ver entrevista](https://youtu.be/K8hkUh16Gew?si=yAYu692nKQVC1jbO)  
+- **Inicia en:** 0:01  
+- **Duración:** 7:59  
+
+![Entrevista Tecnico 01](assets/img/cap2/Entrevista-Tecnicos-01.png)
+
+##### Resumen de entrevista:
+
+Marco Contreras es un ingeniero eléctrico egresado que combina la venta de componentes eléctricos con la prestación de servicios eléctricos a hogares y oficinas. Se muestra como una persona apasionada por su profesión, con un enfoque en la calidad, certificación y profesionalismo, aunque enfrenta dificultades relacionadas con la competencia informal y la inestabilidad en la demanda de sus servicios.
+
+**Características objetivas:**  
+**Perfil profesional:** Ingeniero eléctrico egresado, con conocimiento técnico y certificaciones formales en el área.  
+
+**Ámbito de trabajo:** Venta de componentes eléctricos y servicios eléctricos para clientes residenciales y de oficina.  
+
+**Canales de promoción y comunicación:** Utiliza principalmente Facebook y grupos de WhatsApp para promocionar sus servicios y recibir pedidos. Además, emplea el boca a boca y entrega tarjetas personales.  
+
+**Herramientas digitales:** Usa el calendario del celular y aplicaciones como Google Keep o notas de WhatsApp para organizar su trabajo y pedidos. No utiliza software especializado ni plataformas profesionales para la gestión integral de su actividad.  
+
+**Dispositivos:** Trabaja principalmente desde un smartphone para comunicación y gestión básica.  
+
+**Gestión de clientes:** Es manual, con poca automatización, dependiente de recomendaciones y publicaciones en redes sociales.  
+
+**Características subjetivas y actitudes:**  
+**Percepción de la competencia:** Siente que la competencia informal le afecta significativamente, especialmente porque los clientes priorizan precio sobre seguridad y certificación.  
+
+**Frustración y retos:** Manifiesta frustración por la dificultad para competir con proveedores informales y por la baja valoración de sus certificaciones y calidad.  
+
+**Interés en la profesionalización:** Manifiesta un fuerte interés en pertenecer a una red de profesionales certificados para obtener respaldo, confianza y acceso a trabajos más grandes o institucionales.  
+
+**Disposición al pago:** Está dispuesto a pagar una suscripción mensual razonable para una plataforma que le proporcione visibilidad, generación de clientes y mejor organización.  
+
+**Expectativas sobre funcionalidades:** Valora funcionalidades como agenda de trabajo, cotizaciones automáticas, sistema de calificaciones, espacio para subir fotos de trabajos realizados, validación de certificados, contacto directo con clientes y recordatorios.  
+
+**Visión de crecimiento:** Cree que digitalizar la conexión con clientes le permitiría crecer más rápido, profesionalizar su imagen y contratar ayudantes con mayor frecuencia.  
+
+**Apertura a comunidad:** Está totalmente dispuesto a formar parte de una comunidad de proveedores certificados con estándares comunes para fortalecer el sector y elevar la calidad del servicio.  
+
+**Influencias y hábitos digitales:** Utiliza Facebook y grupos de WhatsApp como principales canales para la promoción y comunicación con clientes.  
+
+La experiencia con estas plataformas es limitada y poco efectiva para la generación constante de solicitudes.  
+
+Prefiere herramientas simples y accesibles, sin usar software especializado.  
+
+Utiliza dispositivos móviles (smartphone) para la mayoría de sus actividades relacionadas con el negocio.
+
+##### Entrevista:Leonardo Nuñez 
+
+- **Sexo:** Masculino  
+- **Edad:** 20   
+- **Link:** [Ver entrevista](https://youtu.be/EIWt5MD39ec)  
+- **Inicia en:** 0:01  
+- **Duración:** 4:36   
+
+![Entrevista Tecnico 02](assets/img/cap2/Entrevista-Tecnicos-02.png)
+
+##### Resumen de entrevista:
+
+Leonardo es un ingeniero eléctrico independiente que brinda servicios a hogares y pequeñas empresas. Se caracteriza por su enfoque práctico y su interés en mejorar su eficiencia mediante herramientas digitales, aunque enfrenta limitaciones por la informalidad del mercado y la falta de planificación previa en los servicios.
+
+**Características objetivas:**
+**Perfil profesional:**
+Ingeniero eléctrico enfocado en resolución de fallas y mantenimiento.
+
+**Ámbito de trabajo:**
+Servicios principalmente correctivos, con interés en mantenimiento preventivo.
+
+**Canales de promoción:**
+Recomendaciones, Facebook y WhatsApp.
+
+**Herramientas digitales:**
+Uso básico de WhatsApp, Google Maps y notas. Sin sistemas integrados.
+
+**Dispositivos:**
+Smartphone como herramienta principal.
+
+**Gestión de clientes:**
+Manual, sin automatización ni historial estructurado.
+
+**Gestión operativa:**
+Trabaja con información limitada previa, generando ineficiencias.
+
+**Características subjetivas y actitudes:**
+
+**Percepción de la competencia:**
+Alta presión de técnicos informales que compiten por precio.
+
+**Frustración y retos:**
+Pérdida de tiempo por diagnósticos imprecisos y retrabajo.
+
+**Interés en la eficiencia:**
+Busca anticiparse a fallas para optimizar tiempo y recursos.
+
+**Interés en la profesionalización:**
+Quiere respaldar su trabajo con datos y evidencia técnica.
+
+**Disposición al pago:**
+Acepta pagar por leads con prediagnóstico confiable.
+
+**Expectativas clave:**
+
+Prediagnóstico de fallas
+Registro digital
+Reportes técnicos
+Control de materiales
+Agenda y rutas
+Pagos integrados
+
+**Visión de crecimiento:**
+Ve en la digitalización una forma de aumentar ingresos y productividad.
+
+**Valoración de métricas:**
+Prefiere indicadores objetivos frente a calificaciones subjetivas.
+
+**Hábitos digitales:**
+
+Uso de WhatsApp, Google Maps y redes sociales.
+Prefiere herramientas simples y prácticas.
+
+
 ### 2.2.3. Análisis de entrevistas
+
+#### Segmento: Empresario PyME 
+
+**Total entrevistados:** 1
+**Edad promedio:** 26 años
+
+##### Características objetivas:
+100% gestiona múltiples sucursales de venta de autopartes.
+100% depende de sistemas eléctricos para operaciones (inventario, QR, cámaras).
+100% utiliza internet (YouTube, buscadores) para resolver problemas técnicos.
+100% usa computadora como herramienta principal de trabajo y smartphone como apoyo.
+100% recurre a técnicos externos para problemas complejos.
+
+##### Características subjetivas:
+Perfil práctico, resolutivo y orientado a eficiencia operativa.
+Alta frustración ante fallas eléctricas por impacto directo en ventas.
+Apertura a tecnología, siempre que aporte control y funcionalidad.
+Confianza basada en reputación, garantía y formalidad del proveedor.
+Prefiere recomendaciones antes que proveedores desconocidos.
+
+##### Comportamiento ante fallas:**
+Intenta resolver problemas menores con su equipo.
+Usa tutoriales, internet e IA para diagnóstico preliminar.
+Escala a técnicos conocidos en casos críticos.
+Aplica soluciones temporales (manuales) cuando el sistema falla.
+
+##### Mantenimiento:
+No cuenta con mantenimiento preventivo estructurado.
+Actúa de forma reactiva ante incidentes.
+Percibe valor en alertas y recordatorios automáticos.
+
+##### Uso de tecnología:
+Usuario digital activo (web, redes, video, IA).
+Dispuesto a adoptar herramientas si son simples y útiles.
+Busca centralización de información y proveedores confiables.
+
+##### Insight clave:
+
+Este usuario busca continuidad operativa, rapidez de solución y control del negocio. Una plataforma como ElectroLink debe ofrecer diagnóstico rápido, técnicos confiables y prevención, más que solo conexión con proveedores.
+
+
+#### Segmento 2: Proveedores eléctricos certificados
+
+**Total entrevistados:** 2
+**Edad promedio:** 22 años
+**Estado laboral:** 100% independiente
+
+##### Características objetivas:
+100% cuenta con formación técnica o ingeniería en electricidad.
+100% combina servicios eléctricos con actividades complementarias (ventas o trabajos independientes).
+100% gestiona clientes y trabajos de forma manual (WhatsApp, notas, calendario).
+100% utiliza redes sociales (Facebook, WhatsApp) como principal canal de captación.
+100% usa smartphone como herramienta principal de trabajo.
+100% no utiliza plataformas digitales profesionales para gestión integral.
+
+##### Características subjetivas:
+
+Sienten frustración por la competencia informal que compite por precio.
+Perciben baja valoración del profesional certificado frente a opciones informales.
+Buscan diferenciarse mediante reputación, calidad y respaldo técnico.
+Tienen alta apertura a soluciones digitales que mejoren su organización y captación de clientes.
+Desean pertenecer a una red o comunidad de técnicos certificados.
+
+##### Comportamiento y operación:
+Gestión reactiva de servicios (principalmente correctivos).
+Uso de internet, mapas y herramientas básicas para resolver problemas.
+Falta de planificación previa genera ineficiencias y retrabajo.
+Dependencia de recomendaciones y contactos directos.
+
+##### Uso de tecnología:
+**Uso básico:** WhatsApp, redes sociales, Google Maps.
+No utilizan sistemas de gestión, CRM ni plataformas especializadas.
+**Interés en herramientas simples que incluyan:**
+Agenda
+Cotizaciones
+Registro de trabajos
+Prediagnóstico
+Contacto con clientes
+
+##### Disposición y expectativas:
+Dispuestos a pagar por plataformas que generen clientes o ingresos estables.
+**Valoran funcionalidades como:**
+Validación de certificados
+Reseñas verificadas
+Portafolio de trabajos
+Automatización operativa
+Buscan mayor control, visibilidad y crecimiento profesional.
+
+##### Insight clave:
+
+Este segmento necesita visibilidad, diferenciación y flujo constante de clientes. ElectroLink debe posicionarse como una plataforma que valide su profesionalismo, optimice su operación y reduzca la dependencia del mercado informal.
 
 ## 2.3. Needfinding
 En la presente sección se presentan las fichas de User Persona elaboradas teniendo en cuenta las entrevistas realizadas y analizadas previamente y la revisión de soluciones existentes en el mercado. En cada arquetipo se presentan las características demográficas, de personalidad, los objetivos, las motivaciones, frustraciones y preferencias de los usuarios clave de cada segmento. La construcción de estos User Persona se basa en resultados y análisis obtenidos durante la investigación previa con el objetivo de tomar decisiones de diseño y desarrollo adecuadas para resolver los problemas identificados.

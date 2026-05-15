@@ -29,6 +29,8 @@ En esta sección se presentan los bounded contexts identificados para la soluci�
 ## 1. Identity and Access Management (IAM)
 Gestión de autenticación, autorización y control de acceso de usuarios al sistema, incluyendo registro, inicio de sesión y manejo de roles.
 
+\
+
 ![](assets/img/cap4/IAM-bd.PNG)
 
 ---
@@ -37,6 +39,8 @@ Gestión de autenticación, autorización y control de acceso de usuarios al sis
 Gestión de planes, facturación y control de acceso a funcionalidades.
 
 ---
+
+\
 
 ![](assets/img/cap4/bd-subscription.PNG)
 
@@ -48,6 +52,8 @@ Administración de perfiles de usuarios, técnicos y configuración personalizad
 
 ---
 
+\
+
 ![](assets/img/cap4/bd-profiles.PNG)
 
 
@@ -58,6 +64,8 @@ Orquestación de servicios, solicitudes y asignación inteligente de técnicos.
 
 ---
 
+\
+
 ![](assets/img/cap4/service-desing-bd.PNG)
 
 ---
@@ -66,6 +74,8 @@ Orquestación de servicios, solicitudes y asignación inteligente de técnicos.
 Ejecución, seguimiento y cierre de servicios con evidencia y evaluación.
 
 ---
+
+\
 
 ![](assets/img/cap4/bd-service-operation.PNG)
 
@@ -76,6 +86,7 @@ Ejecución, seguimiento y cierre de servicios con evidencia y evaluación.
 Gestión de propiedades, dispositivos IoT e inventario de técnicos.
 
 ---
+\
 
 ![](assets/img/cap4/bd-assets.PNG)
 
@@ -86,6 +97,8 @@ Procesamiento de datos en tiempo real y detección de anomalías eléctricas.
 
 ---
 
+\
+
 ![](assets/img/cap4/bd-iot.PNG)
 
 ---
@@ -94,6 +107,8 @@ Procesamiento de datos en tiempo real y detección de anomalías eléctricas.
 Visualización, reportes e insights a partir de datos históricos y en tiempo real.
 
 ---
+
+\
 
 ![](assets/img/cap4/bd-analytics.PNG)
 
@@ -120,26 +135,42 @@ En el desarrollo de nuestro proyecto, el proceso se estructuró siguiendo las fa
 
 A continuación, se presenta el Context Map elegido que resume visualmente estas relaciones y sirve como hoja de ruta para la implementación técnica de la solución:
 
+\
+
 ![](assets/img/cap4/Context-Mapping-Electrolink.jpg)
 
 #### 4.1.3. Software Architecture.
 
 ##### 4.1.3.1. Candidate Context Discovery.
+
+\
+
 ![](assets/img/cap4/CCD.png)
 
 ##### 4.1.3.1. Software Architecture System Landscape Diagram.
+
+\
 
 ![](assets/img/cap4/c4-model/SystemContext.png)
 
 ##### 4.1.3.2. Software Architecture Context Level Diagrams.
 
+\
+
 ![](assets/img/cap4/c4-model/SystemContext.png)
 
 ##### 4.1.3.3. Software Architecture Container Level Diagrams.
 
+\
+
 ![](assets/img/cap4/c4-model/Containers.png)
 
 ##### 4.1.3.4. Software Architecture Deployment Diagrams.
+
+\
+
+![](assets/img/cap4/DeploymentDiagram-dark.png)
+
 
 ## 4.2. Tactical-Level Domain-Driven Design
 
@@ -337,7 +368,13 @@ En esta capa se ubican las implementaciones técnicas que permiten la persistenc
 ---
 
 #### 4.2.1.5. Bounded Context Software Architecture Component Level Diagrams.
+
+\
+
+![](assets/img/cap4/c4-model/IAMBCComponents.png)
+
 #### 4.2.1.6. Bounded Context Software Architecture Code Level Diagrams.
+
 
 ##### 4.2.1.6.1. Bounded Context Domain Layer Class Diagrams.
 
@@ -830,6 +867,11 @@ Las colecciones `Certifications` e `IoTCertificationHistory` se mapean a tablas 
 ---
 
 #### 4.2.2.5. Bounded Context Software Architecture Component Level Diagrams.
+
+\
+
+![](assets/img/cap4/c4-model/ProfilesBCComponents.png)
+
 #### 4.2.2.6. Bounded Context Software Architecture Code Level Diagrams.
 ##### 4.2.2.6.1. Bounded Context Domain Layer Class Diagrams.
 
@@ -1507,6 +1549,12 @@ modelBuilder.ApplyConfiguration(new IoTDeviceConfiguration());
 ---
 
 #### 4.2.3.5. Bounded Context Software Architecture Component Level Diagrams.
+
+\
+
+![](assets/img/cap4/c4-model/AssetsBCComponents.png)
+
+
 #### 4.2.3.6. Bounded Context Software Architecture Code Level Diagrams.
 ##### 4.2.3.6.1. Bounded Context Domain Layer Class Diagrams.
 
@@ -2042,7 +2090,9 @@ Todas las tablas del *Bounded Context* utilizan el prefijo `sdp_` (*Service Desi
 
 #### 4.2.4.5. Bounded Context Software Architecture Component Level Diagrams.
 
+\
 
+![](assets/img/cap4/c4-model/DesignBCComponents.png)
 
 #### 4.2.4.6. Bounded Context Software Architecture Code Level Diagrams.
 
@@ -2052,118 +2102,6 @@ En esta sección mostramos parte de la estructura de nuestra solución Electroli
 
 ![](assets/img/cap4/sdp/class.png)
 \
-```plantuml
-@startuml Service_Design_Planning_Domain_Layer
-
-!define AGGREGATE_COLOR #DDE5FF
-!define ENTITY_COLOR #D5F5E3
-!define VO_COLOR #FEF9E7
-!define INTERFACE_COLOR #FDEBD0
-!define ENUM_COLOR #F5EEF8
-
-skinparam class {
-  BackgroundColor White
-  BorderColor #4A4A4A
-  ArrowColor #4A4A4A
-  FontSize 11
-}
-
-skinparam linetype ortho
-
-' ─────────────────────────────────────────
-' AGGREGATES
-' ─────────────────────────────────────────
-
-package "Aggregates" AGGREGATE_COLOR {
-
-  class ServiceCatalog <<Aggregate Root>> AGGREGATE_COLOR {
-    + CatalogId : CatalogId
-    + TechnicianId : TechnicianId
-    + Status : ECatalogStatus
-    - _recipes : List<ServiceRecipe>
-    + Recipes : IReadOnlyList<ServiceRecipe>
-    --
-    + {static} Create(technicianId) : ServiceCatalog
-    + AddRecipe(name, desc, cat, requiresIoT, ...) : void
-    + UpdateRecipe(recipeId, ...) : void
-    + DeactivateRecipe(recipeId, reason, inProgress) : void
-    + DeactivateIoTRecipes(reason) : IReadOnlyList<RecipeId>
-    + ReactivateRecipe(recipeId) : void
-  }
-
-  class ServiceRequest <<Aggregate Root>> AGGREGATE_COLOR {
-    + RequestId : RequestId
-    + HomeownerId : HomeownerId?
-    + CompanyId : CompanyId?
-    + ClientType : EClientType
-    + Status : ERequestStatus
-    + RequestType : ERequestType
-    + PropertyId : PropertyId?
-    + Geolocation : Geolocation?
-    + HasIoTDevice : bool
-    + InstalledDeviceId : DeviceId?
-    + RequestedCategory : EServiceCategory?
-    + RequiresIoTCertifiedTechnician : bool
-    + Preferences : RequestPreferences?
-    + ReceiptData : ReceiptData?
-    + IsPriority : bool
-    + IoTContextSnapshot : IoTContextSnapshot?
-    + RecipeSnapshot : RecipeSnapshot?
-    + AssignedTechnicianId : TechnicianId?
-    + AssignmentId : AssignmentId?
-    + OriginSuggestionId : SuggestionId?
-    + OriginSubscriptionId : SubscriptionId?
-    + CancellationReason : CancellationReason?
-    --
-    + {static} Initiate(homeownerId, ...) : ServiceRequest
-    + {static} InitiateForCompany(companyId, ...) : ServiceRequest
-    + {static} CreateForIoTInstallation(...) : ServiceRequest
-    + {static} InitiateFromSuggestion(...) : ServiceRequest
-    + SelectProperty(propertyId, geo, hasIoT, deviceId) : void
-    + SelectCategory(category) : void
-    + AddDetails(prefs, receipt, isPriority) : void
-    + Confirm(iotSnapshot, recipeRequiresIoT) : void
-    + MarkAsAssigned(assignId, techId, snapshot) : void
-    + Cancel(reason) : void
-    + Expire() : void
-  }
-
-  class ServiceAssignment <<Aggregate Root>> AGGREGATE_COLOR {
-    + AssignmentId : AssignmentId
-    + RequestId : RequestId
-    + TechnicianId : TechnicianId?
-    + RecipeSnapshot : RecipeSnapshot?
-    + MatchingCriteria : MatchingCriteria?
-    + Status : EAssignmentStatus
-    + FailureReason : string?
-    + RetryCount : int
-    --
-    + {static} Assign(requestId, techId, snapshot, criteria) : ServiceAssignment
-    + {static} Fail(requestId, reason, retryCount) : ServiceAssignment
-  }
-
-  class ServiceSuggestion <<Aggregate Root>> AGGREGATE_COLOR {
-    + SuggestionId : SuggestionId
-    + ClientId : string
-    + ClientType : EClientType
-    + PropertyId : PropertyId
-    + AnomalyEventId : AnomalyEventId
-    + SuggestedServiceCategory : EServiceCategory
-    + AnomalySeverity : EAnomalySeverity
-    + Status : ESuggestionStatus
-    + CreatedAt : DateTime
-    + ExpiresAt : DateTime
-    + DerivedRequestId : RequestId?
-    --
-    + {static} Create(clientId, clientType, propertyId, ...) : ServiceSuggestion
-    + Accept(clientId) : RequestId
-    + Dismiss(clientId, reason) : void
-    + Expire() : void
-  }
-}
-
-@enduml
-```
 
 ##### 4.2.4.6.2. Bounded Context Database Design Diagram.
 
@@ -2171,131 +2109,7 @@ En esta sección mostramos parte de la estructura de nuestra solución Electroli
 
 ![](assets/img/cap4/sdp/database.png)
 \
-```plantuml
-@startuml Service_Design_Planning_Database
 
-!define TABLE(name,desc) class name as "desc" << (T,#DDDDFF) >>
-!define PK(x) <u>x</u>
-!define FK(x) <i>x</i>
-
-skinparam class {
-  BackgroundColor #F8F9FA
-  BorderColor #4A4A4A
-  ArrowColor #4A4A4A
-  FontSize 10
-}
-
-skinparam linetype ortho
-
-' ─────────────────────────────────────────
-' TABLES
-' ─────────────────────────────────────────
-
-TABLE(sdp_service_catalogs, "sdp_service_catalogs") {
-  PK(id) VARCHAR(60) NOT NULL
-  --
-  technician_id VARCHAR(100) NOT NULL UNIQUE
-  status VARCHAR(20) NOT NULL
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
-  updated_at TIMESTAMPTZ
-}
-
-TABLE(sdp_service_recipes, "sdp_service_recipes") {
-  PK(id) VARCHAR(60) NOT NULL
-  --
-  FK(catalog_id) VARCHAR(60) NOT NULL
-  technician_id VARCHAR(100) NOT NULL
-  service_name VARCHAR(200) NOT NULL
-  service_description TEXT NOT NULL
-  service_category VARCHAR(50) NOT NULL
-  requires_iot_certification BOOLEAN NOT NULL DEFAULT false
-  component_requirements JSONB NOT NULL
-  estimated_duration_min INT NOT NULL
-  materials_estimate DECIMAL(10,2) NOT NULL
-  labor_cost DECIMAL(10,2) NOT NULL
-  total_price DECIMAL(10,2) NOT NULL
-  currency VARCHAR(3) NOT NULL
-  prerequisites JSONB NOT NULL
-  deliverables JSONB NOT NULL
-  warranty_months INT NOT NULL
-  is_active BOOLEAN NOT NULL DEFAULT true
-  times_requested INT NOT NULL DEFAULT 0
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
-  updated_at TIMESTAMPTZ
-  UNIQUE(catalog_id, service_name)
-}
-
-TABLE(sdp_service_requests, "sdp_service_requests") {
-  PK(id) VARCHAR(60) NOT NULL
-  --
-  homeowner_id VARCHAR(100)
-  company_id VARCHAR(100)
-  client_type VARCHAR(20) NOT NULL
-  status VARCHAR(30) NOT NULL
-  request_type VARCHAR(30) NOT NULL DEFAULT 'Standard'
-  property_id VARCHAR(100)
-  geolocation_lat DECIMAL(9,6)
-  geolocation_lon DECIMAL(9,6)
-  has_iot_device BOOLEAN NOT NULL DEFAULT false
-  installed_device_id VARCHAR(100)
-  requested_category VARCHAR(50)
-  requires_iot_certified_tech BOOLEAN NOT NULL DEFAULT false
-  receipt_data JSONB
-  preferences JSONB
-  iot_context_snapshot JSONB
-  recipe_snapshot JSONB
-  assigned_technician_id VARCHAR(100)
-  assignment_id VARCHAR(60)
-  origin_suggestion_id VARCHAR(60)
-  origin_subscription_id VARCHAR(100)
-  is_priority BOOLEAN NOT NULL DEFAULT false
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
-  updated_at TIMESTAMPTZ
-  CHECK (homeowner_id IS NOT NULL OR company_id IS NOT NULL)
-}
-
-TABLE(sdp_service_assignments, "sdp_service_assignments") {
-  PK(id) VARCHAR(60) NOT NULL
-  --
-  FK(request_id) VARCHAR(60) NOT NULL
-  technician_id VARCHAR(100)
-  recipe_snapshot JSONB
-  matching_criteria JSONB
-  status VARCHAR(20) NOT NULL
-  failure_reason VARCHAR(100)
-  retry_count INT NOT NULL DEFAULT 0
-  assigned_at TIMESTAMPTZ NOT NULL DEFAULT now()
-}
-
-TABLE(sdp_service_suggestions, "sdp_service_suggestions") {
-  PK(id) VARCHAR(60) NOT NULL
-  --
-  client_id VARCHAR(100) NOT NULL
-  client_type VARCHAR(20) NOT NULL
-  property_id VARCHAR(100) NOT NULL
-  anomaly_event_id VARCHAR(100) NOT NULL
-  suggested_service_category VARCHAR(50) NOT NULL
-  anomaly_severity VARCHAR(20) NOT NULL
-  status VARCHAR(30) NOT NULL
-  derived_request_id VARCHAR(60)
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
-  expires_at TIMESTAMPTZ NOT NULL
-}
-
-TABLE(sdp_domain_events_outbox, "sdp_domain_events_outbox") {
-  PK(id) UUID NOT NULL DEFAULT gen_random_uuid()
-  --
-  event_name VARCHAR(100) NOT NULL
-  aggregate_id VARCHAR(60) NOT NULL
-  payload JSONB NOT NULL
-  occurred_at TIMESTAMPTZ NOT NULL
-  processed_at TIMESTAMPTZ
-  retry_count INT NOT NULL DEFAULT 0
-  error_message TEXT
-  is_published BOOLEAN NOT NULL DEFAULT false
-}
-@enduml
-```
 ---
 
 ### 4.2.5. Bounded Context: Service Operation & Monitoring
@@ -2925,7 +2739,9 @@ Las configuraciones implementan `IEntityTypeConfiguration<T>` y se registran en 
 
 #### 4.2.5.5. Bounded Context Software Architecture Component Level Diagrams.
 
+\
 
+![](assets/img/cap4/c4-model/OperationBCComponents.png)
 
 #### 4.2.5.6. Bounded Context Software Architecture Code Level Diagrams.
 
@@ -2933,918 +2749,328 @@ Las configuraciones implementan `IEntityTypeConfiguration<T>` y se registran en 
 
 En esta sección mostramos parte de la estructura de nuestra solución Electrolink enfocada en el bounded context de Service Operation & Monitoring, incluyendo datos que seran incluidos en el diagrama de clases.
 \
-```plantuml
-@startuml SOM_DomainLayer
-
-skinparam classAttributeIconSize 0
-skinparam classFontSize 12
-skinparam packageStyle rectangle
-skinparam linetype ortho
-
-package "ServiceOperation.Domain.Model" {
-
-  package "Aggregates" {
-
-    class ServiceExecution <<Aggregate Root>> {
-      + Id : ServiceExecutionId
-      + AssignmentId : AssignmentId
-      + RequestId : RequestId
-      + TechnicianId : TechnicianId
-      + ClientId : ClientId
-      + PropertyId : PropertyId
-      + RecipeSnapshot : RecipeSnapshot
-      + IoTContextSnapshot : IoTContextSnapshot?
-      + DeviceId : DeviceId?
-      + ServiceType : EServiceType
-      + RequiresIoTCertifiedTechnician : bool
-      + ScheduledAt : DateTime
-      + StartedAt : DateTime?
-      + CompletedAt : DateTime?
-      + CancelledAt : DateTime?
-      + IsPriority : bool
-      + Status : EExecutionStatus
-      + TechnicalReportContent : string?
-      + TechnicalReportFindings : string?
-      + TechnicalReportRecommendations : string?
-      + TechnicalReportIotFindings : string?
-      + TechnicalReportVersion : int
-      + NoShowDetectedAt : DateTime?
-      + WaitExtendedUntil : DateTime?
-      + EvaluationWindowExpiresAt : DateTime?
-      + EvaluationWindowExpired : bool
-      --
-      + {static} Create(command) : ServiceExecution
-      + Start(technicianId, startedAt)
-      + UploadWorkPhoto(photoType, url, takenAt, notes)
-      + RecordComponentsUsed(components, recordedAt)
-      + UpdateTechnicalReport(content, findings, recs, iotFindings, updatedAt)
-      + RequestCircuitToggle(technicianId, relayState, reason, requestedAt)
-      + RecordCircuitToggle(deviceId, relayState, confirmedByDevice, executedAt)
-      + Complete(technicianId, completedAt)
-      + Cancel(actorId, cancelledBy, reason, notes, requestReassignment)
-      + OpenEvaluationWindow()
-      + SubmitClientReview(clientId, rating, comment, categories, submittedAt)
-      + SubmitTechnicianReview(technicianId, rating, comment, categories, submittedAt)
-      + ExpireEvaluationWindow()
-      + RecordNoShow(detectedAt, minutesLate)
-      + ExtendWaitTime(clientId, extendMinutes, requestedAt)
-      + AlertActiveAnomaly(anomalyId, type, severity, detectedAt)
-      -- private --
-      - EnsureStatus(expected)
-      - EnsureTechnicianOwnership(technicianId)
-      - EnsureClientOwnership(clientId)
-      - EnsureEvaluationWindowOpen()
-    }
-
-    class ServiceCancellationRequest <<Aggregate Root>> {
-      + Id : CancellationRequestId
-      + ExecutionId : ServiceExecutionId
-      + AssignmentId : AssignmentId
-      + RequestedBy : ECancelledBy
-      + Reason : ECancellationReason
-      + Notes : string?
-      + ReassignRequested : bool
-      + RequestedAt : DateTime
-      --
-      + {static} Create(...) : ServiceCancellationRequest
-    }
-  }
-}
-
-@enduml
-```
 
 ##### 4.2.5.6.2. Bounded Context Database Design Diagram.
 
 En esta sección mostramos parte de la estructura de nuestra solución Electrolink enfocado al bounded context de Service Operation & Monitoring incluyendo los datos que seran incluidos en el diagrama de diseño de base de datos.
 
 ![](assets/img/cap4/som/database.png)
+
 \
-```plantuml
-@startuml SOM_DatabaseDesign
 
-skinparam linetype ortho
-skinparam databaseBackgroundColor #FAFAFA
-skinparam tableBorderColor #555555
-skinparam tableFontSize 11
-
-!define PK <color:#b5651d><b>PK</b></color>
-!define FK <color:#1a6b8a><b>FK</b></color>
-!define UQ <color:#5a7a00><i>UQ</i></color>
-!define IX <color:#777777><i>IX</i></color>
-
-entity "som_service_executions" as SE {
-  PK  id : VARCHAR(60)
-  --
-  UQ  assignment_id : VARCHAR(60) NOT NULL
-      request_id : VARCHAR(60) NOT NULL
-  IX  technician_id : VARCHAR(60) NOT NULL
-  IX  client_id : VARCHAR(60) NOT NULL
-  IX  property_id : VARCHAR(60) NOT NULL
-  ..
-  ' IoT fields
-  IX  device_id : VARCHAR(60) NULL
-      service_type : VARCHAR(40) NOT NULL DEFAULT 'Standard'
-      requires_iot_certified_technician : BOOLEAN NOT NULL DEFAULT FALSE
-      iot_device_id : VARCHAR(60) NULL
-      iot_device_status : VARCHAR(20) NULL
-      iot_stream_status : VARCHAR(20) NULL
-      iot_snapshot_json : JSONB NULL
-      iot_snapshot_captured_at : TIMESTAMPTZ NULL
-  ..
-  ' Recipe Snapshot (aplanado)
-      recipe_id : VARCHAR(60) NOT NULL
-      recipe_service_name : VARCHAR(200) NOT NULL
-      recipe_service_category : VARCHAR(60) NOT NULL
-      recipe_total_price : DECIMAL(10,2) NOT NULL
-      recipe_estimated_duration : INTEGER NOT NULL
-      recipe_warranty_months : INTEGER NOT NULL
-      recipe_components_json : JSONB NOT NULL
-  ..
-  ' Lifecycle
-  IX  status : VARCHAR(20) NOT NULL DEFAULT 'Scheduled'
-      scheduled_at : TIMESTAMPTZ NOT NULL
-      started_at : TIMESTAMPTZ NULL
-      completed_at : TIMESTAMPTZ NULL
-      cancelled_at : TIMESTAMPTZ NULL
-      is_priority : BOOLEAN NOT NULL DEFAULT FALSE
-  ..
-  ' Technical Report
-      report_content : TEXT NULL
-      report_findings : TEXT NULL
-      report_recommendations : TEXT NULL
-      report_iot_findings : TEXT NULL
-      report_version : INTEGER NOT NULL DEFAULT 0
-  ..
-  ' No-show / Wait Extension
-      no_show_detected_at : TIMESTAMPTZ NULL
-      wait_extended_until : TIMESTAMPTZ NULL
-  ..
-  ' Evaluation Window
-      eval_window_expires_at : TIMESTAMPTZ NULL
-      eval_window_expired : BOOLEAN NOT NULL DEFAULT FALSE
-  ..
-  ' Audit
-      created_at : TIMESTAMPTZ NOT NULL DEFAULT NOW()
-      updated_at : TIMESTAMPTZ NULL
-}
-
-entity "som_work_photos" as WP {
-  PK  id : VARCHAR(60)
-  --
-  FK  IX  execution_id : VARCHAR(60) NOT NULL
-      photo_type : VARCHAR(20) NOT NULL
-      photo_url : VARCHAR(500) NOT NULL
-      taken_at : TIMESTAMPTZ NOT NULL
-      notes : VARCHAR(500) NULL
-}
-
-entity "som_component_usage_records" as CUR {
-  PK  id : VARCHAR(60)
-  --
-  FK  IX  execution_id : VARCHAR(60) NOT NULL
-      component_type_id : VARCHAR(60) NOT NULL
-      component_type_name : VARCHAR(200) NOT NULL
-      quantity_used : INTEGER NOT NULL
-      quantity_reserved : INTEGER NOT NULL
-}
-
-entity "som_relay_action_records" as RAR {
-  PK  id : VARCHAR(60)
-  --
-  FK  IX  execution_id : VARCHAR(60) NOT NULL
-  IX  device_id : VARCHAR(60) NOT NULL
-      requested_relay_state : VARCHAR(10) NOT NULL
-      status : VARCHAR(20) NOT NULL
-      reason : VARCHAR(500) NOT NULL
-      requested_at : TIMESTAMPTZ NOT NULL
-      executed_at : TIMESTAMPTZ NULL
-}
-
-entity "som_service_evaluations" as SEV {
-  PK  id : VARCHAR(60)
-  --
-  FK  IX  execution_id : VARCHAR(60) NOT NULL
-      reviewer_id : VARCHAR(60) NOT NULL
-      reviewed_id : VARCHAR(60) NOT NULL
-      reviewer_role : VARCHAR(20) NOT NULL
-      rating : INTEGER NOT NULL CHECK (1..5)
-      comment : VARCHAR(1000) NULL
-      categories_json : JSONB NOT NULL
-      submitted_at : TIMESTAMPTZ NOT NULL
-  ..
-  UQ  UNIQUE (execution_id, reviewer_role)
-}
-@enduml
-```
 ---
 
 ### 4.2.6. Bounded Context: Subscriptions and Payment Management
 #### 4.2.6.1. Domain Layer.
-
-El Domain Layer del Bounded Context **Subscriptions & Payments** constituye el núcleo del dominio. Implementa el patrón **CQRS** (Command Query Responsibility Segregation) junto con **DDD** (Domain-Driven Design), y define las invariantes de negocio que rigen el ciclo de vida completo de las suscripciones de plataforma para los tres roles de negocio: `TECHNICIAN`, `HOMEOWNER` y `COMPANY`.
-
----
-
-### Aggregates
-
-#### `Subscription` — Aggregate Root Principal
-
-Representa el contrato de suscripción de un usuario con ElectroLink. Gestiona el ciclo de vida completo desde el estado inicial hasta la cancelación o expiración, incluyendo el sub-ciclo empresarial de instalación IoT para el rol `COMPANY`. No procesa pagos de forma directa; delega dicha responsabilidad a Stripe y reacciona a los webhooks que este emite.
-
-**Invariantes globales:**
-- Un `userId` únicamente puede tener **una** suscripción activa de manera simultánea.
-- `stripeCustomerId` se genera en el momento de la creación y nunca puede ser nulo.
-- El Value Object `UsageCounters` es exclusivo del rol `HOMEOWNER` con plan `BASIC`; para los demás roles es nulo por contrato.
-- Los campos `activeDeviceCount`, `pricePerDevice` e `installationServiceRequestId` son exclusivos del rol `COMPANY`.
-- `billingCycle` es nulo para los planes `BASIC` y `ENTERPRISE_BASIC`, dado que no generan facturación recurrente.
-
-| Atributo | Tipo | Descripción |
-|---|---|---|
-| `Id` | `SubscriptionId` | Identificador único del aggregate. Prefijo `sub-{GUID}`. |
-| `UserId` | `UserId` | Referencia al usuario en el BC de IAM. |
-| `BusinessRole` | `BusinessRole` | Rol de negocio: `Technician`, `Homeowner` o `Company`. |
-| `PlanType` | `PlanType` | Plan activo: `Basic`, `Premium`, `EnterpriseBasic` o `EnterprisePremium`. |
-| `Status` | `SubscriptionStatus` | Estado del ciclo de vida de la suscripción. |
-| `BillingCycle` | `BillingCycle?` | Ciclo de facturación: `Monthly` o `Annual`. Nulo para planes gratuitos. |
-| `StripeCustomerId` | `string` | Identificador del cliente en Stripe. Único e invariable. |
-| `StripeSubscriptionId` | `string?` | Identificador de la suscripción activa en Stripe. |
-| `CurrentPeriodStart` | `DateTime?` | Inicio del período de facturación vigente. |
-| `CurrentPeriodEnd` | `DateTime?` | Fin del período de facturación vigente. |
-| `CancelAtPeriodEnd` | `bool` | Indica si la cancelación está diferida al fin del período. |
-| `GracePeriodEndsAt` | `DateTime?` | Fecha límite del período de gracia (7 días) ante fallo de pago. |
-| `UsageCounters` | `UsageCounters?` | Contador de solicitudes mensuales. Exclusivo de `HOMEOWNER BASIC`. |
-| `InstallationServiceRequestId` | `string?` | Referencia a la solicitud de instalación IoT en Service Design BC. Exclusivo de `COMPANY`. |
-| `InstallationDeadlineAt` | `DateTime?` | Plazo máximo para completar la instalación IoT (30 días desde el pago). Exclusivo de `COMPANY`. |
-| `ActiveDeviceCount` | `int?` | Cantidad de dispositivos IoT activos. Exclusivo de `COMPANY`. |
-| `PricePerDevice` | `int?` | Precio unitario por dispositivo activo en centavos USD. Exclusivo de `COMPANY`. |
-| `CreatedAt` | `DateTime` | Fecha y hora de creación del registro. |
-| `UpdatedAt` | `DateTime?` | Fecha y hora de la última modificación. |
-
-| Método | Descripción |
-|---|---|
-| `Create(userId, businessRole, stripeCustomerId)` | Factory method estático. Crea la suscripción con plan `BASIC` o `ENTERPRISE_BASIC` según el rol. Emite `SubscriptionInitializedEvent`. |
-| `InitiateCheckout(billingCycle, stripeCheckoutSessionId)` | Registra el inicio de un proceso de pago individual. Emite `CheckoutInitiatedEvent`. Solo válido para planes `BASIC` de roles no empresariales. |
-| `Activate(stripeSubscriptionId, stripeInvoiceId, billingCycle, periodStart, periodEnd)` | Activa el plan `PREMIUM` tras confirmar el pago individual. Emite `SubscriptionActivatedEvent`. |
-| `InitiateEnterpriseCheckout(enterprisePlan, initialDeviceCount, pricePerDevice, billingCycle, stripeCheckoutSessionId)` | Inicia el proceso de pago empresarial IoT. Emite `EnterpriseCheckoutInitiatedEvent`. Exclusivo de `COMPANY`. |
-| `ActivateEnterprisePendingInstallation(...)` | Transiciona el estado a `PENDING_INSTALLATION` tras confirmar el pago empresarial. Emite `EnterpriseSubscriptionPendingInstallationEvent`. Establece un plazo de 30 días para la instalación. |
-| `ActivateEnterpriseFullyActive(installationServiceRequestId, confirmedAt)` | Activa el plan empresarial de forma completa tras confirmar la instalación del dispositivo IoT. Emite `EnterpriseSubscriptionFullyActiveEvent`. |
-| `RecordSuccessfulRenewal(newPeriodStart, newPeriodEnd, wasInGracePeriod)` | Registra la renovación exitosa de un plan individual. Emite `PaymentProcessedEvent`. |
-| `RecordEnterpriseRenewal(newPeriodStart, newPeriodEnd, newActiveDeviceCount, wasInGracePeriod)` | Registra la renovación empresarial actualizando el conteo de dispositivos. Emite `EnterprisePaymentProcessedEvent`. |
-| `StartGracePeriod(stripeInvoiceId)` | Inicia el período de gracia de 7 días ante fallo de pago. Idempotente. Emite `GracePeriodStartedEvent`. |
-| `Degrade(reason)` | Degrada el plan al nivel inferior correspondiente al rol. Emite `SubscriptionDegradedEvent`. |
-| `ScheduleCancellation(reason)` | Programa la cancelación voluntaria al fin del período vigente. Emite `SubscriptionCancellationScheduledEvent`. |
-| `UpdateActiveDeviceCount(newCount, source)` | Actualiza el contador de dispositivos activos. Emite `ActiveDeviceCountUpdatedEvent` y, si el conteo llega a cero, `EnterpriseSubscriptionNoDevicesRemainingEvent`. |
-| `IncrementMonthlyRequestCounter(limit)` | Incrementa el contador de solicitudes mensuales para `HOMEOWNER BASIC`. Emite `MonthlyRequestLimitReachedEvent` al alcanzar el límite. |
-| `ResetMonthlyCounters()` | Restablece los contadores mensuales a cero. Emite `MonthlyCountersResetEvent`. |
-
----
-
-#### `PaymentRecord` — Aggregate Auxiliar
-
-Registra el historial inmutable de pagos asociados a una suscripción. Funciona como un log de auditoría de solo escritura (*append-only*). Cada entrada corresponde a un evento de `invoice.payment_succeeded` o `invoice.payment_failed` recibido desde Stripe. La idempotencia ante webhooks duplicados se garantiza mediante un índice único sobre `stripe_invoice_id`.
-
-| Atributo | Tipo | Descripción |
-|---|---|---|
-| `Id` | `PaymentRecordId` | Identificador único del registro de pago. Prefijo `pay-{GUID}`. |
-| `SubscriptionId` | `SubscriptionId` | Referencia a la suscripción asociada. |
-| `StripeInvoiceId` | `string` | Identificador de la factura en Stripe. Valor único; garantiza idempotencia. |
-| `Amount` | `Money` | Importe del pago representado como Value Object. |
-| `Status` | `PaymentStatus` | Estado del pago: `Succeeded`, `Failed` o `Refunded`. |
-| `ActiveDeviceCount` | `int?` | Instantánea del conteo de dispositivos al momento del pago. Exclusivo de `COMPANY`. |
-| `ProcessedAt` | `DateTime` | Fecha y hora en que se procesó el pago. |
-
-| Método | Descripción |
-|---|---|
-| `CreateSucceeded(subscriptionId, stripeInvoiceId, amountCents, currency, activeDeviceCount?)` | Factory method que crea un registro de pago exitoso. |
-| `CreateFailed(subscriptionId, stripeInvoiceId, amountCents, currency)` | Factory method que crea un registro de pago fallido. |
-
----
-
-### Value Objects
-
-| Value Object | Atributos | Descripción |
-|---|---|---|
-| `SubscriptionId` | `Value: string` | Identificador tipado del aggregate `Subscription`. Formato: `sub-{GUID}`. Inmutable. |
-| `PaymentRecordId` | `Value: string` | Identificador tipado del aggregate `PaymentRecord`. Formato: `pay-{GUID}`. Inmutable. |
-| `UserId` | `Value: string` | Referencia al usuario en el IAM BC. Sin prefijo propio. |
-| `Money` | `AmountCents: int`, `Currency: string` | Representa un importe monetario en centavos. Valida que el monto no sea negativo y normaliza la moneda a minúsculas. |
-| `UsageCounters` | `MonthlyRequestsUsed: int` | Contador de solicitudes mensuales para `HOMEOWNER BASIC`. Inmutable; cada incremento produce una nueva instancia. |
-
-**Enumeraciones:**
-
-| Enumeración | Valores | Descripción |
-|---|---|---|
-| `PlanType` | `Basic`, `Premium`, `EnterpriseBasic`, `EnterprisePremium` | Define el nivel de plan de la suscripción. |
-| `SubscriptionStatus` | `Active`, `PendingInstallation`, `GracePeriod`, `CancelledPending`, `Degraded`, `Expired`, `CancelledRefunded` | Define el estado del ciclo de vida de la suscripción. |
-| `BusinessRole` | `Technician`, `Homeowner`, `Company` | Define el rol de negocio del usuario en la plataforma. |
-| `BillingCycle` | `Monthly`, `Annual` | Define la frecuencia del ciclo de facturación. |
-| `PaymentStatus` | `Succeeded`, `Failed`, `Refunded` | Define el resultado de un intento de pago. |
-
----
-
-### Commands
-
-| Clase | Descripción |
-|---|---|
-| `CreateSubscriptionCommand` | Crea la suscripción inicial al completarse el perfil del usuario. |
-| `InitiateCheckoutCommand` | Inicia el proceso de pago para un plan Premium individual. |
-| `ActivateSubscriptionCommand` | Activa el plan Premium tras confirmar el pago vía webhook de Stripe. |
-| `InitiateEnterpriseCheckoutCommand` | Inicia el proceso de pago para un plan Enterprise IoT. |
-| `ActivateEnterpriseSubscriptionPendingInstallationCommand` | Transiciona la suscripción empresarial a `PENDING_INSTALLATION` tras confirmar el pago. |
-| `ActivateEnterpriseSubscriptionCommand` | Activa el plan empresarial de forma completa tras confirmar la instalación del dispositivo. |
-| `CancelEnterpriseSubscriptionWithRefundCommand` | Cancela la suscripción empresarial con reembolso ante vencimiento del plazo de instalación. |
-| `RecordSuccessfulRenewalCommand` | Registra la renovación exitosa de un plan individual. |
-| `RecordEnterpriseRenewalCommand` | Registra la renovación exitosa de un plan empresarial con actualización del conteo de dispositivos. |
-| `StartGracePeriodCommand` | Inicia el período de gracia de 7 días ante un fallo de pago. |
-| `DegradeSubscriptionCommand` | Degrada el plan al nivel inferior correspondiente al rol. |
-| `CancelSubscriptionCommand` | Programa la cancelación voluntaria de la suscripción. |
-| `UpdateActiveDeviceCountCommand` | Actualiza el conteo de dispositivos activos para suscripciones empresariales. |
-| `IncrementMonthlyRequestCounterCommand` | Incrementa el contador de solicitudes mensuales para `HOMEOWNER BASIC`. |
-| `ResetMonthlyRequestCountersCommand` | Restablece los contadores mensuales de todas las suscripciones `HOMEOWNER BASIC`. |
-| `OpenCustomerPortalCommand` | Genera la URL de sesión del Stripe Customer Portal. |
-
----
-
-### Queries
-
-| Clase | Descripción |
-|---|---|
-| `GetMySubscriptionQuery` | Obtiene el estado completo de la suscripción del usuario autenticado. |
-| `GetRequestEligibilityQuery` | Verifica si el usuario puede crear una nueva solicitud de servicio en función de su plan. |
-| `GetPaymentHistoryQuery` | Obtiene el historial paginado de pagos de la suscripción. |
-| `GetStatusAlertQuery` | Obtiene la alerta de estado activa: período de gracia, límite alcanzado o instalación pendiente. |
-| `GetEnterpriseDeviceBillingQuery` | Obtiene el desglose de facturación empresarial: dispositivos activos, precio unitario y monto proyectado. |
-
----
-
-### Domain Services (Interfaces)
-
-| Interfaz | Descripción |
-|---|---|
-| `ISubscriptionCommandService` | Define las operaciones que producen cambios de estado sobre los aggregates del BC. Implementa el lado de escritura del patrón CQRS. |
-| `ISubscriptionQueryService` | Define las operaciones de solo lectura para consultar el estado de las suscripciones. Implementa el lado de lectura del patrón CQRS. |
-
----
-
-### Repository Interfaces
-
-| Interfaz | Descripción |
-|---|---|
-| `ISubscriptionRepository` | Define el contrato de persistencia y consulta sobre el aggregate `Subscription`. Extiende `IBaseRepository<Subscription, SubscriptionId>`. |
-| `IPaymentRecordRepository` | Define el contrato de persistencia y consulta sobre el aggregate `PaymentRecord`. Extiende `IBaseRepository<PaymentRecord, PaymentRecordId>`. |
-
-**Métodos de `ISubscriptionRepository`:**
-
-| Método | Retorno | Descripción |
-|---|---|---|
-| `FindByUserIdAsync(userId)` | `Task<Subscription?>` | Localiza la suscripción asociada a un usuario. |
-| `FindByStripeCustomerIdAsync(stripeCustomerId)` | `Task<Subscription?>` | Localiza la suscripción por el identificador de cliente de Stripe. |
-| `FindByStripeSubscriptionIdAsync(stripeSubscriptionId)` | `Task<Subscription?>` | Localiza la suscripción por el identificador de suscripción de Stripe. |
-| `ExistsByUserIdAsync(userId)` | `Task<bool>` | Verifica la existencia de una suscripción para un usuario. Garantiza la invariante de unicidad. |
-| `FindPendingInstallationExpiredAsync(threshold)` | `Task<IEnumerable<Subscription>>` | Retorna suscripciones empresariales con plazo de instalación vencido. Empleado por el job de cancelación automática. |
-| `FindCompanySubscriptionsActiveAsync()` | `Task<IEnumerable<Subscription>>` | Retorna todas las suscripciones empresariales activas. Empleado para el proceso de renovación. |
-
-**Métodos de `IPaymentRecordRepository`:**
-
-| Método | Retorno | Descripción |
-|---|---|---|
-| `ExistsByStripeInvoiceIdAsync(stripeInvoiceId)` | `Task<bool>` | Verifica si un invoice ya fue procesado. Mecanismo central de idempotencia ante webhooks duplicados. |
-| `FindBySubscriptionIdAsync(subscriptionId, page, pageSize)` | `Task<IEnumerable<PaymentRecord>>` | Retorna el historial de pagos paginado de una suscripción. |
-
----
-
 #### 4.2.6.2. Interface Layer.
-
-La Interface Layer expone la funcionalidad del BC hacia el exterior a través de dos mecanismos diferenciados: una API REST autenticada orientada al usuario y un controlador de webhooks público cuya autenticidad se verifica mediante firma HMAC de Stripe.
-
----
-
-### Resources (Entrada)
-
-Los Resources de entrada representan la abstracción de las solicitudes recibidas desde el cliente.
-
-**`InitiateCheckoutResource`**
-
-Representa la solicitud para iniciar el proceso de pago de un plan Premium individual.
-
-| Atributo | Tipo | Descripción |
-|---|---|---|
-| `BillingCycle` | `string` | Ciclo de facturación deseado: `"MONTHLY"` o `"ANNUAL"`. |
-| `SuccessUrl` | `string` | URL de redirección ante pago exitoso en Stripe. |
-| `CancelUrl` | `string` | URL de redirección ante cancelación del pago en Stripe. |
-
----
-
-**`InitiateEnterpriseCheckoutResource`**
-
-Representa la solicitud para iniciar el proceso de pago de un plan Enterprise IoT.
-
-| Atributo | Tipo | Descripción |
-|---|---|---|
-| `EnterprisePlan` | `string` | Plan empresarial solicitado: `"ENTERPRISE_PREMIUM"`. |
-| `InitialDeviceCount` | `int` | Cantidad inicial de dispositivos IoT a contratar. Mínimo: 1. |
-| `BillingCycle` | `string` | Ciclo de facturación: `"MONTHLY"` o `"ANNUAL"`. |
-| `SuccessUrl` | `string` | URL de redirección ante pago exitoso. |
-| `CancelUrl` | `string` | URL de redirección ante cancelación. |
-
----
-
-**`CancelSubscriptionResource`**
-
-Representa la solicitud de cancelación voluntaria de la suscripción.
-
-| Atributo | Tipo | Descripción |
-|---|---|---|
-| `Reason` | `string` | Motivo de la cancelación. |
-| `Feedback` | `string?` | Comentario adicional del usuario. Opcional. |
-
----
-
-**`OpenCustomerPortalResource`**
-
-Representa la solicitud para generar una sesión en el Stripe Customer Portal.
-
-| Atributo | Tipo | Descripción |
-|---|---|---|
-| `ReturnUrl` | `string` | URL de retorno al salir del portal de Stripe. |
-
----
-
-### Resources (Salida)
-
-Los Resources de salida representan la abstracción de las respuestas enviadas al cliente.
-
-**`SubscriptionResponseResource`**
-
-Representa el estado completo de la suscripción del usuario autenticado.
-
-| Atributo | Tipo | Descripción |
-|---|---|---|
-| `SubscriptionId` | `string` | Identificador de la suscripción. |
-| `UserId` | `string` | Identificador del usuario propietario. |
-| `BusinessRole` | `string` | Rol de negocio del usuario. |
-| `PlanType` | `string` | Plan activo. |
-| `Status` | `string` | Estado actual del ciclo de vida. |
-| `BillingCycle` | `string?` | Ciclo de facturación. Nulo para planes sin facturación. |
-| `CurrentPeriodEnd` | `DateTime?` | Fecha de vencimiento del período vigente. |
-| `CancelAtPeriodEnd` | `bool` | Indica si la cancelación está programada al fin del período. |
-| `GracePeriodEndsAt` | `DateTime?` | Fecha límite del período de gracia. |
-| `MonthlyRequestsUsed` | `int?` | Solicitudes mensuales consumidas. Exclusivo de `HOMEOWNER BASIC`. |
-| `InstallationPending` | `bool?` | Indica si la instalación IoT está pendiente. Exclusivo de `COMPANY`. |
-| `InstallationDeadlineAt` | `DateTime?` | Plazo máximo para la instalación. Exclusivo de `COMPANY`. |
-| `ActiveDeviceCount` | `int?` | Dispositivos IoT activos. Exclusivo de `COMPANY`. |
-| `PricePerDevice` | `int?` | Precio unitario por dispositivo en centavos. Exclusivo de `COMPANY`. |
-
----
-
-**`RequestEligibilityResponseResource`**
-
-Representa la elegibilidad del usuario para crear una nueva solicitud de servicio.
-
-| Atributo | Tipo | Descripción |
-|---|---|---|
-| `CanRequest` | `bool` | Indica si el usuario puede crear una solicitud. |
-| `IsPriorityAllowed` | `bool` | Indica si la solicitud puede ser prioritaria. |
-| `RemainingRequests` | `int?` | Solicitudes restantes en el mes. Aplica solo a `HOMEOWNER BASIC`. |
-| `PlanType` | `string` | Plan activo del usuario. |
-| `UpgradeRequired` | `bool` | Indica si es necesario actualizar el plan para continuar operando. |
-| `HasIoTContext` | `bool` | Indica si el usuario tiene contexto IoT activo. |
-| `InstallationPending` | `bool` | Indica si la instalación IoT está en curso. |
-
----
-
-**`PaymentHistoryResponseResource`**
-
-Representa la respuesta paginada del historial de pagos.
-
-| Atributo | Tipo | Descripción |
-|---|---|---|
-| `Page` | `int` | Número de página actual. |
-| `PageSize` | `int` | Cantidad de registros por página. |
-| `Items` | `IEnumerable<PaymentRecordItemResource>` | Colección de registros de pago. |
-
-**`PaymentRecordItemResource`**
-
-| Atributo | Tipo | Descripción |
-|---|---|---|
-| `PaymentRecordId` | `string` | Identificador del registro. |
-| `StripeInvoiceId` | `string` | Identificador de la factura en Stripe. |
-| `AmountCents` | `int` | Importe en centavos. |
-| `Currency` | `string` | Moneda del pago. |
-| `Status` | `string` | Estado del pago. |
-| `ActiveDeviceCount` | `int?` | Dispositivos activos al momento del pago. Exclusivo de `COMPANY`. |
-| `ProcessedAt` | `DateTime` | Fecha y hora de procesamiento. |
-
----
-
-**`StatusAlertResponseResource`**
-
-Representa una alerta de estado activa para el usuario.
-
-| Atributo | Tipo | Descripción |
-|---|---|---|
-| `AlertType` | `string` | Tipo de alerta: `PAYMENT_FAILED`, `PENDING_INSTALLATION` o `MONTHLY_LIMIT_REACHED`. |
-| `Message` | `string` | Mensaje descriptivo para el usuario. |
-| `GracePeriodEndsAt` | `DateTime?` | Fecha límite del período de gracia. |
-| `InstallationDeadlineAt` | `DateTime?` | Fecha límite de instalación IoT. |
-
----
-
-**`CustomerPortalResponseResource`**
-
-| Atributo | Tipo | Descripción |
-|---|---|---|
-| `PortalUrl` | `string` | URL de la sesión del Stripe Customer Portal. |
-
----
-
-**`EnterpriseDeviceBillingResponseResource`**
-
-Representa el desglose de facturación dinámica empresarial.
-
-| Atributo | Tipo | Descripción |
-|---|---|---|
-| `ActiveDeviceCount` | `int` | Dispositivos IoT activos en el período vigente. |
-| `PricePerDevice` | `int` | Precio unitario por dispositivo en centavos USD. |
-| `CurrentMonthlyAmount` | `int` | Monto mensual total calculado (`ActiveDeviceCount × PricePerDevice`). |
-| `BillingCycle` | `string?` | Ciclo de facturación activo. |
-| `NextPeriodEnd` | `DateTime?` | Fecha de vencimiento del próximo período. |
-
----
-
-### Assemblers (Transforms)
-
-Los Assemblers son clases estáticas que transforman Resources en Commands y entidades de dominio en Resources, desacoplando la capa de interfaz de la lógica de dominio.
-
-| Clase | Método | Descripción |
-|---|---|---|
-| `InitiateCheckoutCommandFromResourceAssembler` | `ToCommand(userId, resource)` | Transforma un `InitiateCheckoutResource` en un `InitiateCheckoutCommand`. |
-| `InitiateEnterpriseCheckoutCommandFromResourceAssembler` | `ToCommand(userId, resource)` | Transforma un `InitiateEnterpriseCheckoutResource` en un `InitiateEnterpriseCheckoutCommand`. |
-| `CancelSubscriptionCommandFromResourceAssembler` | `ToCommand(userId, resource)` | Transforma un `CancelSubscriptionResource` en un `CancelSubscriptionCommand`. |
-| `SubscriptionResponseResourceFromEntityAssembler` | `ToResource(subscription)` | Transforma la entidad `Subscription` en un `SubscriptionResponseResource`. |
-| `RequestEligibilityResponseResourceFromEntityAssembler` | `ToResource(eligibility)` | Transforma el objeto de elegibilidad del QueryService en un `RequestEligibilityResponseResource`. |
-| `PaymentHistoryResponseResourceFromEntityAssembler` | `ToResource(records, page, pageSize)` | Transforma la colección de `PaymentRecord` en un `PaymentHistoryResponseResource` paginado. |
-| `StatusAlertResponseResourceFromEntityAssembler` | `ToResource(alert)` | Transforma el objeto de alerta del QueryService en un `StatusAlertResponseResource`. |
-| `EnterpriseDeviceBillingResponseResourceFromEntityAssembler` | `ToResource(billing)` | Transforma el objeto de facturación del QueryService en un `EnterpriseDeviceBillingResponseResource`. |
-
----
-
-### Controllers
-
-#### `SubscriptionsController`
-
-**Ruta base:** `api/v1/subscriptions`
-**Autorización:** Bearer token requerido (`[Authorize]`)
-
-| Método HTTP | Ruta | Descripción |
-|---|---|---|
-| `GET` | `/me` | Retorna el estado completo de la suscripción del usuario autenticado. |
-| `GET` | `/me/eligibility` | Retorna la elegibilidad del usuario para crear una solicitud de servicio. |
-| `GET` | `/me/payment-history` | Retorna el historial de pagos paginado (`?page=1&pageSize=20`). |
-| `GET` | `/me/status-alert` | Retorna la alerta de estado activa. Devuelve `204 No Content` si no hay alertas. |
-| `GET` | `/me/device-billing` | Retorna el desglose de facturación dinámica empresarial. Exclusivo de `COMPANY`. |
-| `POST` | `/me/checkout` | Inicia el proceso de pago para un plan Premium individual. Retorna `checkoutUrl`. |
-| `POST` | `/me/enterprise-checkout` | Inicia el proceso de pago para un plan Enterprise IoT. Retorna `checkoutUrl`. |
-| `POST` | `/me/portal` | Genera la URL de sesión del Stripe Customer Portal. |
-| `DELETE` | `/me` | Programa la cancelación voluntaria de la suscripción. |
-
----
-
-#### `StripeWebhookController`
-
-**Ruta base:** `api/v1/webhooks/stripe`
-**Autorización:** Acceso anónimo (`[AllowAnonymous]`). La autenticidad se verifica mediante firma HMAC con el `WebhookSecret` de Stripe.
-
-| Método HTTP | Ruta | Evento Stripe | Descripción |
-|---|---|---|---|
-| `POST` | `/` | `invoice.payment_succeeded` (creación individual) | Activa el plan Premium o Enterprise tras el primer pago exitoso. |
-| `POST` | `/` | `invoice.payment_succeeded` (renovación) | Registra la renovación exitosa del ciclo de facturación. |
-| `POST` | `/` | `invoice.payment_failed` | Inicia el período de gracia de 7 días. |
-| `POST` | `/` | `customer.subscription.deleted` | Degrada la suscripción por fallo de pago o cancelación. |
-| `POST` | `/` | `customer.subscription.updated` | Registra el cambio de ciclo de facturación. |
-
----
-
 #### 4.2.6.3. Application Layer.
-
-La Application Layer orquesta los casos de uso del BC mediante la implementación concreta de los servicios de dominio definidos en la Domain Layer. Actúa como punto de coordinación entre el dominio, los repositorios, los servicios externos (Stripe, Assets BC) y el bus de eventos de dominio (MediatR).
-
----
-
-### Command Services
-
-**`SubscriptionCommandService`**
-
-**Ubicación:** `Subscriptions/Application/Internal/CommandServices/SubscriptionCommandService.cs`
-
-Implementa la interfaz `ISubscriptionCommandService`. Es responsable de la orquestación de todos los casos de uso que producen cambios de estado en los aggregates del BC. Coordina la validación de invariantes, la interacción con repositorios, la invocación a servicios externos y la publicación de eventos de dominio.
-
-| Interfaz Implementada | Descripción |
-|---|---|
-| `ISubscriptionCommandService` | Contrato de dominio que define todas las operaciones de escritura del BC. |
-
-**Dependencias inyectadas:**
-
-| Dependencia | Tipo | Propósito |
-|---|---|---|
-| `subscriptionRepository` | `ISubscriptionRepository` | Persistencia y recuperación del aggregate `Subscription`. |
-| `paymentRecordRepository` | `IPaymentRecordRepository` | Persistencia y recuperación del aggregate `PaymentRecord`. |
-| `unitOfWork` | `IUnitOfWork` | Coordinación transaccional de operaciones de escritura. |
-| `mediator` | `IMediator` | Publicación de eventos de dominio hacia otros handlers o BCs. |
-| `stripeService` | `IStripeService` | Puerto de salida hacia el proveedor de pagos Stripe. |
-| `assetsContextFacade` | `IAssetsContextFacade` | Puerto de salida hacia el BC de Assets para consulta síncrona de dispositivos activos. |
-| `logger` | `ILogger<SubscriptionCommandService>` | Registro de trazabilidad operacional. |
-
-**Operaciones principales orquestadas:**
-
-- **`Handle(CreateSubscriptionCommand)`**: Verifica idempotencia mediante `ExistsByUserIdAsync`, crea el cliente en Stripe, instancia el aggregate y persiste la suscripción inicial.
-- **`Handle(InitiateCheckoutCommand)`**: Valida el estado del aggregate, invoca a Stripe para crear la sesión de checkout y retorna la URL al controller.
-- **`Handle(ActivateSubscriptionCommand)`**: Verifica idempotencia por `StripeInvoiceId`, activa el aggregate, persiste el `PaymentRecord` y publica `SubscriptionActivatedEvent`.
-- **`Handle(InitiateEnterpriseCheckoutCommand)`**: Para reactivaciones, consulta Assets antes de crear la sesión; determina si el plan puede saltar directamente a `ACTIVE` o debe pasar por `PENDING_INSTALLATION`.
-- **`Handle(ActivateEnterpriseSubscriptionPendingInstallationCommand)`**: Transiciona a `PENDING_INSTALLATION`, establece el plazo de instalación de 30 días y publica `EnterpriseSubscriptionPendingInstallationEvent`.
-- **`Handle(ActivateEnterpriseSubscriptionCommand)`**: Recibe el evento `DeviceInstalled` de Assets, activa el plan empresarial por completo y publica `EnterpriseSubscriptionFullyActiveEvent`.
-- **`Handle(UpdateActiveDeviceCountCommand)`**: Consulta Assets para obtener el conteo real de dispositivos y actualiza el aggregate.
-- **`Handle(ResetMonthlyRequestCountersCommand)`**: Obtiene todas las suscripciones `HOMEOWNER BASIC` y restablece sus contadores de forma atómica.
-
----
-
-### Query Services
-
-**`SubscriptionQueryService`**
-
-**Ubicación:** `Subscriptions/Application/Internal/QueryServices/SubscriptionQueryService.cs`
-
-Implementa la interfaz `ISubscriptionQueryService`. Es responsable de resolver todas las consultas de solo lectura del BC, sin producir cambios de estado en los aggregates. Proyecta el estado del dominio hacia objetos de respuesta que el controller transforma en Resources.
-
-| Interfaz Implementada | Descripción |
-|---|---|
-| `ISubscriptionQueryService` | Contrato de dominio que define todas las operaciones de consulta del BC. |
-
-**Dependencias inyectadas:**
-
-| Dependencia | Tipo | Propósito |
-|---|---|---|
-| `subscriptionRepository` | `ISubscriptionRepository` | Consulta del estado del aggregate `Subscription`. |
-| `paymentRecordRepository` | `IPaymentRecordRepository` | Consulta del historial de pagos. |
-| `logger` | `ILogger<SubscriptionQueryService>` | Registro de trazabilidad operacional. |
-
-**Operaciones principales resueltas:**
-
-- **`Handle(GetMySubscriptionQuery)`**: Retorna el aggregate completo; el assembler proyecta sus propiedades hacia el resource de respuesta.
-- **`Handle(GetRequestEligibilityQuery)`**: Evalúa el estado del aggregate mediante una expresión `switch` sobre `PlanType` y `Status`, retornando un objeto anónimo con las propiedades de elegibilidad.
-- **`Handle(GetPaymentHistoryQuery)`**: Delega la paginación al repositorio y retorna la colección de `PaymentRecord`.
-- **`Handle(GetStatusAlertQuery)`**: Evalúa el estado de la suscripción y retorna la alerta activa o `null` si no existe ninguna.
-- **`Handle(GetEnterpriseDeviceBillingQuery)`**: Retorna el desglose de facturación dinámica calculado a partir del aggregate para suscripciones `COMPANY`.
-
----
-
-### Outbound Services (Puertos de Salida)
-
-| Interfaz | Propósito |
-|---|---|
-| `IStripeService` | Puerto de salida hacia Stripe. Define operaciones para crear clientes, sesiones de checkout, actualizar cantidades, cancelar con reembolso, programar cancelaciones diferidas y generar sesiones del Customer Portal. |
-| `IAssetsContextFacade` | Puerto de salida hacia el BC de Assets. Define la operación `GetActiveDeviceCountAsync(companyUserId)` para obtener el conteo real de dispositivos IoT instalados en una empresa. |
-
----
-
 #### 4.2.6.4. Infrastructure Layer.
+#### 4.2.6.5. Bounded Context Software Architecture Component Level Diagrams.
+#### 4.2.6.6. Bounded Context Software Architecture Code Level Diagrams.
+##### 4.2.6.6.1. Bounded Context Domain Layer Class Diagrams.
+##### 4.2.6.6.2. Bounded Context Database Design Diagram.
 
-La Infrastructure Layer provee las implementaciones concretas de los contratos definidos en la Domain Layer, utilizando Entity Framework Core como ORM y PostgreSQL como motor de base de datos.
+### 4.2.7. Bounded Context: Analytics 
+#### 4.2.7.1. Domain Layer
+
+En esta capa se definen las entidades, agregados y reglas de negocio principales. El Bounded Context de Analytics & Reporting no genera datos propios, sino que consume, agrega y proyecta datos publicados por otros contextos (como IoT Monitoring y Service Operation). 
+
+**Aggregates y Entities**
+
+**ConsumptionDashboard (Aggregate Root)**
+Representa el estado actual del panel de consumo eléctrico de un cliente, reconstruyéndose incrementalmente a partir de los eventos de lecturas publicadas.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `DashboardId` | ConsumptionDashboardId | Identificador único del panel. |
+| `ClientId` | ClientId | Cliente dueño del panel. |
+| `PropertyId` | PropertyId | Propiedad o sede asociada. |
+| `DeviceIds` | List<DeviceId> | Dispositivos IoT vinculados. |
+| `PlanTier` | PlanTier | Nivel de suscripción que determina la granularidad visual. |
+| `TimeSeriesData` | List<TimeSeries> | Lecturas agregadas según la granularidad del plan. |
+| `ConsumptionByCircuit`| List<CircuitSummary> | Consumo específico por circuito (solo para plan Enterprise). |
+| `CostProjection` | Money | Proyección del costo al cierre del mes. |
+
+| Método | Descripción |
+|---|---|
+| `ApplyReading` | Incorpora una nueva lectura, la agrega según la granularidad y evalúa umbrales. |
+| `UpdateCostProjection` | Recalcula la proyección de costo basada en el consumo acumulado y la tarifa vigente. |
+
+**AlertLog (Aggregate Root) y AlertEntry (Entity)**
+Representa el historial trazable de alertas de un cliente, registrando anomalías y alertas de superación de umbrales.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `LogId` | AlertLogId | Identificador único del registro de alertas. |
+| `Entries` | List<AlertEntry> | Colección de entidades de alerta asociadas al cliente. |
+
+| Método | Descripción |
+|---|---|
+| `RecordAlert` | Añade una nueva entrada garantizando idempotencia frente al evento de origen. |
+| `AcknowledgeAlert`| Marca una alerta específica como reconocida por el cliente. |
+
+**TechnicianMetrics (Aggregate Root)**
+Mantiene un registro consolidado (snapshot) de las métricas de desempeño y financieras de un técnico durante un período mensual.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `MetricsId` | TechnicianMetricsId | Identificador único de las métricas. |
+| `CompletedServicesCount`| int | Total de servicios finalizados en el período. |
+| `AverageRating` | decimal | Calificación promedio del técnico. |
+| `TotalRevenue` | Money | Ingresos totales acumulados en el mes. |
+
+**ConsumptionReport (Aggregate Root)**
+Define un reporte exportable solicitado por el cliente, el cual se vuelve inmutable una vez generado.
+
+| Atributo | Tipo | Descripción |
+|---|---|---|
+| `ReportId` | ConsumptionReportId | Identificador único del reporte. |
+| `PeriodStart` | DateTime | Fecha de inicio del reporte. |
+| `ExportFormat` | ExportFormat | Formato de exportación (PDF o CSV). |
+
+**Repositories (Interfaces)**
+Define los contratos de persistencia y abstracción de datos para los agregados del dominio.
+
+| Interface | Descripción |
+|---|---|
+| `IConsumptionDashboardRepository`| Contrato para operaciones de persistencia del agregado ConsumptionDashboard. |
+| `IAlertLogRepository` | Contrato para operaciones de persistencia del agregado AlertLog. |
+| `ITechnicianMetricsRepository` | Contrato para operaciones de persistencia del agregado TechnicianMetrics. |
+| `IConsumptionReportRepository` | Contrato para operaciones de persistencia del agregado ConsumptionReport. |
+
+#### 4.2.7.2. Interface Layer
+
+Esta capa actúa como límite de entrada, exponiendo los casos de uso a través de controladores REST y manejando la transformación de datos.
+
+**Resources**
+Actúan como objetos de transferencia de datos (DTOs) para solicitudes y respuestas.
+
+| Clase | Descripción |
+|---|---|
+| `ConsumptionDashboardViewResource`| Devuelve la vista principal del panel de consumo con datos granulares o agregados según el plan del cliente. |
+| `RealTimeCircuitMonitorViewResource`| Devuelve el estado en tiempo real de los circuitos (exclusivo para plan Enterprise). |
+| `AlertHistoryViewResource` | Devuelve la lista cronológica de alertas con su estado de resolución. |
+| `RequestConsumptionReportResource`| Recibe los parámetros necesarios para iniciar la generación de un reporte histórico. |
+
+**Controllers**
+Controladores REST que exponen de forma pública las consultas y comandos.
+
+| Controlador | Ruta base | Descripción |
+|---|---|---|
+| `ConsumptionDashboardController` | `/api/v1/analytics/dashboards` | Provee endpoints para la consulta de dashboards y proyecciones de costo (`GET /me`, `GET /me/cost-projection`). |
+| `AlertLogController` | `/api/v1/analytics/alerts` | Gestiona la consulta de alertas y su marcado como reconocidas (`GET /me`, `PATCH /{entryId}/acknowledge`). |
+| `TechnicianMetricsController` | `/api/v1/analytics/technicians` | Permite a los técnicos consultar su rendimiento (`GET /me/performance`). |
+| `ConsumptionReportController` | `/api/v1/analytics/reports` | Permite la generación y visualización de reportes históricos (`POST /`, `GET /me`). |
 
 ---
 
-### Implementación de los Repositories
+#### 4.2.X.3. Application Layer
+
+Encargada de orquestar la lógica de la aplicación y coordinar la ejecución de casos de uso sin contener reglas de negocio.
+
+**Command Services**
+
+| Clase | Descripción |
+|---|---|
+| `ConsumptionDashboardCommandService`| Gestiona la inicialización de dashboards, asimilación de nuevas lecturas, recalculo de proyecciones y actualización de planes de suscripción. |
+| `AlertLogCommandService` | Orquesta el registro de anomalías detectadas, evaluación de alertas de umbral y la resolución o actualización del estado de las alertas. |
+| `TechnicianMetricsCommandService` | Coordina la actualización de métricas tras la completación de servicios y el cálculo asíncrono de evaluaciones recibidas. |
+| `ConsumptionReportCommandService` | Coordina la solicitud y posterior generación de reportes asegurando las validaciones correspondientes de acceso a datos. |
+
+**Query Services**
+
+| Clase | Descripción |
+|---|---|
+| `ConsumptionDashboardQueryService`| Construye y proyecta los read models como `ConsumptionDashboardViewResource` de manera optimizada para lectura. |
+| `AlertLogQueryService` | Proyecta las vistas de historial de alertas y resúmenes de impacto de anomalías (RM-02, RM-07). |
+| `TechnicianMetricsQueryService` | Proyecta el panel de desempeño para los técnicos (RM-03). |
+| `ConsumptionReportQueryService` | Proyecta previas de reportes e historiales de documentos exportados. |
+
+---
+
+#### 4.2.X.4. Infrastructure Layer
+
+Maneja la persistencia de datos mediante Entity Framework Core y la integración técnica con el event bus para consumir eventos de integración.
+
+**Repositories (Implementaciones)**
 
 | Clase | Interfaz Implementada | Descripción |
 |---|---|---|
-| `SubscriptionRepository` | `ISubscriptionRepository` | Implementa los métodos de consulta y persistencia del aggregate `Subscription`. Extiende `BaseRepository<Subscription, SubscriptionId>`. |
-| `PaymentRecordRepository` | `IPaymentRecordRepository` | Implementa los métodos de consulta y persistencia del aggregate `PaymentRecord`. Extiende `BaseRepository<PaymentRecord, PaymentRecordId>`. |
+| `ConsumptionDashboardRepository` | `IConsumptionDashboardRepository`| Implementa consultas y persistencia hacia la base de datos mapeando estructuras anidadas como `TimeSeriesData` usando `OwnsMany` de EF Core. |
+| `AlertLogRepository` | `IAlertLogRepository` | Implementa el guardado e hidratación del registro de alertas completo usando sub-entidades propias en EF Core. |
+| `TechnicianMetricsRepository` | `ITechnicianMetricsRepository` | Provee acceso para las métricas, permitiendo buscar instancias vigentes de acuerdo a rangos de fechas (mes actual). |
+| `ConsumptionReportRepository` | `IConsumptionReportRepository` | Implementa la persistencia de la metadata asociada a la solicitud de los reportes exportables. |
 
 ---
 
-### Configuraciones de Persistencia (EF Core)
-
-#### `SubscriptionConfiguration`
-
-**Ubicación:** `Subscriptions/Infrastructure/Persistence/EFC/Configurations/SubscriptionConfiguration.cs`
-
-Implementa `IEntityTypeConfiguration<Subscription>`. Define el mapeo entre el aggregate `Subscription` y la tabla `subscriptions`.
-
-| Propiedad del Dominio | Columna | Tipo SQL | Restricciones |
-|---|---|---|---|
-| `Id` | `id` | `VARCHAR(100)` | `PRIMARY KEY`, `NOT NULL`, conversión de/hacia `SubscriptionId`. |
-| `UserId` | `user_id` | `VARCHAR(100)` | `NOT NULL`, `UNIQUE`, conversión de/hacia `UserId`. |
-| `BusinessRole` | `business_role` | `VARCHAR(20)` | `NOT NULL`, almacenado como cadena. |
-| `PlanType` | `plan_type` | `VARCHAR(30)` | `NOT NULL`, almacenado como cadena. |
-| `Status` | `status` | `VARCHAR(30)` | `NOT NULL`, almacenado como cadena. |
-| `BillingCycle` | `billing_cycle` | `VARCHAR(10)` | Nullable, almacenado como cadena. |
-| `StripeCustomerId` | `stripe_customer_id` | `VARCHAR(100)` | `NOT NULL`, `UNIQUE`. |
-| `StripeSubscriptionId` | `stripe_subscription_id` | `VARCHAR(100)` | Nullable, `UNIQUE`. |
-| `CurrentPeriodStart` | `current_period_start` | `TIMESTAMPTZ` | Nullable. |
-| `CurrentPeriodEnd` | `current_period_end` | `TIMESTAMPTZ` | Nullable. |
-| `CancelAtPeriodEnd` | `cancel_at_period_end` | `BOOLEAN` | `NOT NULL`, valor por defecto `false`. |
-| `GracePeriodEndsAt` | `grace_period_ends_at` | `TIMESTAMPTZ` | Nullable. |
-| `UsageCounters.MonthlyRequestsUsed` | `monthly_requests_used` | `INTEGER` | Aplano del VO. Valor por defecto `0`. |
-| `InstallationServiceRequestId` | `installation_service_request_id` | `VARCHAR(100)` | Nullable. Solo `COMPANY`. |
-| `InstallationDeadlineAt` | `installation_deadline_at` | `TIMESTAMPTZ` | Nullable. Solo `COMPANY`. |
-| `ActiveDeviceCount` | `active_device_count` | `INTEGER` | Nullable. Solo `COMPANY`. |
-| `PricePerDevice` | `price_per_device` | `INTEGER` | Nullable. Solo `COMPANY`. Valor en centavos USD. |
-| `CreatedAt` | `created_at` | `TIMESTAMPTZ` | `NOT NULL`, valor por defecto `NOW()`. |
-| `UpdatedAt` | `updated_at` | `TIMESTAMPTZ` | Nullable. |
-
-**Índices configurados:**
-
-| Nombre del Índice | Columna | Tipo |
-|---|---|---|
-| `idx_subscriptions_stripe_customer_id` | `stripe_customer_id` | No único |
-| `idx_subscriptions_stripe_subscription_id` | `stripe_subscription_id` | No único |
-| `idx_subscriptions_status_pending` | `status` | Parcial: `WHERE status = 'PendingInstallation'` |
-| `idx_subscriptions_business_role` | `business_role` | No único |
-
----
-
-#### `PaymentRecordConfiguration`
-
-**Ubicación:** `Subscriptions/Infrastructure/Persistence/EFC/Configurations/PaymentRecordConfiguration.cs`
-
-Implementa `IEntityTypeConfiguration<PaymentRecord>`. Define el mapeo entre el aggregate `PaymentRecord` y la tabla `payment_records`.
-
-| Propiedad del Dominio | Columna | Tipo SQL | Restricciones |
-|---|---|---|---|
-| `Id` | `id` | `VARCHAR(100)` | `PRIMARY KEY`, `NOT NULL`. |
-| `SubscriptionId` | `subscription_id` | `VARCHAR(100)` | `NOT NULL`, `FOREIGN KEY` → `subscriptions(id)`. |
-| `StripeInvoiceId` | `stripe_invoice_id` | `VARCHAR(100)` | `NOT NULL`, `UNIQUE`. Garantiza idempotencia. |
-| `Amount.AmountCents` | `amount_cents` | `INTEGER` | `NOT NULL`. Aplano del VO `Money`. |
-| `Amount.Currency` | `currency` | `VARCHAR(3)` | `NOT NULL`, valor por defecto `'usd'`. Aplano del VO `Money`. |
-| `Status` | `status` | `VARCHAR(20)` | `NOT NULL`, almacenado como cadena. |
-| `ActiveDeviceCount` | `active_device_count` | `INTEGER` | Nullable. Instantánea empresarial al momento del pago. |
-| `ProcessedAt` | `processed_at` | `TIMESTAMPTZ` | `NOT NULL`, valor por defecto `NOW()`. |
-
-**Índices configurados:**
-
-| Nombre del Índice | Columna | Tipo |
-|---|---|---|
-| `idx_payment_records_subscription_id` | `subscription_id` | No único |
-| `idx_payment_records_stripe_invoice_id` | `stripe_invoice_id` | No único |
-| `idx_payment_records_processed_at` | `processed_at DESC` | No único |
-
----
-
-### Background Jobs (Infrastructure)
-
-| Clase | Tipo | Descripción |
-|---|---|---|
-| `InstallationTimeoutJob` | `IHostedService` | Se ejecuta diariamente. Detecta suscripciones `COMPANY` en estado `PENDING_INSTALLATION` con el plazo vencido y emite `CancelEnterpriseSubscriptionWithRefundCommand`. |
-| `MonthlyCounterResetJob` | `IHostedService` | Se ejecuta el primer día de cada mes a las 00:00 UTC. Restablece los contadores de solicitudes de todas las suscripciones `HOMEOWNER BASIC`. |
-
----
-
-#### 4.2.6.5. Bounded Context Software Architecture Component Level Diagrams.
-
-
-
-#### 4.2.6.6. Bounded Context Software Architecture Code Level Diagrams.
-
-##### 4.2.6.6.1. Bounded Context Domain Layer Class Diagrams.
-
-En esta sección mostramos parte de la estructura de nuestra solución Electrolink enfocada en el bounded context de Subscriptions, incluyendo datos que seran incluidos en el diagrama de clases.
-\
-```plantuml
-@startuml SubscriptionsBC_DomainLayer
-
-skinparam classAttributeIconSize 0
-skinparam classFontStyle Bold
-skinparam packageStyle Rectangle
-skinparam class {
-  BackgroundColor White
-  BorderColor #333333
-  ArrowColor #333333
-}
-
-package "Subscriptions.Domain.Model" {
-
-  package "Aggregates" {
-
-    class Subscription {
-      + Id : SubscriptionId
-      + UserId : UserId
-      + BusinessRole : BusinessRole
-      + PlanType : PlanType
-      + Status : SubscriptionStatus
-      + BillingCycle : BillingCycle?
-      + StripeCustomerId : string
-      + StripeSubscriptionId : string?
-      + CurrentPeriodStart : DateTime?
-      + CurrentPeriodEnd : DateTime?
-      + CancelAtPeriodEnd : bool
-      + GracePeriodEndsAt : DateTime?
-      + UsageCounters : UsageCounters?
-      + InstallationServiceRequestId : string?
-      + InstallationDeadlineAt : DateTime?
-      + ActiveDeviceCount : int?
-      + PricePerDevice : int?
-      + CreatedAt : DateTime
-      + UpdatedAt : DateTime?
-      --
-      + {static} Create(userId, businessRole, stripeCustomerId) : Subscription
-      + InitiateCheckout(billingCycle, sessionId) : void
-      + Activate(stripeSubId, invoiceId, billingCycle, periodStart, periodEnd) : void
-      + InitiateEnterpriseCheckout(...) : void
-      + ActivateEnterprisePendingInstallation(...) : void
-      + ActivateEnterpriseFullyActive(installationServiceRequestId, confirmedAt) : void
-      + RecordSuccessfulRenewal(periodStart, periodEnd, wasInGracePeriod) : void
-      + RecordEnterpriseRenewal(periodStart, periodEnd, deviceCount, wasInGracePeriod) : void
-      + StartGracePeriod(stripeInvoiceId) : void
-      + Degrade(reason) : void
-      + ScheduleCancellation(reason) : void
-      + UpdateActiveDeviceCount(newCount, source) : void
-      + IncrementMonthlyRequestCounter(limit) : void
-      + ResetMonthlyCounters() : void
-    }
-
-    class PaymentRecord {
-      + Id : PaymentRecordId
-      + SubscriptionId : SubscriptionId
-      + StripeInvoiceId : string
-      + Amount : Money
-      + Status : PaymentStatus
-      + ActiveDeviceCount : int?
-      + ProcessedAt : DateTime
-      --
-      + {static} CreateSucceeded(subscriptionId, invoiceId, amountCents, currency, deviceCount?) : PaymentRecord
-      + {static} CreateFailed(subscriptionId, invoiceId, amountCents, currency) : PaymentRecord
-    }
-  } 
-}
-
-@enduml
-```
-
----
-
-##### 4.2.6.6.2. Bounded Context Database Design Diagram.
-
-En esta sección mostramos parte de la estructura de nuestra solución Electrolink enfocado al bounded context de Subscriptions incluyendo los datos que seran incluidos en el diagrama de diseño de base de datos.
-
-![](assets/img/cap4/subscriptions/database.png)
-
-> El prefijo de tablas de este Bounded Context es `sub_`. Las tablas son `subscriptions` y `payment_records`, sin prefijo adicional, dado que residen en el esquema compartido de la base de datos única de ElectroLink (`AppDbContext`).
-
-```plantuml
-@startuml SubscriptionsBC_DatabaseDesign
-
-skinparam linetype ortho
-skinparam shadowing false
-skinparam class {
-  BackgroundColor White
-  BorderColor #333333
-  ArrowColor #555555
-}
-
-entity "subscriptions" as SUB {
-  * id : VARCHAR(100) <<PK>>
-  --
-  * user_id : VARCHAR(100) <<UNIQUE, NOT NULL>>
-  * business_role : VARCHAR(20) <<NOT NULL>>
-  * plan_type : VARCHAR(30) <<NOT NULL>>
-  * status : VARCHAR(30) <<NOT NULL>>
-  billing_cycle : VARCHAR(10)
-  * stripe_customer_id : VARCHAR(100) <<UNIQUE, NOT NULL>>
-  stripe_subscription_id : VARCHAR(100) <<UNIQUE>>
-  current_period_start : TIMESTAMPTZ
-  current_period_end : TIMESTAMPTZ
-  * cancel_at_period_end : BOOLEAN <<NOT NULL, DEFAULT FALSE>>
-  grace_period_ends_at : TIMESTAMPTZ
-  monthly_requests_used : INTEGER <<DEFAULT 0>>
-  installation_service_request_id : VARCHAR(100)
-  installation_deadline_at : TIMESTAMPTZ
-  active_device_count : INTEGER
-  price_per_device : INTEGER
-  * created_at : TIMESTAMPTZ <<NOT NULL, DEFAULT NOW()>>
-  updated_at : TIMESTAMPTZ
-}
-
-@enduml
-```
----
-
-### 4.2.7. Bounded Context: Analytics 
-#### 4.2.7.1. Domain Layer.
-#### 4.2.7.2. Interface Layer.
-#### 4.2.7.3. Application Layer.
-#### 4.2.7.4. Infrastructure Layer.
 #### 4.2.7.5. Bounded Context Software Architecture Component Level Diagrams.
+
+\
+
+![](assets/img/cap4/c4-model/ProcessingBCComponents.png)
+
 #### 4.2.7.6. Bounded Context Software Architecture Code Level Diagrams.
 ##### 4.2.7.6.1. Bounded Context Domain Layer Class Diagrams.
 ##### 4.2.7.6.2. Bounded Context Database Design Diagram.
 
 ### 4.2.8. Bounded Context: IoT Monitoring and Edge Processing
-#### 4.2.8.1. Domain Layer.
-#### 4.2.8.2. Interface Layer.
-#### 4.2.8.3. Application Layer.
-#### 4.2.8.4. Infrastructure Layer.
+#### 4.2.8.1. Domain Layer
+
+En esta capa se define el núcleo lógico y las reglas de negocio primordiales del dominio orientadas al procesamiento de datos telemétricos, detección de anomalías eléctricas y la actuación sobre circuitos físicos a través del Edge.
+
+**Aggregates**
+
+**DeviceReadingStream**
+Representa la ventana de datos activos de un dispositivo. Actúa como el agregado principal para la evaluación continua de las lecturas y la determinación del estado operativo.
+
+| Atributo | Tipo | Descripción |
+| :--- | :--- | :--- |
+| `StreamId` | UUID | Identificador único del flujo de datos. |
+| `DeviceId` | UUID | Referencia al dispositivo físico instalado (Assets BC). |
+| `PropertyId` | UUID | Referencia a la propiedad de la instalación. |
+| `ClientId` | UUID | Referencia al propietario o empresa asignada. |
+| `Readings` | List\<Reading\> | Colección que representa la ventana deslizante de las últimas lecturas procesadas. |
+| `LastReceivedAt` | DateTime | Marca de tiempo de la última lectura ingresada exitosamente. |
+| `StreamStatus` | Enum | Estado actual de la ingesta de datos (`ACTIVE`, `DEGRADED`, `INACTIVE`). |
+| `ConsecutiveAnomalyCount` | Integer | Contador utilizado para la mitigación de falsos positivos en las reglas de detección. |
+
+**AnomalyRecord**
+Encapsula el ciclo de vida completo de una irregularidad eléctrica identificada en el suministro, desde su detección (en Edge o Cloud) hasta su resolución formal.
+
+| Atributo | Tipo | Descripción |
+| :--- | :--- | :--- |
+| `AnomalyId` | UUID | Identificador único del registro de la anomalía. |
+| `DeviceId` | UUID | Referencia al dispositivo que reportó o originó la anomalía. |
+| `AnomalyType` | Enum | Categorización de la falla (ej., `VOLTAGE_SPIKE`, `SHORT_CIRCUIT_RISK`). |
+| `Severity` | Enum | Nivel de criticidad asignado (`LOW`, `MEDIUM`, `HIGH`, `CRITICAL`). |
+| `DetectionLayer` | Enum | Capa de la arquitectura donde se detectó el evento (`EDGE`, `CLOUD`). |
+| `Status` | Enum | Estado actual de seguimiento (`ACTIVE`, `ACKNOWLEDGED`, `RESOLVED`, `SUPERSEDED`). |
+| `TriggerReadingId` | UUID | Referencia a la lectura específica que disparó la regla de detección. |
+| `DetectedAt` | DateTime | Momento exacto de la identificación de la anomalía. |
+
+**RelayControlCommand**
+Representa una orden de control remoto emitida para la conmutación de un relé físico, gestionando su autorización, reintentos y estado de ejecución.
+
+| Atributo | Tipo | Descripción |
+| :--- | :--- | :--- |
+| `CommandId` | UUID | Identificador único de la orden de control. |
+| `DeviceId` | UUID | Referencia al dispositivo destino de la orden. |
+| `TargetRelayState` | Enum | Estado físico objetivo del circuito (`OPEN`, `CLOSED`). |
+| `AuthorizationSource` | Enum | Origen de la autorización (`SERVICE_REQUEST`, `CRITICAL_ANOMALY_AUTO`). |
+| `Status` | Enum | Estado del comando (`PENDING`, `SENT`, `ACKNOWLEDGED`, `EXECUTED`, `FAILED`, `TIMEOUT`). |
+| `IssuedAt` | DateTime | Marca de tiempo de la emisión original del comando. |
+
+**Value Objects**
+
+**Reading**
+Objeto de valor inmutable que encapsula una muestra de telemetría capturada.
+
+| Atributo | Tipo | Descripción |
+| :--- | :--- | :--- |
+| `ReadingId` | UUID | Clave de idempotencia para la lectura. |
+| `Timestamp` | DateTime | Instante de la medición física en el origen. |
+| `Voltage` | Float | Tensión medida en Voltios (V). |
+| `Current` | Float | Intensidad medida en Amperios (A). |
+| `PowerFactor` | Float | Relación de potencia activa y aparente (0-1). |
+| `Frequency` | Float | Frecuencia medida en Hercios (Hz). |
+
+**Repositories (Interfaces)**
+
+| Interface | Descripción |
+| :--- | :--- |
+| `IDeviceReadingStreamRepository` | Define el contrato para la persistencia y recuperación de flujos activos de telemetría. |
+| `IAnomalyRecordRepository` | Define el contrato para la gestión de persistencia de las anomalías detectadas en la infraestructura. |
+| `IRelayControlCommandRepository` | Define el contrato para el seguimiento y auditoría de las órdenes de relé emitidas y ejecutadas. |
+
+---
+
+#### 4.2.8.2. Interface Layer
+
+Esta capa define las abstracciones utilizadas para la comunicación externa con el Bounded Context, asegurando que las reglas de negocio permanezcan aisladas de los protocolos de red.
+
+**Resources**
+
+| Clase | Descripción |
+| :--- | :--- |
+| `IngestReadingResource` | Objeto de transferencia que recibe datos telemétricos crudos desde el Edge API. |
+| `EdgeAnomalyResource` | Recurso empleado por el firmware para reportar anomalías identificadas localmente (baja latencia). |
+| `RelayCommandRequestResource` | Solicitud estructurada para el cambio de estado de un circuito físico. |
+| `AnomalyResponseResource` | Recurso de salida que expone los detalles y estado de una anomalía activa o resuelta. |
+| `DeviceStreamStatusResource` | Recurso de salida que resume la conectividad y el estado actual del flujo telemétrico. |
+
+**Assemblers**
+
+| Clase | Descripción |
+| :--- | :--- |
+| `IngestReadingCommandFromResourceAssembler` | Transforma un `IngestReadingResource` en un comando de dominio ejecutable (`IngestDeviceReadingCommand`). |
+| `IssueRelayCommandFromResourceAssembler` | Mapea la petición de actuación externa a un comando de control de dominio validado. |
+| `AnomalyResourceFromEntityAssembler` | Convierte la entidad de dominio `AnomalyRecord` en un recurso seguro para su exposición. |
+
+**Controllers**
+
+**DeviceReadingController**
+
+| Ruta específica | Método | Descripción |
+| :--- | :--- | :--- |
+| `/api/v1/iot/readings` | POST | Ingesta masiva o individual de métricas provenientes de los dispositivos IoT instalados. |
+| `/api/v1/iot/streams/{deviceId}` | GET | Consulta el estado actual de la ventana de lecturas para un dispositivo específico. |
+
+**AnomalyController**
+
+| Ruta específica | Método | Descripción |
+| :--- | :--- | :--- |
+| `/api/v1/iot/anomalies/{propertyId}` | GET | Recupera el historial y las anomalías actualmente activas en una propiedad. |
+| `/api/v1/iot/anomalies/{anomalyId}/acknowledge` | POST | Permite a un administrador o sistema reconocer una anomalía pendiente. |
+
+**RelayController**
+
+| Ruta específica | Método | Descripción |
+| :--- | :--- | :--- |
+| `/api/v1/iot/relay/commands` | POST | Emite una nueva orden de apertura o cierre del relé hacia el dispositivo físico. |
+
+---
+
+#### 4.2.8.3. Application Layer
+
+Encargada de la orquestación de los flujos de casos de uso, transformando intenciones en secuencias de acciones del dominio e interacciones con la persistencia.
+
+**Command Services**
+
+| Clase | Interfaz Implementada | Descripción |
+| :--- | :--- | :--- |
+| `DeviceReadingCommandService` | `IDeviceReadingCommandService` | Gestiona la orquestación del procesamiento de lecturas, verificando idempotencia, aplicando políticas de validación física y disparando la evaluación posterior. |
+| `AnomalyCommandService` | `IAnomalyCommandService` | Maneja la creación de nuevos registros de anomalía, así como su transición de estado (reconocimiento o resolución formal). |
+| `RelayCommandService` | `IRelayCommandService` | Orquesta la emisión de comandos de relé, asegurando que se cumplan las políticas de autorización estricta (servicios activos o protección automática crítica). |
+
+**Query Services**
+
+| Clase | Interfaz Implementada | Descripción |
+| :--- | :--- | :--- |
+| `DeviceStreamQueryService` | `IDeviceStreamQueryService` | Provee lecturas optimizadas del estado actual de los flujos de datos y la salud de conectividad de los dispositivos. |
+| `AnomalyQueryService` | `IAnomalyQueryService` | Gestiona las consultas de históricos de alertas y anomalías activas sin comprometer la integridad de los agregados. |
+
+---
+
+#### 4.2.9.4. Infrastructure Layer
+
+Esta capa concreta las abstracciones técnicas definidas en el núcleo del sistema, facilitando la persistencia y la integración mediante *Entity Framework Core*.
+
+**Implementación de los Repositories**
+
+| Clase | Interfaz Implementada | Descripción |
+| :--- | :--- | :--- |
+| `DeviceReadingStreamRepository` | `IDeviceReadingStreamRepository` | Implementa la persistencia de los flujos de datos. Utiliza mapeos relacionales optimizados en la base de datos para la manipulación eficiente de la ventana deslizante de lecturas. |
+| `AnomalyRecordRepository` | `IAnomalyRecordRepository` | Implementa el almacenamiento y consulta indexada del ciclo de vida de los incidentes eléctricos detectados. |
+| `RelayControlCommandRepository` | `IRelayControlCommandRepository` | Garantiza la persistencia transaccional y registro de auditoría de todas las órdenes emitidas a los actuadores físicos. |
+
+---
+
 #### 4.2.8.5. Bounded Context Software Architecture Component Level Diagrams.
+
+\
+
+![](assets/img/cap4/c4-model/AnalyticsBCComponents.png)
+
 #### 4.2.8.6. Bounded Context Software Architecture Code Level Diagrams.
 ##### 4.2.8.6.1. Bounded Context Domain Layer Class Diagrams.
 ##### 4.2.8.6.2. Bounded Context Database Design Diagram.
