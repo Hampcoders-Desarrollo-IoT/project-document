@@ -58,20 +58,16 @@ Las etiquetas han sido diseñadas para ser intuitivas y fáciles de recordar, pe
 
 Respecto a la experiencia de usuario en la aplicación móvil, se ha definido que esta no tenga acceso a realizar pagos, redirigiendo en su lugar al usuario a la versión web para asegurar una gestión centralizada y segura de las suscripciones.
 
-
 ### 5.2.3. SEO Tags and Meta Tags
 
-En esta sección se incluyen los SEO Tags y Meta Tags junto con los valores que se asignarán en las principales páginas de la experiencia, tanto a nivel del sitio web (Landing Page) como de la Web Application.
+En esta sección se incluyen los SEO Tags y Meta Tags utilizados en las principales páginas de la plataforma (Landing Page y Web Application).
 
-Con el objetivo de mejorar la visibilidad en motores de búsqueda, atraer nuevos usuarios y proporcionar información relevante sobre la landing page y la aplicación web, se incorporarán los siguientes "Meta Tags" como etiquetas HTML en las páginas principales de nuestra plataforma:
+Con el objetivo de mejorar la visibilidad en motores de búsqueda, atraer nuevos usuarios y proporcionar información relevante sobre la plataforma, se definen los siguientes valores:
 
-<title>ElectroLink - Tu conexión segura a la electricidad</title>
-
-<meta name="description" content="ElectroLink es una plataforma que conecta proveedores de servicios y componentes eléctricos con clientes que requieren asesoramiento o asistencia para mantenimiento en hogares u oficinas.">
-
-<meta name="keywords" content="seguridad, ahorro eléctrico, mantenimiento, asesoramiento">
-
-<meta name="author" content="ElectroLink">
+- **Title:** ElectroLink - Tu conexión segura a la electricidad  
+- **Meta description:** ElectroLink es una plataforma que conecta proveedores de servicios y componentes eléctricos con clientes que requieren asesoramiento o asistencia para mantenimiento en hogares u oficinas.  
+- **Meta keywords:** seguridad, ahorro eléctrico, mantenimiento, asesoramiento  
+- **Meta author:** ElectroLink  
 
 
 ### 4.2.4. Searching Systems
@@ -107,29 +103,29 @@ En esta sección, el equipo de Hampcoders presenta el Diseño de Interfaz de Usu
 
 #### Sección "Cómo Funciona?" y "Resolvemos Problemas Reales"
 
-![](assets/img/cap5/landingpage-seccion1.png)
+![](assets/img/cap5/landingpage/landingpage-seccion1.png)
 
 #### Sección de "Testimonios" y "Por qué usar Electrolink?"
 
-![](assets/img/cap5/landingpage-seccion2.png)
+![](assets/img/cap5/landingpage/landingpage-seccion2.png)
 
 #### Sección de "Sobre Nosotros"
 
-![](assets/img/cap5/landingpage-seccion3.png)
+![](assets/img/cap5/landingpage/landingpage-seccion3.png)
 
 #### Sección de "Contacto"
 
-![](assets/img/cap5/landingpage-seccion4.png)
+![](assets/img/cap5/landingpage/landingpage-seccion4.png)
 
 ### 5.3.2. Landing Page Mock-up.
 
 #### Sección "Cómo Funciona?" y "Resolvemos Problemas Reales"
 
-![](assets/img/cap5/landingpagemockup-1.png)
+![](assets/img/cap5/landingpage/landingpagemockup-1.png)
 
 #### Sección de "Testimonios" y "Por qué usar Electrolink?"
 
-![](assets/img/cap5/landingpagemockup-2.png)
+![](assets/img/cap5/landingpage/landingpagemockup-2.png)
 
 
 ## 5.4 Landing Page UI Design.
