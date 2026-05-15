@@ -7,6 +7,7 @@ input-files:
   - report/20-cap2-requirements-analysis.md
   - report/30-cap3-requirements-spec.md
   - report/40-cap4-solution-sw-design.md
+   - report/50-cap5-solution-ui-ux-design.md
   - report/90-conclusiones.md
   - report/91-bibliografia.md
   - report/99-anexos.md
@@ -26,6 +27,7 @@ resource-path:
   - "assets/img/cap2"
   - "assets/img/cap3"
   - "assets/img/cap4"
+  - "assets/img/cap5"
   - "assets/img/general"
 
 variables:
