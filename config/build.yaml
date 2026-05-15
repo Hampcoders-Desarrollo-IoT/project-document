@@ -39,6 +39,8 @@ variables:
   titlepage: true
   titlepage-color: "FFFFFF"
   header-includes:
+    - \usepackage{fontspec}
+    - \usepackage{float}
     - \usepackage{graphicx}
     - \usepackage{longtable}
     - \usepackage{array}
