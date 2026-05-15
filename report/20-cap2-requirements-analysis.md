@@ -273,7 +273,7 @@ En esta sección, el equipo de Hampcoders realiza el diseño de las entrevistas 
 - **Inicia en:** 0:01  
 - **Duración:** 9:54  
 
-![Entrevista PYME 01](../assets/img/Entrevista-PYME-01.png)
+![Entrevista PYME 01](assets/img/cap2/Entrevista-PYME-01.png)
 
 ##### Resumen de entrevista:
 
@@ -316,7 +316,7 @@ Considera valiosa una plataforma que conecte a empresas como la suya con técnic
 - **Inicia en:** 0:01  
 - **Duración:** 7:59  
 
-![Entrevista Tecnico 01](../assets/img/Entrevista-Tecnicos-01.png)
+![Entrevista Tecnico 01](assets/img/cap2/Entrevista-Tecnicos-01.png)
 
 ##### Resumen de entrevista:
 
@@ -366,7 +366,7 @@ Utiliza dispositivos móviles (smartphone) para la mayoría de sus actividades r
 - **Inicia en:** 0:01  
 - **Duración:** 4:36   
 
-![Entrevista Tecnico 02](../assets/img/Entrevista-Tecnicos-02.png)
+![Entrevista Tecnico 02](assets/img/cap2/Entrevista-Tecnicos-02.png)
 
 ##### Resumen de entrevista:
 
