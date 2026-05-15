@@ -59,6 +59,14 @@ Las etiquetas han sido diseñadas para ser intuitivas y fáciles de recordar, pe
 Respecto a la experiencia de usuario en la aplicación móvil, se ha definido que esta no tenga acceso a realizar pagos, redirigiendo en su lugar al usuario a la versión web para asegurar una gestión centralizada y segura de las suscripciones.
 
 ### 5.2.3. SEO Tags and Meta Tags
+
+### 5.2.3. SEO Tags and Meta Tags
+
+En esta sección se incluyen los SEO Tags y Meta Tags junto con los valores que se asignarán en las principales páginas de la experiencia, tanto a nivel del sitio web (Landing Page) como de la Web Application.
+
+Con el objetivo de mejorar la visibilidad en los motores de búsqueda, atraer nuevos usuarios y proporcionar información relevante sobre la landing page y la aplicación web, se incorporarán los siguientes "Meta Tags" como etiquetas HTML en las páginas principales de nuestra plataforma:
+
+
 ### 5.2.4. Searching Systems.
 ### 5.2.5. Navigation Systems.
 
