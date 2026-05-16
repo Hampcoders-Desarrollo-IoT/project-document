@@ -135,6 +135,107 @@ Durante el Sprint 1 se consiguió un avance parcial en el despliegue de la landi
 
 #### 6.2.1.5. Testing Suite Evidence for Sprint Review.
 
+#### Test Unitarios del Bounded Context de Analytics
+
+\vspace{1em}
+
+En esta imagen se puede visualizar las pruebas unitarias del queryservice del bounded context de analytics.
+
+![Analytics unit test 1](assets/img/cap6/unittest/analytics/analytics-queryservice-ut.png)
+
+Este es el servicio principal del contexto. Las pruebas verifican que las tres analíticas principales generen las matemáticas, agrupaciones y recuentos de manera correcta.
+
+#### Test Unitarios del Bounded Context de Assets
+
+\vspace{1em}
+
+Pruebas para el servicio de componentes (`ComponentCommandServiceImpl`).
+
+![Assets unit test 1](assets/img/cap6/unittest/assets/assets-componentcommand-ut.png)
+
+Pruebas para el servicio de tipos de componentes (`ComponentTypeCommandServiceImpl`).
+
+![Assets unit test 2](assets/img/cap6/unittest/assets/assets-ctypecommand-ut.png)
+
+
+
+#### Test Unitarios del Bounded Context de Iam
+
+\vspace{1em}
+
+Pruebas para el servicio de comandos de roles (`RoleCommandServiceImpl`).
+
+![Iam unit test 1](assets/img/cap6/unittest/iam/iam-rolecommand-ut.png)
+
+Pruebas para el servicio de comandos de usuarios (`UserCommandServiceImpl`).
+
+![Iam unit test 2](assets/img/cap6/unittest/iam/iam-usercommand-ut.png)
+
+
+#### Test Unitarios del Bounded Context de Monitoring
+
+\vspace{1em}
+
+Pruebas para la creación y actualización de calificaciones (ratings).
+
+![Monitoring unit test 1](assets/img/cap6/unittest/monitoring/monitoring-ratingcommand-ut.png)
+
+Pruebas para la generación y gestión de estado de los reportes.
+
+![Monitoring unit test 2](assets/img/cap6/unittest/monitoring/monitoring-reportcommand-ut.png)
+
+Pruebas para adjuntar y eliminar fotos de evidencia en los reportes.
+
+![Monitoring unit test 3](assets/img/cap6/unittest/monitoring/monitoring-rphotocommand-ut.png)
+
+
+#### Test Unitarios del Bounded Context de Profiles
+
+\vspace{1em}
+
+Pruebas para el servicio de comandos de perfiles (`ProfileCommandServiceImpl`). Este servicio maneja la persistencia y la validación de la información de los usuarios (ya sean `HomeOwner` o `Technician`).
+
+![Profiles unit test 1](assets/img/cap6/unittest/profiles/profiles-profilecommand-ut.png)
+
+Pruebas para el servicio de consultas de perfiles (`ProfileQueryServiceImpl`).
+
+![Profiles unit test 2](assets/img/cap6/unittest/profiles/profiles-profilequery-ut.png)
+
+#### Test Unitarios del Bounded Context de Service Delivery Process
+
+\vspace{1em}
+
+Pruebas para la creación, actualización y gestión de las solicitudes de servicio realizadas por el cliente.
+
+![Sdp unit test 1](assets/img/cap6/unittest/sdp/sdp-requestcommand-ut.png)
+
+Pruebas para la creación y actualización de los horarios de disponibilidad del técnico.
+
+![Sdp unit test 2](assets/img/cap6/unittest/sdp/sdp-schedulecommand-ut.png)
+
+Pruebas para gestionar la entidad del servicio base.
+
+![sdp unit test 3](assets/img/cap6/unittest/sdp/sdp-servicecommand-ut.png)
+
+
+
+#### Test Unitarios del Bounded Context de Subscription
+
+\vspace{1em}
+
+Pruebas para garantizar que la creación de planes (Basic, Premium, etc.) asigne correctamente los precios y nombres, y se persista en la base de datos sin duplicados.
+
+![Subscription unit test 1](assets/img/cap6/unittest/subscription/sub-plancommand-ut.png)
+
+Pruebas sobre la gestión de suscripciones de los usuarios, incluyendo verificaciones de renovaciones y creaciones iniciales.
+
+![Subscription unit test 2](assets/img/cap6/unittest/subscription/sub-subcommand-ut.png)
+
+Verifica la funcionalidad de búsqueda de un plan mediante su ID o su tipo.
+
+![Subscription unit test 3](assets/img/cap6/unittest/subscription/sub-planquery-ut.png)
+
+
 #### 6.2.1.6. Execution Evidence for Sprint Review.
 
 #### 6.2.1.7. Services Documentation Evidence for Sprint Review.
