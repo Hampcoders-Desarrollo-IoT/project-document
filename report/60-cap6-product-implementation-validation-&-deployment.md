@@ -55,6 +55,22 @@ Plataforma en la nube para alojar codigo de software colaborativo mediante repos
 
 ### 6.1.2. Source Code Management.
 
+**Repositorios de Github** 
+
+ - Enlace del [codigo Landing Page]()
+ - Enlace del [codigo Frontend](https://github.com/Hampcoders-Desarrollo-IoT/electrolink-frontend-web)
+ - Enlace del [codigo Backend](https://github.com/Hampcoders-Desarrollo-IoT/electrolink-backend-api)
+
+![Gitflow Graphic](assets/img/cap6/git-flow.png)
+
+Gitflow es un modelo de ramificación para Git que organiza el desarrollo de software mediante ramas estandarizadas, facilitando la colaboración y el control del código en equipo. En Glottia, utilizamos este modelo para gestionar de forma eficiente los repositorios de nuestros microservicios.
+
+La rama main contiene las versiones estables y listas para producción de cada microservicio, previamente validadas y etiquetadas para mantener un control de las releases.
+
+La rama develop almacena la versión en desarrollo del proyecto, integrando las funcionalidades completadas durante el sprint antes de pasar a producción.
+
+Por otro lado, las ramas feature se utilizan para desarrollar funcionalidades o tareas específicas de manera independiente, siguiendo la convención feature/nombre-descriptivo y permitiendo integrar los cambios mediante Pull Requests.
+
 ### 6.1.3. Source Code Style Guide & Conventions.
 
 ### 6.1.4. Software Deployment Configuration.
