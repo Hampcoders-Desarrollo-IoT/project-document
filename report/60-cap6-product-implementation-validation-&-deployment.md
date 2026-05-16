@@ -115,6 +115,24 @@ En este Sprint el equipo se enfocó en construir la Landing Page de ElectroLink,
 
 #### 6.2.1.4. Development Evidence for Sprint Review.
 
+Durante el Sprint 1 se consiguió un avance parcial en el despliegue de la landing page. Actualmente, el sitio ya dispone de varias secciones funcionales que brindan información relevante sobre los servicios y el equipo de Hampcoders.
+[Visita y conoce acerca de nuestra plataforma ElectroLink aquí](https://open-source-4341.github.io/Landing-Page/)
+
+- **Sección Hero:** presenta la propuesta de valor principal enfocada en conectar propietarios y pequeñas y medianas empresas con Tecnicos, resaltando beneficios como cortocircuitos en las instalaciones, asegurando conexión entre dispositivos y resolviendo problemas electricos.
+(assets/img/cap6/home.png)
+
+- **Sección ¿Cómo funciona?** Explica el flujo de uso de la plataforma tanto para Tecnicos electricistas como para PYMEs y Propietarios de Hogar, mostrando el proceso de registro, búsqueda de encuentros y ofrecer dispositivos IoT para monitorear el flujo electrico.
+(assets/img/cap6/how-it-works.png)
+
+- **Sección Nuestra Solución** describe los principales pilares de la plataforma, como la comunidad activa, el soporte tecnico y el respaldo práctico. 
+(assets/img/cap6/our-solution.png)
+
+- **Seccion Electrolink en accion** El usuario puede visualizar una demostración práctica de la plataforma a través de un video interactivo que muestra la interfaz de la aplicación en funcionamiento. 
+(assets/img/cap6/electrolink-in-action.png)
+
+- **Seccion Mision, Vision y Valores** Para que los usuarios sientan conexión desde el primer momento conociendo nuestros alcances, los valores de nuestra startup y lo que queremos como equipo para satisfacer las necesidades de nuestros clientes potenciales.
+(assets/img/cap6/goals.png)
+
 #### 6.2.1.5. Testing Suite Evidence for Sprint Review.
 
 #### 6.2.1.6. Execution Evidence for Sprint Review.
