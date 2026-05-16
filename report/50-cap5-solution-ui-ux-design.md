@@ -70,7 +70,7 @@ Con el objetivo de mejorar la visibilidad en motores de búsqueda, atraer nuevos
 - **Meta author:** ElectroLink  
 
 
-### 5.2.4. Searching Systems
+### 4.2.4. Searching Systems
 
 ElectroLink dispone de un sistema de búsqueda avanzada que facilita a los usuarios la localización de servicios y productos eléctricos de manera rápida y precisa mediante diversos criterios de filtrado:
 
@@ -87,7 +87,7 @@ ElectroLink dispone de un sistema de búsqueda avanzada que facilita a los usuar
 | Planes de suscripción | Compara opciones de suscripción según beneficios como monitoreo, soporte o prioridad en atención. |
 
 
-### 5.2.5. Navigation Systems
+### 4.2.5. Navigation Systems
 
 Los sistemas de navegación de ElectroLink han sido diseñados para guiar de forma intuitiva a los usuarios a través del Landing Page y la aplicación, facilitando la exploración del contenido y el acceso a las funcionalidades clave.
 
@@ -225,10 +225,79 @@ En esta sección, el equipo de Hampcoders define los wireflows diagrams para la 
 ![](assets/img/cap5/wireframes/wireflowpropiedad.png)
 
 
+[https://lucid.app/lucidchart/30f4fbe6-f0ef-44da-88e3-46020aca7a0f/edit?view_items=AAr.UGv3QC3F&page=0_0&invitationId=inv_420b895d-1a79-4a72-baab-d4f42e8e3f6f](https://lucid.app/lucidchart/30f4fbe6-f0ef-44da-88e3-46020aca7a0f/edit?view_items=AAr.UGv3QC3F&page=0_0&invitationId=inv_420b895d-1a79-4a72-baab-d4f42e8e3f6f)
+
 ### 5.4.2. Applications Mock-ups.
+
+#### Vista de Inicio de Sesión
+
+
+![](assets/img/cap5/mockups/SignInMockup.png)
+
+
+#### Vista de Registro
+
+
+![](assets/img/cap5/mockups/signUpMockup.png)
+
+
+#### Vista de Dashboard de Técnico
+
+
+![](assets/img/cap5/mockups/dasboardtechnician.png)
+
+
+#### Vista de Dashboard de Dueño de hogar
+
+
+![](assets/img/cap5/mockups/dashboardowner.png)
+
+
+#### Vista de Portafolio de propiedades
+
+
+![](assets/img/cap5/mockups/propertyPortfolioMockup.png)
+
+
+#### Vista de Solicitud de servicio
+
+
+![](assets/img/cap5/mockups/servicerequestMockup.png)
+
+
+#### Vista de Suscripciones
+
+
+![](assets/img/cap5/mockups/subscriptionsMockup.png)
+
+
 ### 5.4.3. Applications User Flow Diagrams.
 
+En esta sección se presenta la propuesta de User Flows del sistema ElectroLink, los cuales representan las distintas rutas de interacción que los usuarios realizan dentro de la plataforma.
+
+Cada flujo ha sido diseñado a partir de un objetivo específico del usuario (User Goal), considerando los perfiles de User Persona definidos en el alcance del proyecto.
+
+#### User Flow diagrams para el Usuario se registre dentro de la plataforma
+
+
+![](assets/img/cap5/userflows/userflow.png)
+
+
+#### User Flow diagrams para el Usuario acceda desde la pagina principal al inventario
+
+
+![](assets/img/cap5/userflows/userflow2.png)
+
+
 ## 5.5. Applications Prototyping.
+
+Esta sección presenta los prototipos de interfaz de usuario, que incluyen simulaciones de interacción y navegación dentro del sistema. Las decisiones de diseño de interacción se basan en criterios fundamentales como la facilidad de uso, la accesibilidad y la adaptación a distintos dispositivos.
+
+![](assets/img/cap5/prototype.png)
+
+
+[https://www.figma.com/proto/gtumIjnhLJ1rDqlntXsJJS/Electrolink-EXP?node-id=4-5&t=VaQk4h0RNODs3pVx-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=4%3A5](https://www.figma.com/proto/gtumIjnhLJ1rDqlntXsJJS/Electrolink-EXP?node-id=4-5&t=VaQk4h0RNODs3pVx-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=4%3A5)
+
 
 ## 5.6. IoT Device Design.
 
