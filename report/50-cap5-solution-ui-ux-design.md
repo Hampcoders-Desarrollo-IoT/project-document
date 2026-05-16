@@ -103,58 +103,128 @@ En esta sección, el equipo de Hampcoders presenta el Diseño de Interfaz de Usu
 
 #### Sección "Cómo Funciona?" y "Resolvemos Problemas Reales" 
 
-/
 
 ![](assets/img/cap5/landingpage/landingpage-seccion1.png)
 
-/
 
 #### Sección de "Testimonios" y "Por qué usar Electrolink?"
 
-/
 
 ![](assets/img/cap5/landingpage/landingpage-seccion2.png)
 
-/
 
 #### Sección de "Sobre Nosotros"
 
-/
 
 ![](assets/img/cap5/landingpage/landingpage-seccion3.png)
 
-/
+
 #### Sección de "Contacto"
 
-/
 
 ![](assets/img/cap5/landingpage/landingpage-seccion4.png)
 
-/
 
 ### 5.3.2. Landing Page Mock-up.
 
 #### Sección "Cómo Funciona?" y "Resolvemos Problemas Reales"
 
-/
 
 ![](assets/img/cap5/landingpage/landingpagemockup-1.png)
 
-/
 
 #### Sección de "Testimonios" y "Por qué usar Electrolink?"
 
-/
 
 ![](assets/img/cap5/landingpage/landingpagemockup-2.png)
 
-/
 
 
-## 5.4 Landing Page UI Design.
+## 5.4 Applications UX/UI Design.
+
+En esta sección, el equipo de Hampcoders presenta el Diseño de Interfaz de Usuario de la aplicación Front-End
+
 
 ### 5.4.1. Applications Wireframes.
+
+Se muestran los wireframes de ElectroLink, los cuales representan la estructura general de la interfaz y la disposición de sus elementos. Estos permiten definir una base clara de navegación y organización antes del diseño visual final, asegurando una experiencia de usuario intuitiva, funcional y accesible.
+
+Los wireframes contemplan distintos perfiles de usuario, incluyendo propietarios, técnicos y proveedores, así como usuarios con necesidades de accesibilidad (TEA, ansiedad social o discapacidades físicas).
+
+#### Elementos principales del diseño
+
+**Arquitectura de la información:**  
+Organización de funciones como historial de servicios, consumo energético, gestión de dispositivos y solicitudes de mantenimiento.
+
+**Estructura de la interfaz:**  
+Distribución estratégica de botones, menús y tarjetas para facilitar acciones como contacto con proveedores, edición de dispositivos y visualización de métricas.
+
+**Pantallas clave:**  
+- Dashboard de usuario  
+- Panel de proveedores  
+- Formularios de mantenimiento  
+- Perfil de usuario  
+
+**Principios de diseño:**  
+- Simplicidad para reducir la carga cognitiva  
+- Consistencia en estilos y componentes  
+- Accesibilidad con opciones como texto ajustable, alto contraste, navegación por teclado y diseño responsive  
+
+Estos wireframes sirven como guía para el desarrollo del frontend, asegurando una plataforma ordenada, usable e inclusiva.
+
+#### Vista de inicio de sesión
+
+
+![](assets/img/cap5/wireframes/signInWireframe.png)
+
+
+#### Vista de Crear Cuenta
+
+
+![](assets/img/cap5/wireframes/signUpWireframe.png)
+
+
+#### Vista de Dashboard Dueño de Hogar
+
+
+![](assets/img/cap5/wireframes/homeOwnerDashboardWireframe.png)
+
+
+#### Vista de editar perfil
+
+
+![](assets/img/cap5/wireframes/HomeOwnerProfileWireframe.png)
+
+
+#### Vista la sección de propiedades
+
+
+![](assets/img/cap5/wireframes/propertyWireframe.png)
+
+
+
 ### 5.4.2. Applications Wireflow Diagrams.
+
+En esta sección, el equipo de Hampcoders define los wireflows diagrams para la aplicación Web
+
+#### Wireflow para el Usuario se registre dentro de la plataforma
+
+
+![](assets/img/cap5/wireframes/wireflowregistro.png)
+
+
+#### Wireflow para el usuario busque tecnicos
+
+
+![](assets/img/cap5/wireframes/wireflowlocalizacion.png)
+
+
+#### Wireflow para añadir propiedades
+
+
+![](assets/img/cap5/wireframes/wireflowpropiedad.png)
+
+
 ### 5.4.2. Applications Mock-ups.
 ### 5.4.3. Applications User Flow Diagrams.
 
