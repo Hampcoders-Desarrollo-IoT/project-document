@@ -70,7 +70,7 @@ Con el objetivo de mejorar la visibilidad en motores de búsqueda, atraer nuevos
 - **Meta author:** ElectroLink  
 
 
-### 4.2.4. Searching Systems
+### 5.2.4. Searching Systems
 
 ElectroLink dispone de un sistema de búsqueda avanzada que facilita a los usuarios la localización de servicios y productos eléctricos de manera rápida y precisa mediante diversos criterios de filtrado:
 
@@ -87,7 +87,7 @@ ElectroLink dispone de un sistema de búsqueda avanzada que facilita a los usuar
 | Planes de suscripción | Compara opciones de suscripción según beneficios como monitoreo, soporte o prioridad en atención. |
 
 
-### 4.2.5. Navigation Systems
+### 5.2.5. Navigation Systems
 
 Los sistemas de navegación de ElectroLink han sido diseñados para guiar de forma intuitiva a los usuarios a través del Landing Page y la aplicación, facilitando la exploración del contenido y el acceso a las funcionalidades clave.
 
