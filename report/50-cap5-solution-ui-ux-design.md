@@ -326,5 +326,163 @@ Esta sección presenta los prototipos de interfaz de usuario, que incluyen simul
 
 ## 5.6. IoT Device Design.
 
+La propuesta de diseño del dispositivo IoT de ElectroLink se fundamenta en el monitoreo local de variables eléctricas simuladas, la detección temprana de condiciones anómalas y la activación de alertas preventivas desde el propio dispositivo. Para esta primera versión del prototipo, el objetivo principal es validar el comportamiento embebido del sistema mediante una simulación en Wokwi, sin integrar todavía una conexión real con el backend ni con un Edge API.
+
+El dispositivo actúa como la primera capa de captura y procesamiento de datos eléctricos dentro de la solución ElectroLink. Para ello, se utiliza un microcontrolador ESP32 DevKit V1, el cual permite leer señales analógicas, procesar cálculos básicos de consumo eléctrico y controlar actuadores como LEDs, buzzer y relay.
+
+La solución busca representar un escenario de monitoreo eléctrico inteligente orientado a hogares, negocios pequeños y espacios donde el consumo energético requiere supervisión preventiva. A través de indicadores visuales y alertas locales, el prototipo permite detectar situaciones de consumo elevado y sobrecarga antes de que se conviertan en una falla crítica.
+
+- Microcontrolador: ESP32 DevKit V1
+- Firmware: C++ usando Arduino Framework
+- Simulador: Wokwi
+- Visualización local: OLED SSD1306 128x64
+- Procesamiento local: cálculo de voltaje, corriente, potencia, energía acumulada y estado del sistema
+
+### Dispositivo 01: ElectroLink Smart Energy Monitor
+
+#### Descripción y criterios de diseño
+
+El dispositivo ElectroLink Smart Energy Monitor simula un medidor eléctrico inteligente orientado a hogares, negocios pequeños o espacios donde se requiera supervisar el consumo eléctrico. El sistema utiliza dos potenciómetros para representar lecturas analógicas de voltaje y corriente. A partir de estos valores, el ESP32 calcula la potencia instantánea y la energía acumulada.
+
+El prototipo permite clasificar el estado del sistema en tres niveles: `NORMAL`, `WARNING` y `CRITICAL`. Cuando el consumo se mantiene dentro de rangos aceptables, se enciende el LED verde. Cuando la corriente o potencia se aproxima a un límite de riesgo, se activa el LED amarillo. Finalmente, si se detecta una condición crítica de sobrecarga, se enciende el LED rojo, se activa el buzzer y el relay simula un corte preventivo del suministro eléctrico.
+
+Este diseño permite representar, de forma visual e interactiva, el objetivo principal de ElectroLink: brindar visibilidad sobre el consumo eléctrico y prevenir fallas mediante alertas tempranas.
+
+#### Arquitectura conceptual IoT
+
+La arquitectura propuesta para ElectroLink considera una estructura IoT distribuida compuesta por una capa de dispositivos embebidos, una futura capa de procesamiento Edge/API y una plataforma web de monitoreo. Para esta primera versión del prototipo únicamente se implementa la capa embebida utilizando ESP32 y simulación en Wokwi.
+
+El dispositivo IoT se encarga de:
+
+- Capturar variables eléctricas simuladas.
+- Procesar cálculos básicos localmente.
+- Detectar condiciones anómalas.
+- Activar alertas preventivas.
+- Mostrar métricas en tiempo real.
+
+En futuras iteraciones, el ESP32 enviará telemetría hacia un IoT Edge API mediante protocolos como HTTP o MQTT, permitiendo integrar dashboards web y almacenamiento histórico de datos.
+
+#### Componentes
+
+| Componente | Función |
+|---|---|
+| ESP32 DevKit V1 | Microcontrolador principal encargado de leer sensores simulados, procesar datos y controlar actuadores. |
+| Potenciómetro 1 | Simula la lectura de voltaje eléctrico. |
+| Potenciómetro 2 | Simula la lectura de corriente eléctrica. |
+| OLED SSD1306 128x64 | Muestra voltaje, corriente, potencia, energía acumulada y estado del sistema. |
+| LED verde | Indica que el sistema opera en estado normal. |
+| LED amarillo | Indica advertencia por consumo elevado. |
+| LED rojo | Indica estado crítico o sobrecarga. |
+| Buzzer | Genera una alerta sonora ante una condición crítica. |
+| Relay Module | Simula el corte preventivo de energía ante una sobrecarga. |
+
+#### Diagrama visual de conexiones
+
+![Diagrama visual de conexiones del dispositivo ElectroLink](assets/img/cap5/iot/diagram-electrolink.png)
+
+#### Simulación en Wokwi
+
+![Simulación del dispositivo ElectroLink en Wokwi](assets/img/cap5/iot/wokwi-electrolink.png)
+
+#### Link de la simulación en Wokwi
+
+Link de la simulación en Wokwi: [https://wokwi.com/projects/464160639272315905](https://wokwi.com/projects/464160639272315905)
+
+#### Nota de simulación
+
+En Wokwi, los potenciómetros reemplazan a sensores eléctricos reales. El primer potenciómetro representa un sensor de voltaje, mientras que el segundo representa un sensor de corriente. En una implementación física, estos componentes podrían ser reemplazados por sensores como ZMPT101B para medición de voltaje y SCT-013 o ACS712 para medición de corriente.
+
+El relay no corta una carga eléctrica real dentro de la simulación; su función es representar el comportamiento de protección preventiva del sistema. Cuando el ESP32 detecta una condición crítica, cambia el estado del relay para simular una desconexión automática del suministro.
+
+#### Flujo de interacción
+
+1. El dispositivo inicia y muestra el nombre de ElectroLink en la pantalla OLED.
+2. El ESP32 lee las señales analógicas de los dos potenciómetros.
+3. El primer potenciómetro se interpreta como voltaje simulado.
+4. El segundo potenciómetro se interpreta como corriente simulada.
+5. El firmware calcula la potencia instantánea utilizando la fórmula `P = V × I`.
+6. El sistema calcula la energía acumulada estimada en kWh.
+7. La pantalla OLED muestra voltaje, corriente, potencia, energía acumulada y estado actual.
+8. Si el consumo está dentro del rango permitido, se activa el estado `NORMAL` y se enciende el LED verde.
+9. Si la corriente o potencia alcanza un nivel elevado, se activa el estado `WARNING` y se enciende el LED amarillo.
+10. Si se detecta sobrecarga, se activa el estado `CRITICAL`, se enciende el LED rojo, suena el buzzer y el relay simula un corte preventivo.
+11. El monitor serial de Wokwi muestra la telemetría local generada por el dispositivo.
+
+#### Procesamiento local (Edge Computing básico)
+
+El dispositivo realiza procesamiento local directamente en el ESP32 antes de mostrar resultados o activar actuadores. Entre las operaciones ejecutadas localmente se encuentran:
+
+- Conversión de señales analógicas.
+- Cálculo de potencia instantánea.
+- Cálculo de energía acumulada.
+- Clasificación del estado del sistema.
+- Activación de LEDs, buzzer y relay.
+
+Este enfoque permite reducir tiempos de respuesta y simular una arquitectura Edge Computing básica dentro del prototipo.
+
+#### Telemetría local
+
+Durante la simulación, el ESP32 genera telemetría local utilizando el monitor serial de Wokwi. Esta telemetría incluye voltaje, corriente, potencia, energía acumulada y estado del sistema.
+
+La información es utilizada como evidencia del procesamiento embebido realizado localmente por el dispositivo. En futuras versiones, esta telemetría será enviada hacia un backend IoT para almacenamiento y monitoreo remoto.
+
+#### Estados del dispositivo
+
+| Estado | Condición simulada | Respuesta del dispositivo |
+|---|---|---|
+| NORMAL | Corriente y potencia dentro de valores seguros. | LED verde encendido. |
+| WARNING | Corriente elevada o potencia cercana al límite. | LED amarillo encendido. |
+| CRITICAL | Sobrecarga o potencia crítica. | LED rojo encendido, buzzer activo y relay en modo de corte preventivo. |
+
+#### Indicadores visuales del sistema
+
+| Color | Estado | Descripción |
+|---|---|---|
+| Verde | NORMAL | El consumo eléctrico se encuentra dentro de parámetros seguros. |
+| Amarillo | WARNING | El consumo eléctrico es elevado y se aproxima a un límite de riesgo. |
+| Rojo | CRITICAL | Se detectó una sobrecarga o condición crítica. |
+
+#### Tabla de conexiones (Pinout)
+
+| Componente | Pin componente | Pin ESP32 | Tipo de señal |
+|---|---|---|---|
+| Potenciómetro de voltaje | VCC | 3V3 | Alimentación 3.3V |
+| Potenciómetro de voltaje | GND | GND | Referencia de tierra |
+| Potenciómetro de voltaje | SIG | GPIO34 | Entrada analógica |
+| Potenciómetro de corriente | VCC | 3V3 | Alimentación 3.3V |
+| Potenciómetro de corriente | GND | GND | Referencia de tierra |
+| Potenciómetro de corriente | SIG | GPIO35 | Entrada analógica |
+| OLED SSD1306 | VCC | 3V3 | Alimentación 3.3V |
+| OLED SSD1306 | GND | GND | Referencia de tierra |
+| OLED SSD1306 | SDA | GPIO21 | I2C Data |
+| OLED SSD1306 | SCL | GPIO22 | I2C Clock |
+| LED verde | Ánodo | GPIO25 | Salida digital |
+| LED verde | Cátodo | GND | Referencia de tierra |
+| LED amarillo | Ánodo | GPIO26 | Salida digital |
+| LED amarillo | Cátodo | GND | Referencia de tierra |
+| LED rojo | Ánodo | GPIO27 | Salida digital |
+| LED rojo | Cátodo | GND | Referencia de tierra |
+| Buzzer | Positivo | GPIO14 | Salida digital |
+| Buzzer | Negativo | GND | Referencia de tierra |
+| Relay Module | VCC | 5V | Alimentación 5V |
+| Relay Module | GND | GND | Referencia de tierra |
+| Relay Module | IN | GPIO13 | Salida digital de control |
 
 
+#### Evidencia de funcionamiento
+
+Durante la simulación se validaron tres escenarios principales:
+
+| Escenario | Acción realizada | Resultado esperado |
+|---|---|---|
+| Consumo normal | Se mantiene baja la corriente simulada. | Se enciende el LED verde y la OLED muestra estado `NORMAL`. |
+| Consumo elevado | Se incrementa moderadamente la corriente. | Se enciende el LED amarillo y la OLED muestra estado `WARNING`. |
+| Sobrecarga | Se incrementa la corriente hasta el nivel crítico. | Se enciende el LED rojo, suena el buzzer y el relay simula corte preventivo. |
+
+#### Librerías utilizadas
+
+| Librería | Propósito |
+|---|---|
+| Adafruit SSD1306 | Control de la pantalla OLED SSD1306 |
+| Adafruit GFX Library | Funciones gráficas para la OLED |
+| Wire.h | Comunicación I2C con la pantalla |
