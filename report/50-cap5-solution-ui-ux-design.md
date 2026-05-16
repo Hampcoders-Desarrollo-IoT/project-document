@@ -277,16 +277,41 @@ En esta sección se presenta la propuesta de User Flows del sistema ElectroLink,
 
 Cada flujo ha sido diseñado a partir de un objetivo específico del usuario (User Goal), considerando los perfiles de User Persona definidos en el alcance del proyecto.
 
-#### User Flow diagrams para el Usuario se registre dentro de la plataforma
+#### User Flow diagrams para que el Técnico se registre dentro de la plataforma
 
 
-![](assets/img/cap5/userflows/userflow.png)
+![](assets/img/cap5/userflows/userflow1.png)
 
 
-#### User Flow diagrams para el Usuario acceda desde la pagina principal al inventario
+#### User Flow diagrams para que Propietario se registre dentro de la plataforma
+
+
+![](assets/img/cap5/userflows/userflow3.png)
+
+
+#### User Flow diagrams para que Técnico acceda desde la pagina principal a su perfil
 
 
 ![](assets/img/cap5/userflows/userflow2.png)
+
+
+#### User Flow diagrams para que Propietario registre nueva propiedad
+
+
+![](assets/img/cap5/userflows/userflow4.png)
+
+
+#### User Flow diagrams para que Técnico ingrese al inventario
+
+
+![](assets/img/cap5/userflows/userflow5.png)
+
+
+#### User Flow diagrams para que Propietario edite propiedades y se visualicen en portafolio
+
+
+![](assets/img/cap5/userflows/userflow6.png)
+
 
 
 ## 5.5. Applications Prototyping.
