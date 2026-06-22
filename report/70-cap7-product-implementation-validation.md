@@ -74,6 +74,16 @@ En esta sección se presentan las evidencias de desarrollo correspondientes al S
 
 #### Aplicación Mobile
 
+\
+![Mobile - Login](assets/img/cap6/dashboard.jpeg)
+\
+![Mobile - Login](assets/img/cap6/mob-regsitro.jpeg)
+\
+![Mobile - Login](assets/img/cap6/m-login.jpeg)
+\
+
+
+
 ### 6.2.2.7. Services Documentation Evidence for Sprint Review.
 
 ### 6.2.2.8. Software Deployment Evidence for Sprint Review.
