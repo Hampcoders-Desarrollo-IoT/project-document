@@ -81,7 +81,12 @@ En esta sección se presentan las evidencias de desarrollo correspondientes al S
 \
 ![Mobile - Login](assets/img/cap6/m-login.jpeg)
 \
-
+![Mobile - Login](assets/img/cap6/mobile-vista-empresa.jpeg)
+\
+![Mobile - Login](assets/img/cap6/mobile-vista-empresa2.jpeg)
+\
+![Mobile - Login](assets/img/cap6/mobile-vista-empresa3.jpeg)
+\
 
 
 ### 6.2.2.7. Services Documentation Evidence for Sprint Review.
