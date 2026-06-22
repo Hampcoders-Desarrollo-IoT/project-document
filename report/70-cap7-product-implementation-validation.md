@@ -88,12 +88,47 @@ En esta sección se presentan las evidencias de desarrollo correspondientes al S
 ![Mobile - Login](assets/img/cap6/mobile-vista-empresa3.jpeg)
 \
 
-
 ### 6.2.2.7. Services Documentation Evidence for Sprint Review.
 
 ### 6.2.2.8. Software Deployment Evidence for Sprint Review.
 
+Durante el Sprint 2, el equipo realizó el despliegue de la aplicaicon web y mobile de ElectroLink, enfocándose en la infraestructura en la nube y el entorno productivo del Web Service / Backend de la aplicación y mobile. A continuación se describen los procesos de despliegue llevados a cabo.
+
+### Despliegue del Web Service / Backend – Render
+
+El Backend de ElectroLink fue desplegado utilizando la plataforma de hosting en la nube **Render**, conectada directamente al repositorio del proyecto para permitir un flujo de Integración y Despliegue Continuo (CI/CD). Los pasos realizados fueron los siguientes:
+
+**1. Creación del repositorio y estructura del Backend**
+Se consolidó el código fuente de la API de ElectroLink en el repositorio público `electrolink-backend` bajo la organización `open-source-4341` en GitHub. Este repositorio contiene toda la arquitectura de software (controladores, servicios, repositorios y configuraciones de base de datos) lista para entornos cloud.
+
+ *Captura: Estructura del repositorio GitHub con el código fuente del Web Service (Backend)*
+![Repositorio GitHub - Backend](assets/img/cap6/backend-deployment.jpeg)
+
+**2. Configuración del servicio web y rama de despliegue**
+En el panel de control de Render, se vinculó el repositorio de GitHub y se creó un nuevo *Web Service*. Se configuraron las variables de entorno necesarias (conexión a la base de datos, credenciales secretas, etc.) y se seleccionó la rama principal (`main`) como la fuente oficial de despliegue automatizado. Cada nuevo cambio subido a esta rama gatilla un *build* automático.
+
+ *Captura: Configuración del pipeline de despliegue y rama main en la plataforma cloud*
+![Configuración del despliegue en Render](assets/img/cap6/deployment-main.png)
+
+**3. Verificación y estado del despliegue en producción**
+Una vez concluido exitosamente el proceso de compilación (*build*) y ejecución (*deploy*) en los servidores de Render, se comprobó que el servicio se encontrara en estado *Live*. Se verificó la disponibilidad del Backend accediendo a su URL pública de producción y realizando peticiones de prueba a los endpoints expuestos de la API:
+[https://github.com/Hampcoders-Desarrollo-IoT/electrolink-backend-api](https://github.com/Hampcoders-Desarrollo-IoT/electrolink-backend-api)
+
+ *Captura: Confirmación de despliegue exitoso (Live) en el dashboard de Render*
+![Verificación del despliegue en Render](assets/img/cap6/render-backeng.png)
+
 ### 6.2.2.9. Team Collaboration Insights during Sprint.
+
+Finalmente, se presentan los insights de colaboración del equipo durante el Sprint 2, los cuales reflejan la coordinación, comunicación y trabajo conjunto en el desarrollo de las soluciones web y mobile del proyecto.
+
+Web: Durante este sprint, el equipo se enfocó en el desarrollo de la aplicación web, priorizando la implementación de interfaces funcionales y una experiencia de usuario intuitiva. Se trabajó de manera colaborativa en la construcción de módulos clave como la gestión de usuarios, visualización de datos provenientes del sistema IoT, y la administración de servicios. Asimismo, se realizaron integraciones con APIs para asegurar la correcta comunicación con el backend. El equipo mantuvo una comunicación constante para resolver conflictos de diseño y asegurar la consistencia en la interfaz, además de aplicar buenas prácticas de desarrollo para garantizar escalabilidad y mantenimiento del sistema.
+\
+![insight-sprint2-web](assets/img/cap7/insight-sprint2.png)
+
+Mobile: En paralelo, el equipo desarrolló la aplicación móvil, enfocándose en la accesibilidad y usabilidad en dispositivos móviles. Se implementaron funcionalidades esenciales como monitoreo en tiempo real, notificaciones y visualización simplificada de datos IoT. La colaboración fue clave para adaptar las funcionalidades del sistema web a un entorno móvil, optimizando la navegación y el rendimiento. Además, se realizaron pruebas en diferentes dispositivos para asegurar compatibilidad y una experiencia de usuario fluida. La coordinación entre los miembros permitió mantener coherencia entre ambas plataformas (web y mobile), garantizando una integración sólida del sistema.
+
+\
+![insight-sprint2-mobile](assets/img/cap7/insight-sprint2-mobile.png)
 
 #### Kanban Board and Tasks
 \
