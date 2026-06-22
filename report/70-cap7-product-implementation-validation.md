@@ -18,6 +18,12 @@
 
 ### 6.2.2.9. Team Collaboration Insights during Sprint.
 
+#### Kanban Board and Tasks
+\
+![Kanban](assets/img/cap6/Sprint2-iot-kanban1.png)
+\
+![Kanban](assets/img/cap6/Sprint2-iot-kanban2.png)
+\
 ### 6.3. Validation Interviews.
 
 ### 6.3.1. Diseño de Entrevistas.
