@@ -81,48 +81,48 @@ Se verificó el correcto funcionamiento de la pantalla de creación de cuentas, 
 
 ![Web - SignUp](assets/img/cap7/signUp_front.png)
 
-Pantalla de Inicio de Sesión
+##### Pantalla de Inicio de Sesión
 
 Se comprobó el funcionamiento de la pantalla de autenticación, la cual permite validar credenciales e interceptar el token JWT en el frontend para autorizar de manera automática las peticiones posteriores del sistema.
 
 ![Web - LogIn](assets/img/cap7/logIn_front.png)
 
-Gestión de Perfil de Usuario 
+##### Gestión de Perfil de Usuario 
 
 Se verificó la carga de datos en el módulo de administración del perfil una vez activo en la base de datos. La vista recupera de forma dinámica la información personal del usuario.
 
 ![Web - Profile](assets/img/cap7/profile_front.png)
 
-Panel de Inventario Personal de Activos
+##### Panel de Inventario Personal de Activos
 
 Se validó la correcta visualización del módulo de control de stock técnico, el cual unifica indicadores analíticos de ítems totales, unidades globales y estados de alerta.
 
 ![Web - Inventory](assets/img/cap7/inventory_front.png)
 
-Catálogo General de Componentes
+##### Catálogo General de Componentes
 
 Se verificó el funcionamiento del Catálogo de Componentes, el cual consolida las métricas de activos físicos y ofrece capacidades dinámicas para paginación, ordenamiento y filtrado por texto.
 
 ![Web - Catalog](assets/img/cap7/component_catalog_front.png)
 
-Formulario Modal para Registro de Nuevos Componentes
+##### Formulario Modal para Registro de Nuevos Componentes
 
 Se comprobó la inserción de nuevos activos mediante un formulario. La interfaz procesa campos obligatorios como el nombre y la descripción del material eléctrico antes de enviar la orden de creación.
 
-![Web - Catalog](assets/img/cap7/newcomponent_front.png)
+![Web - New Component](assets/img/cap7/newcomponent_front.png)
 
 
-Gestión de Tipos de Componentes
+##### Gestión de Tipos de Componentes
 
 Se verificó el despliegue del listado de tipos de componentes, el cual lee del backend  (ej. la familia 'Relay') junto con su estado lógico y opciones CRUD.
 
-![Web - Catalog](assets/img/cap7/component_types_front.png)
+![Web - Component Type](assets/img/cap7/component_types_front.png)
 
-Formulario de Nuevo Tipo de Componentes
+##### Formulario de Nuevo Tipo de Componentes
 
 Se validó la ventana para la expansión del catálogo, la cual permite añadir nuevas categorías y descripciones para la normalización del inventario.
 
-![Web - Catalog](assets/img/cap7/newcomponent_type_front.png)
+![Web - New Component Type](assets/img/cap7/newcomponent_type_front.png)
 
 
 #### Aplicación Mobile
