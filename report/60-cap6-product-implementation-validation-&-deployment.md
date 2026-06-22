@@ -60,7 +60,7 @@ Plataforma en la nube para alojar codigo de software colaborativo mediante repos
  - Enlace del [codigo Landing Page]()
  - Enlace del [codigo Frontend](https://github.com/Hampcoders-Desarrollo-IoT/electrolink-frontend-web)
  - Enlace del [codigo Backend](https://github.com/Hampcoders-Desarrollo-IoT/electrolink-backend-api)
-
+\
 ![Gitflow Graphic](assets/img/cap6/git-flow.png)
 
 Gitflow es un modelo de ramificación para Git que organiza el desarrollo de software mediante ramas estandarizadas, facilitando la colaboración y el control del código en equipo. En Glottia, utilizamos este modelo para gestionar de forma eficiente los repositorios de nuestros microservicios.
@@ -155,7 +155,7 @@ Durante el Sprint 1 se consiguió un avance parcial en el despliegue de la landi
 \vspace{1em}
 
 En esta imagen se puede visualizar las pruebas unitarias del queryservice del bounded context de analytics.
-
+\
 ![Analytics unit test 1](assets/img/cap6/unittest/analytics/analytics-queryservice-ut.png)
 
 Este es el servicio principal del contexto. Las pruebas verifican que las tres analíticas principales generen las matemáticas, agrupaciones y recuentos de manera correcta.
@@ -165,11 +165,11 @@ Este es el servicio principal del contexto. Las pruebas verifican que las tres a
 \vspace{1em}
 
 Pruebas para el servicio de componentes (`ComponentCommandServiceImpl`).
-
+\
 ![Assets unit test 1](assets/img/cap6/unittest/assets/assets-componentcommand-ut.png)
 
 Pruebas para el servicio de tipos de componentes (`ComponentTypeCommandServiceImpl`).
-
+\
 ![Assets unit test 2](assets/img/cap6/unittest/assets/assets-ctypecommand-ut.png)
 
 
@@ -179,11 +179,11 @@ Pruebas para el servicio de tipos de componentes (`ComponentTypeCommandServiceIm
 \vspace{1em}
 
 Pruebas para el servicio de comandos de roles (`RoleCommandServiceImpl`).
-
+\
 ![Iam unit test 1](assets/img/cap6/unittest/iam/iam-rolecommand-ut.png)
 
 Pruebas para el servicio de comandos de usuarios (`UserCommandServiceImpl`).
-
+\
 ![Iam unit test 2](assets/img/cap6/unittest/iam/iam-usercommand-ut.png)
 
 

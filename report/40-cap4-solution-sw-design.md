@@ -18,7 +18,7 @@ En conjunto, Electrolink se modela como una plataforma modular basada en eventos
 ### 4.1.1. Design-Level EventStorming.
 
 #### 4.1.1.1 Candidate Context Discovery.
-
+\
 ![](assets/img/cap4/event/CCD.PNG)
 
 #### 4.1.1.2 Domain Message Flows Modeling.

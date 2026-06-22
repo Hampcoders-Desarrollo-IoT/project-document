@@ -7,7 +7,7 @@ En esta sección, el equipo establece las bases para contar con un repositorio c
 ### 5.1.1. General Style Guidelines.
 
 En esta sección se explican las decisiones y referencias visuales relacionadas con conceptos fundamentales como branding, tipografía, colores y espaciado, los cuales sirven como base para la identidad visual del proyecto.
-
+\
 ![](assets/img/cap5/styleGuidelinesElectrolink.png)
 
 ### 5.1.2. Web, Mobile and IoT Style Guidelines.
@@ -34,12 +34,12 @@ En esta sección, el equipo define los sistemas de organización de la informaci
 También se establecen los esquemas de categorización de contenido a utilizar.
 
 En el caso de la landing page, se ha utilizado principalmente una organización jerárquica, iniciando con la sección hero y finalizando con la sección de reclutamiento (sin incluir el footer). Esta decisión busca mantener una estructura clara y evitar la sobrecarga de información al usuario, priorizando una navegación más enfocada en el servicio.
-
+\
 ![](assets/img/cap5/landingorganization.png)
 
 
 Para la aplicación web, implementamos un sistema de widgets con estilo matricial para estructurar los datos, lo que permite categorizar la información según nuestros segmentos ya que poseen requerimientos distintos; así, el dueño visualiza métricas de consumo y gestión de inmuebles, mientras que el técnico accede a su agenda y stock de materiales. De esta forma, logramos que la experiencia de usuario sea específica para cada rol, manteniendo también un flujo de suscripción organizado y eficiente.
-
+\
 ![](assets/img/cap5/dashboardownerMockup.png)
 
 
@@ -92,7 +92,7 @@ ElectroLink dispone de un sistema de búsqueda avanzada que facilita a los usuar
 Los sistemas de navegación de ElectroLink han sido diseñados para guiar de forma intuitiva a los usuarios a través del Landing Page y la aplicación, facilitando la exploración del contenido y el acceso a las funcionalidades clave.
 
 La estructura sigue una lógica clara que permite a cada tipo de usuario (hogares, oficinas y proveedores) encontrar rápidamente la información o servicios que necesita mediante menús jerárquicos, enlaces destacados y botones de acción visibles.
-
+\
 ![](assets/img/cap5/navigationsystems.png)
 
 ## 5.3 Landing Page UI Design.
@@ -103,25 +103,25 @@ En esta sección, el equipo de Hampcoders presenta el Diseño de Interfaz de Usu
 
 #### Sección "Cómo Funciona?" y "Resolvemos Problemas Reales" 
 
-
+\
 ![](assets/img/cap5/landingpage/landingpage-seccion1.png)
 
 
 #### Sección de "Testimonios" y "Por qué usar Electrolink?"
 
-
+\
 ![](assets/img/cap5/landingpage/landingpage-seccion2.png)
 
 
 #### Sección de "Sobre Nosotros"
 
-
+\
 ![](assets/img/cap5/landingpage/landingpage-seccion3.png)
 
 
 #### Sección de "Contacto"
 
-
+\
 ![](assets/img/cap5/landingpage/landingpage-seccion4.png)
 
 
@@ -129,13 +129,13 @@ En esta sección, el equipo de Hampcoders presenta el Diseño de Interfaz de Usu
 
 #### Sección "Cómo Funciona?" y "Resolvemos Problemas Reales"
 
-
+\
 ![](assets/img/cap5/landingpage/landingpagemockup-1.png)
 
 
 #### Sección de "Testimonios" y "Por qué usar Electrolink?"
 
-
+\
 ![](assets/img/cap5/landingpage/landingpagemockup-2.png)
 
 
@@ -174,31 +174,31 @@ Estos wireframes sirven como guía para el desarrollo del frontend, asegurando u
 
 #### Vista de inicio de sesión
 
-
+\
 ![](assets/img/cap5/wireframes/signInWireframe.png)
 
 
 #### Vista de Crear Cuenta
 
-
+\
 ![](assets/img/cap5/wireframes/signUpWireframe.png)
 
 
 #### Vista de Dashboard Dueño de Hogar
 
-
+\
 ![](assets/img/cap5/wireframes/homeOwnerDashboardWireframe.png)
 
 
 #### Vista de editar perfil
 
-
+\
 ![](assets/img/cap5/wireframes/HomeOwnerProfileWireframe.png)
 
 
 #### Vista la sección de propiedades
 
-
+\
 ![](assets/img/cap5/wireframes/propertyWireframe.png)
 
 
@@ -209,19 +209,19 @@ En esta sección, el equipo de Hampcoders define los wireflows diagrams para la 
 
 #### Wireflow para el Usuario se registre dentro de la plataforma
 
-
+\
 ![](assets/img/cap5/wireframes/wireflowregistro.png)
 
 
 #### Wireflow para el usuario busque tecnicos
 
-
+\
 ![](assets/img/cap5/wireframes/wireflowlocalizacion.png)
 
 
 #### Wireflow para añadir propiedades
 
-
+\
 ![](assets/img/cap5/wireframes/wireflowpropiedad.png)
 
 
@@ -231,43 +231,43 @@ En esta sección, el equipo de Hampcoders define los wireflows diagrams para la 
 
 #### Vista de Inicio de Sesión
 
-
+\
 ![](assets/img/cap5/mockups/SignInMockup.png)
 
 
 #### Vista de Registro
 
-
+\
 ![](assets/img/cap5/mockups/signUpMockup.png)
 
 
 #### Vista de Dashboard de Técnico
 
-
+\
 ![](assets/img/cap5/mockups/dasboardtechnician.png)
 
 
 #### Vista de Dashboard de Dueño de hogar
 
-
+\
 ![](assets/img/cap5/mockups/dashboardowner.png)
 
 
 #### Vista de Portafolio de propiedades
 
-
+\
 ![](assets/img/cap5/mockups/propertyPortfolioMockup.png)
 
 
 #### Vista de Solicitud de servicio
 
-
+\
 ![](assets/img/cap5/mockups/servicerequestMockup.png)
 
 
 #### Vista de Suscripciones
 
-
+\
 ![](assets/img/cap5/mockups/subscriptionsMockup.png)
 
 
@@ -279,37 +279,37 @@ Cada flujo ha sido diseñado a partir de un objetivo específico del usuario (Us
 
 #### User Flow diagrams para que el Técnico se registre dentro de la plataforma
 
-
+\
 ![](assets/img/cap5/userflows/userflow1.png)
 
 
 #### User Flow diagrams para que Propietario se registre dentro de la plataforma
 
-
+\
 ![](assets/img/cap5/userflows/userflow3.png)
 
 
 #### User Flow diagrams para que Técnico acceda desde la pagina principal a su perfil
 
-
+\
 ![](assets/img/cap5/userflows/userflow2.png)
 
 
 #### User Flow diagrams para que Propietario registre nueva propiedad
 
-
+\
 ![](assets/img/cap5/userflows/userflow4.png)
 
 
 #### User Flow diagrams para que Técnico ingrese al inventario
 
-
+\
 ![](assets/img/cap5/userflows/userflow5.png)
 
 
 #### User Flow diagrams para que Propietario edite propiedades y se visualicen en portafolio
 
-
+\
 ![](assets/img/cap5/userflows/userflow6.png)
 
 
@@ -317,7 +317,7 @@ Cada flujo ha sido diseñado a partir de un objetivo específico del usuario (Us
 ## 5.5. Applications Prototyping.
 
 Esta sección presenta los prototipos de interfaz de usuario, que incluyen simulaciones de interacción y navegación dentro del sistema. Las decisiones de diseño de interacción se basan en criterios fundamentales como la facilidad de uso, la accesibilidad y la adaptación a distintos dispositivos.
-
+\
 ![](assets/img/cap5/prototype.png)
 
 
@@ -377,11 +377,11 @@ En futuras iteraciones, el ESP32 enviará telemetría hacia un IoT Edge API medi
 | Relay Module | Simula el corte preventivo de energía ante una sobrecarga. |
 
 #### Diagrama visual de conexiones
-
+\
 ![Diagrama visual de conexiones del dispositivo ElectroLink](assets/img/cap5/iot/diagram-electrolink.png)
 
 #### Simulación en Wokwi
-
+\
 ![Simulación del dispositivo ElectroLink en Wokwi](assets/img/cap5/iot/wokwi-electrolink.png)
 
 #### Link de la simulación en Wokwi

@@ -42,6 +42,8 @@ Para cada aspecto se ha asignado un **líder (L)** responsable principal de su d
 ---
 
 ### 6.2.2.3. Sprint Backlog 2.
+\
+
 ![Sprint Backlog 2](assets/img/cap7/Sprint2-iot-backlog.png)
 ### 6.2.2.4. Development Evidence for Sprint Review.
 
@@ -78,67 +80,67 @@ Esta sección resume la evidencia de ejecución del Sprint 2, donde se verificó
 ##### Pantalla de Registro de Usuarios
 
 Se verificó el correcto funcionamiento de la pantalla de creación de cuentas, la cual recopila los datos del usuario nuevo y se conecta asíncronamente con el servicio de identidad del backend para su persistencia segura.
-
+\
 ![Web - SignUp](assets/img/cap7/signUp_front.png)
 
 ##### Pantalla de Inicio de Sesión
 
 Se comprobó el funcionamiento de la pantalla de autenticación, la cual permite validar credenciales e interceptar el token JWT en el frontend para autorizar de manera automática las peticiones posteriores del sistema.
-
+\
 ![Web - LogIn](assets/img/cap7/logIn_front.png)
 
 ##### Gestión de Perfil de Usuario 
 
 Se verificó la carga de datos en el módulo de administración del perfil una vez activo en la base de datos. La vista recupera de forma dinámica la información personal del usuario.
-
+\
 ![Web - Profile](assets/img/cap7/profile_front.png)
 
 ##### Panel de Inventario Personal de Activos
 
 Se validó la correcta visualización del módulo de control de stock técnico, el cual unifica indicadores analíticos de ítems totales, unidades globales y estados de alerta.
-
+\
 ![Web - Inventory](assets/img/cap7/inventory_front.png)
 
 ##### Catálogo General de Componentes
 
 Se verificó el funcionamiento del Catálogo de Componentes, el cual consolida las métricas de activos físicos y ofrece capacidades dinámicas para paginación, ordenamiento y filtrado por texto.
-
+\
 ![Web - Catalog](assets/img/cap7/component_catalog_front.png)
 
 ##### Formulario Modal para Registro de Nuevos Componentes
 
 Se comprobó la inserción de nuevos activos mediante un formulario. La interfaz procesa campos obligatorios como el nombre y la descripción del material eléctrico antes de enviar la orden de creación.
-
+\
 ![Web - New Component](assets/img/cap7/newcomponent_front.png)
 
 
 ##### Gestión de Tipos de Componentes
 
 Se verificó el despliegue del listado de tipos de componentes, el cual lee del backend  (ej. la familia 'Relay') junto con su estado lógico y opciones CRUD.
-
+\
 ![Web - Component Type](assets/img/cap7/component_types_front.png)
 
 ##### Formulario de Nuevo Tipo de Componentes
 
 Se validó la ventana para la expansión del catálogo, la cual permite añadir nuevas categorías y descripciones para la normalización del inventario.
-
+\
 ![Web - New Component Type](assets/img/cap7/newcomponent_type_front.png)
 
 
 #### Aplicación Mobile
 
 \
-![Mobile - Login](assets/img/cap6/dashboard.jpeg)
+![Mobile - Login](assets/img/cap7/dashboard.jpeg)
 \
-![Mobile - Login](assets/img/cap6/mob-regsitro.jpeg)
+![Mobile - Login](assets/img/cap7/mob-regsitro.jpeg)
 \
-![Mobile - Login](assets/img/cap6/m-login.jpeg)
+![Mobile - Login](assets/img/cap7/m-login.jpeg)
 \
-![Mobile - Login](assets/img/cap6/mobile-vista-empresa.jpeg)
+![Mobile - Login](assets/img/cap7/mobile-vista-empresa.jpeg)
 \
-![Mobile - Login](assets/img/cap6/mobile-vista-empresa2.jpeg)
+![Mobile - Login](assets/img/cap7/mobile-vista-empresa2.jpeg)
 \
-![Mobile - Login](assets/img/cap6/mobile-vista-empresa3.jpeg)
+![Mobile - Login](assets/img/cap7/mobile-vista-empresa3.jpeg)
 \
 
 ### 6.2.2.7. Services Documentation Evidence for Sprint Review.
@@ -155,19 +157,23 @@ El Backend de ElectroLink fue desplegado utilizando la plataforma de hosting en 
 Se consolidó el código fuente de la API de ElectroLink en el repositorio público `electrolink-backend` bajo la organización `open-source-4341` en GitHub. Este repositorio contiene toda la arquitectura de software (controladores, servicios, repositorios y configuraciones de base de datos) lista para entornos cloud.
 
  *Captura: Estructura del repositorio GitHub con el código fuente del Web Service (Backend)*
+ \
 ![Repositorio GitHub - Backend](assets/img/cap6/backend-deployment.jpeg)
 
 **2. Configuración del servicio web y rama de despliegue**
 En el panel de control de Render, se vinculó el repositorio de GitHub y se creó un nuevo *Web Service*. Se configuraron las variables de entorno necesarias (conexión a la base de datos, credenciales secretas, etc.) y se seleccionó la rama principal (`main`) como la fuente oficial de despliegue automatizado. Cada nuevo cambio subido a esta rama gatilla un *build* automático.
 
  *Captura: Configuración del pipeline de despliegue y rama main en la plataforma cloud*
+ \
 ![Configuración del despliegue en Render](assets/img/cap6/deployment-main.png)
 
 **3. Verificación y estado del despliegue en producción**
 Una vez concluido exitosamente el proceso de compilación (*build*) y ejecución (*deploy*) en los servidores de Render, se comprobó que el servicio se encontrara en estado *Live*. Se verificó la disponibilidad del Backend accediendo a su URL pública de producción y realizando peticiones de prueba a los endpoints expuestos de la API:
+\
 [https://github.com/Hampcoders-Desarrollo-IoT/electrolink-backend-api](https://github.com/Hampcoders-Desarrollo-IoT/electrolink-backend-api)
 
  *Captura: Confirmación de despliegue exitoso (Live) en el dashboard de Render*
+ \
 ![Verificación del despliegue en Render](assets/img/cap6/render-backeng.png)
 
 ### 6.2.2.9. Team Collaboration Insights during Sprint.
@@ -229,7 +235,7 @@ Mobile: En paralelo, el equipo desarrolló la aplicación móvil, enfocándose e
 ### 6.3.1. Diseño de Entrevistas.
 
 1. Piero Tenorio Medina 
-  
+  \
    Enlace: [https://youtu.be/Epc6R8F4hjE ](https://youtu.be/Epc6R8F4hjE )
    Duración: 7:53 min
    Empieza: 00:00
