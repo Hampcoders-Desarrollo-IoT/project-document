@@ -5,7 +5,7 @@
 ### 6.2.2.2. Aspect Leader and Collaborators.
 
 ### 6.2.2.3. Sprint Backlog 2.
-
+![Sprint Backlog 2](assets/img/cap6/Sprint2-iot-backlog.png)
 ### 6.2.2.4. Development Evidence for Sprint Review.
 
 ### 6.2.2.5. Testing Suite Evidence for Sprint Review.
