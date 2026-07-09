@@ -3061,7 +3061,7 @@ Esta capa concreta las abstracciones técnicas definidas en el núcleo del siste
 
 A continuación, se presenta el diagrama de clases generado en PlantUML que representa la jerarquía de clases del **firmware embebido** que corre sobre el ESP32. A diferencia de los diagramas anteriores de esta sección, este no corresponde a la capa de dominio del backend .NET, sino al código C++ que se ejecuta directamente en el dispositivo Edge. Se re-estructuró el firmware bajo un enfoque POO en C++, definiendo clases abstractas base `Sensor` y `Actuator`, de las cuales heredan las implementaciones concretas para cada componente físico. Esto permite que el bucle principal opere de forma polimórfica sobre ambos sensores de corriente (ACS712 analógico e INA219 I2C) y sobre los actuadores de protección (relé y buzzer), sin acoplarse a su implementación específica.
 
-![](assets/img/cap4/firmware/class-diagram.png)
+![](assets/img/cap4/firmware/firmware-class-diagram.png)
 
 **Notas de diseño:**
 - `Acs712Sensor` lee corriente mediante el ADC analógico del ESP32 (`analogReadResolution(12)`).
