@@ -3057,3 +3057,13 @@ Esta capa concreta las abstracciones técnicas definidas en el núcleo del siste
 #### 4.2.8.6. Bounded Context Software Architecture Code Level Diagrams.
 ##### 4.2.8.6.1. Bounded Context Domain Layer Class Diagrams.
 ##### 4.2.8.6.2. Bounded Context Database Design Diagram.
+##### 4.2.8.6.3. Firmware Class Diagram (ESP32 - Edge Device).
+
+A continuación, se presenta el diagrama de clases generado en PlantUML que representa la jerarquía de clases del **firmware embebido** que corre sobre el ESP32. A diferencia de los diagramas anteriores de esta sección, este no corresponde a la capa de dominio del backend .NET, sino al código C++ que se ejecuta directamente en el dispositivo Edge. Se re-estructuró el firmware bajo un enfoque POO en C++, definiendo clases abstractas base `Sensor` y `Actuator`, de las cuales heredan las implementaciones concretas para cada componente físico. Esto permite que el bucle principal opere de forma polimórfica sobre ambos sensores de corriente (ACS712 analógico e INA219 I2C) y sobre los actuadores de protección (relé y buzzer), sin acoplarse a su implementación específica.
+
+![](assets/img/cap4/firmware/class-diagram.png)
+
+**Notas de diseño:**
+- `Acs712Sensor` lee corriente mediante el ADC analógico del ESP32 (`analogReadResolution(12)`).
+- `Ina219Sensor` se simula en Wokwi mediante un potenciómetro (GPIO 35); en hardware físico usa el bus I2C real (dirección `0x40`), compartiendo las líneas SDA/SCL (pines 21/22) con la pantalla OLED (dirección `0x3C`).
+- El bucle principal del firmware instancia ambos sensores de forma polimórfica a través del puntero base `Sensor*`, y compara el valor máximo entre ambas lecturas contra `currentAlertLimit` para decidir si activa `RelayActuator::turnOff()` y `BuzzerActuator::turnOn()` de forma local, sin esperar respuesta del Edge API.
