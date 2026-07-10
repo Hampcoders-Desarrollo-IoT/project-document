@@ -8,6 +8,7 @@ input-files:
   - report/30-cap3-requirements-spec.md
   - report/40-cap4-solution-sw-design.md
   - report/50-cap5-solution-ui-ux-design.md
+  - report/70-cap7-product-implementation-validation.md
   - report/90-conclusiones.md
   - report/91-bibliografia.md
   - report/99-anexos.md

@@ -1,9 +1,26 @@
 # Capítulo IV: Solution Software Design
 
 ## 4.1 Strategic-Level Domain-Driven Design.
+![](assets/img/cap4/event/EventStorming1.PNG)
+![](assets/img/cap4/event/EventStorming2.PNG)
+![](assets/img/cap4/event/EventStorming3.PNG)
+![](assets/img/cap4/event/EventStorming4.PNG)
+
+El Event Storming es una técnica colaborativa de diseño de software que permite entender un sistema a partir de los eventos de negocio, identificando cómo fluye la información, qué acciones ocurren y qué actores intervienen. En el caso de Electrolink, esta metodología nos permitió construir una visión integral de la plataforma IoT enfocada en la gestión eléctrica para PyMEs y técnicos.
+
+A partir del Big Picture, se identificaron múltiples bounded contexts que delimitan responsabilidades claras dentro del sistema. El contexto de IAM gestiona la autenticación y registro de usuarios, mientras que Profiles administra la información y personalización de cada usuario. El módulo de Subscriptions & Payments controla la activación de planes, pagos y límites del servicio.
+
+El contexto de IoT Device Management permite registrar dispositivos, validar datos y ejecutar monitoreo continuo, integrándose con Analytics, donde se procesan lecturas, se generan métricas y alertas por consumo o anomalías. Por otro lado, Service Design and Planning define el catálogo de servicios técnicos disponibles, conectando la oferta con la demanda.
+
+En Assets se gestionan propiedades, componentes eléctricos e inventario técnico, mientras que Service Operation and Monitoring coordina la ejecución del servicio, desde su asignación hasta su finalización, incluyendo reportes, evaluaciones y manejo de incidencias.
+
+En conjunto, Electrolink se modela como una plataforma modular basada en eventos, donde cada bounded context opera de forma autónoma pero conectada, permitiendo escalabilidad, trazabilidad y una mejor toma de decisiones basada en datos en tiempo real.
 ### 4.1.1. Design-Level EventStorming.
 
 #### 4.1.1.1 Candidate Context Discovery.
+\
+![](assets/img/cap4/event/CCD.PNG)
+
 #### 4.1.1.2 Domain Message Flows Modeling.
 #### 4.1.1.3 Bounded Context Canvases.
 
@@ -3057,3 +3074,13 @@ Esta capa concreta las abstracciones técnicas definidas en el núcleo del siste
 #### 4.2.8.6. Bounded Context Software Architecture Code Level Diagrams.
 ##### 4.2.8.6.1. Bounded Context Domain Layer Class Diagrams.
 ##### 4.2.8.6.2. Bounded Context Database Design Diagram.
+##### 4.2.8.6.3. Firmware Class Diagram (ESP32 - Edge Device).
+
+A continuación, se presenta el diagrama de clases generado en PlantUML que representa la jerarquía de clases del **firmware embebido** que corre sobre el ESP32. A diferencia de los diagramas anteriores de esta sección, este no corresponde a la capa de dominio del backend .NET, sino al código C++ que se ejecuta directamente en el dispositivo Edge. Se re-estructuró el firmware bajo un enfoque POO en C++, definiendo clases abstractas base `Sensor` y `Actuator`, de las cuales heredan las implementaciones concretas para cada componente físico. Esto permite que el bucle principal opere de forma polimórfica sobre ambos sensores de corriente (ACS712 analógico e INA219 I2C) y sobre los actuadores de protección (relé y buzzer), sin acoplarse a su implementación específica.
+
+![](assets/img/cap4/firmware/firmware-class-diagram.png)
+
+**Notas de diseño:**
+- `Acs712Sensor` lee corriente mediante el ADC analógico del ESP32 (`analogReadResolution(12)`).
+- `Ina219Sensor` se simula en Wokwi mediante un potenciómetro (GPIO 35); en hardware físico usa el bus I2C real (dirección `0x40`), compartiendo las líneas SDA/SCL (pines 21/22) con la pantalla OLED (dirección `0x3C`).
+- El bucle principal del firmware instancia ambos sensores de forma polimórfica a través del puntero base `Sensor*`, y compara el valor máximo entre ambas lecturas contra `currentAlertLimit` para decidir si activa `RelayActuator::turnOff()` y `BuzzerActuator::turnOn()` de forma local, sin esperar respuesta del Edge API.
