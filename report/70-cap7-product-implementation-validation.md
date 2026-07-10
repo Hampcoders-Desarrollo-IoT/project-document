@@ -174,7 +174,7 @@ Una vez concluido exitosamente el proceso de compilación (*build*) y ejecución
 
  *Captura: Confirmación de despliegue exitoso (Live) en el dashboard de Render*
  \
-![Verificación del despliegue en Render](assets/img/cap6/render-backeng.png)
+![Verificación del despliegue en Render](assets/img/cap6/render-backend.jpeg)
 
 ### 6.2.2.9. Team Collaboration Insights during Sprint.
 
