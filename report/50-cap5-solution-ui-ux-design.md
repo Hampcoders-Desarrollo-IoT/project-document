@@ -246,7 +246,6 @@ En esta sección, el equipo de Hampcoders define los wireflows diagrams para la 
 \
 ![](assets/img/cap5/mockups/dashboardtechnician.png)
 
-
 #### Vista de Dashboard de Dueño de hogar
 
 \
