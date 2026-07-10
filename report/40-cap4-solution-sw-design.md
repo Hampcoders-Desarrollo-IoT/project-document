@@ -1505,13 +1505,13 @@ Tabla: `arm_iot_devices`
 | Columna                     | Tipo SQL        | Restricciones                              | Observaciones                                        |
 |-----------------------------|-----------------|--------------------------------------------|------------------------------------------------------|
 | `id`                        | `VARCHAR(60)`   | `PK`, `NOT NULL`                           | Prefijo `dev-{Guid}`                                 |
-| `serial_number`             | `VARCHAR(100)`  | `NOT NULL`, `UNIQUE`                       | Convertidor: `SerialNumber ↔ string`                 |
-| `api_key_hash`              | `VARCHAR(255)`  | `NOT NULL`                                 | Convertidor: `ApiKeyHash ↔ string`                   |
+| `serial_number`             | `VARCHAR(100)`  | `NOT NULL`, `UNIQUE`                       | Convertidor: `SerialNumber <-> string`                 |
+| `api_key_hash`              | `VARCHAR(255)`  | `NOT NULL`                                 | Convertidor: `ApiKeyHash <-> string`                   |
 | `firmware_version`          | `VARCHAR(50)`   | `NOT NULL`                                 |                                                      |
 | `status`                    | `VARCHAR(30)`   | `NOT NULL`                                 | Convertidor: `EDeviceStatus` como string             |
-| `assigned_property_id`      | `VARCHAR(60)`   | Nullable                                   | Convertidor: `PropertyId? ↔ string?`                 |
-| `installation_request_id`   | `VARCHAR(60)`   | Nullable                                   | Convertidor: `InstallationRequestId? ↔ string?`      |
-| `installed_by_technician_id`| `VARCHAR(60)`   | Nullable                                   | Convertidor: `TechnicianId? ↔ string?`               |
+| `assigned_property_id`      | `VARCHAR(60)`   | Nullable                                   | Convertidor: `PropertyId? <-> string?`                 |
+| `installation_request_id`   | `VARCHAR(60)`   | Nullable                                   | Convertidor: `InstallationRequestId? <-> string?`      |
+| `installed_by_technician_id`| `VARCHAR(60)`   | Nullable                                   | Convertidor: `TechnicianId? <-> string?`               |
 | `installed_at`              | `DATETIME2`     | Nullable                                   |                                                      |
 | `connection_status`         | `VARCHAR(20)`   | `NOT NULL`                                 | Convertidor: `EConnectionStatus` como string         |
 | `last_reading_at`           | `DATETIME2`     | Nullable                                   |                                                      |
@@ -1526,7 +1526,7 @@ Tabla: `arm_properties`
 
 | Columna adicional             | Tipo SQL         | Restricciones               | Observaciones                                              |
 |-------------------------------|------------------|-----------------------------|-------------------------------------------------------------|
-| `installed_device_ids`        | `NVARCHAR(MAX)`  | `NOT NULL`, default `'[]'`  | Serializado como JSON. Convertidor: `List<string> ↔ JSON`  |
+| `installed_device_ids`        | `NVARCHAR(MAX)`  | `NOT NULL`, default `'[]'`  | Serializado como JSON. Convertidor: `List<string> <-> JSON`  |
 | `has_active_iot_monitoring`   | `BIT`            | `NOT NULL`, default `0`     | Derivado del contenido de `installed_device_ids`            |
 
 #### Registro de Configuraciones
