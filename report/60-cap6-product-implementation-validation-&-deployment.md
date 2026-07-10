@@ -362,7 +362,7 @@ A continuación se presenta la relación de endpoints documentados por Bounded C
 
 #### Captura de interacción con Swagger UI – Endpoint POST /service-requests
 /
-![Swagger SDP](assets/img/cap6/swagger/sdp-endpoints.png)
+![Swagger SDP](assets/img/cap6/sdp-endpoints.png)
 
 ---
 
