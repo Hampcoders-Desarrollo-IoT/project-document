@@ -25,4 +25,11 @@
 | **TP1** | 15/05/2026 | **Aliaga Aguirre, Ethan** | Pruebas de compilación, integración de cambios y actualización de la rama Develop |
 | **TP1** | 15/05/2026 | **Ivo Marcelo Machado Bracamonte** | Control de calidad de la documentación y estabilización de la versión Develop |
 | **TP1** | 15/05/2026 | **Contreras López, Leandro Saul** | Consolidación final de entregables, formateo Markdown y despliegue en la rama Develop |
+| **TF** | 10/07/2026 | **Aliaga Aguirre, Ethan Matias** | Desarrollo backend (API REST y Edge API), integración de servicios, evidencias de deployment y ejecución en Sprint 3. |
+| **TF** | 10/07/2026 | **Becerra Tejeda, Alessandra Nicole** | Validación UX final, evidencia de frontend web terminado y apoyo en Sprint Review (Development y Testing Evidence). |
+| **TF** | 10/07/2026 | **Cabanillas Meza, José Mateo** | Validación de usuario, entrevistas finales, Testing Suite Evidence y análisis de resultados del Sprint 3. |
+| **TF** | 10/07/2026 | **Contreras López, Leandro Saúl** | Gestión del Sprint 3, Sprint Backlogs, Execution Evidence y documentación de servicios. |
+| **TF** | 10/07/2026 | **Sanchez Manrique, Italo Ludwing** | Desarrollo aplicación mobile, integración con backend y evidencia de implementación completa (Mobile + Web). |
+| **TF** | 10/07/2026 | **Machado Bracamonte, Ivo Marcelo** | Evidencias visuales del sistema (Landing, Web y Mobile), Software Deployment Evidence y soporte en documentación final. |
+
 \newpage
