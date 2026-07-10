@@ -244,13 +244,13 @@ En esta sección, el equipo de Hampcoders define los wireflows diagrams para la 
 #### Vista de Dashboard de Técnico
 
 
-![](assets/img/cap5/mockups/dasboardtechnician.png)
+![](assets/img/cap5/mockups/dashboardtechnician.png)
 
 
 #### Vista de Dashboard de Dueño de hogar
 
 
-![](assets/img/cap5/mockups/dashboardowner.png)
+![](assets/img/cap5/mockups/dashboardownerMockup.png)
 
 
 #### Vista de Portafolio de propiedades
