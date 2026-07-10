@@ -412,7 +412,7 @@ Una vez concluido exitosamente el proceso de compilación (*build*) y ejecución
 [https://github.com/Hampcoders-Desarrollo-IoT/electrolink-backend-api](https://github.com/Hampcoders-Desarrollo-IoT/electrolink-backend-api)
 
  *Captura: Confirmación de despliegue exitoso (Live) en el dashboard de Render*
-![Verificación del despliegue en Render](assets/img/cap6/render-backeng.png)
+![Verificación del despliegue en Render](assets/img/cap6/render-backeng.jpeg)
 
 
 Entorno de Desarrollo Local – Backend (Spring Boot)
