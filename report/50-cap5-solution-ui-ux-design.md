@@ -40,7 +40,7 @@ En el caso de la landing page, se ha utilizado principalmente una organización 
 
 Para la aplicación web, implementamos un sistema de widgets con estilo matricial para estructurar los datos, lo que permite categorizar la información según nuestros segmentos ya que poseen requerimientos distintos; así, el dueño visualiza métricas de consumo y gestión de inmuebles, mientras que el técnico accede a su agenda y stock de materiales. De esta forma, logramos que la experiencia de usuario sea específica para cada rol, manteniendo también un flujo de suscripción organizado y eficiente.
 \
-![](assets/img/cap5/dashboardownerMockup.png)
+![](assets/img/cap5/mockups/dashboardownerMockup.png)
 
 
 ### 5.2.2. Labeling Systems.
