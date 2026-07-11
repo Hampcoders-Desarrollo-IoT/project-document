@@ -198,36 +198,28 @@ Mobile: En paralelo, el equipo desarrolló la aplicación móvil, enfocándose e
 ### 6.3. Validation Interviews.
 
 # Entrevistas por Segmento - Plataforma ElectroLink
-## Segmento: Clientes
+## Segmento: Técnicos
 
-1. ¿Qué tan fácil te resultó registrarte y entender para qué servía ElectroLink como cliente?
-2. ¿Cómo fue tu experiencia al navegar desde el Home hasta encontrar un técnico?
-3. Al ver las cards de técnicos, ¿qué información fue clave para tomar una decisión (reseñas, distancia, disponibilidad)?
-4. ¿La sección de “Servicios activos” en el dashboard te ayudó a hacer seguimiento de lo que contrataste?
-5. ¿Pudiste identificar sin problemas en qué estado estaba tu solicitud o mantenimiento?
-6. ¿Sentiste que el diseño de la app era confiable y profesional desde el primer momento?
-7. ¿Qué tan útil te pareció el botón “Buscar técnico”? ¿Qué filtro usaste más?
-8. ¿La función de geolocalización y mapa te ayudó a elegir al mejor técnico cercano?
-9. ¿Te sentiste cómodo contratando a alguien por internet directamente desde la plataforma?
-10. ¿Te sirvió el módulo de notificaciones para saber cuándo ocurriría el mantenimiento?
-11. ¿Después de recibir el servicio, pudiste calificar al técnico fácilmente?
-12. ¿Qué cambiarías en la experiencia visual o funcional para que ElectroLink sea aún más clara o rápida de usar?
+1. Al ver el gráfico de la falla (picos de corriente) antes de llegar al lugar, ¿esto realmente le habría cambiado cómo aborda el servicio?
+2. ¿La calibración hecha con el asistente de IA le pareció confiable, o preferiría ajustar los límites usted mismo?
+3. ¿El corte automático del relé le parece una ventaja para su trabajo, o le preocupa no tener control manual en ese momento?
+4. Después de ver el registro fotográfico y técnico digital, ¿lo usaría para respaldarse ante reclamos de clientes?
+5. ¿Este pre-diagnóstico justificaría cobrar una tarifa mayor que un técnico sin esta información?
+6. ¿Aceptaría trabajos asignados automáticamente por la plataforma con base en estas alertas, o prefiere elegir manualmente?
+7. ¿Qué le faltó ver en la demo para confiar en usar esto como su canal principal de trabajo?
+
 
 ---
 
 ## Segmento: PYMEs
-1. ¿Tu empresa ya tenía una forma de gestionar proveedores eléctricos? ¿Qué cambió con ElectroLink?
-2. ¿El dashboard de “Gestión de agenda” te pareció fácil de entender para programar mantenimientos?
-3. ¿La opción de ver “Métricas y Rendimiento” fue útil para tomar decisiones de mejora?
-4. ¿Consideras valioso poder ver el “Historial de servicios” directamente en la plataforma?
-5. ¿ElectroLink te permite tener control sobre los días y horas en que recibes mantenimiento?
-6. ¿Qué tan clara te parece la visualización de técnicos preferidos? ¿Los volverías a contratar?
-7. ¿La interfaz de búsqueda por tipo de servicio eléctrico y ubicación te pareció ágil?
-8. ¿Usaste el sistema de reseñas para elegir a quién contratar? ¿Confiaste en él?
-9. ¿Crees que el diseño transmite formalidad y profesionalismo suficiente para una pyme?
-10. ¿Qué tan útil sería para ti recibir un reporte automático del mantenimiento realizado?
-11. ¿Te sirvió ver alertas de “Notificaciones” como recordatorio de mantenimientos?
-12. ¿Qué funcionalidades crees que le hacen falta a ElectroLink para facilitarte la gestión como empresa?
+
+1. Después de ver la demo, ¿el dashboard le dio la visibilidad que necesita sobre el consumo y estado de sus circuitos?
+2. ¿La alerta que recibió ante la sobrecarga simulada le pareció clara y con tiempo suficiente para actuar?
+3. Al ver que el firmware corta el relé automáticamente sin depender del servidor, ¿esto le genera más confianza en la protección de su equipo?
+4. ¿Cambiaría su forma actual de gestionar mantenimientos después de ver esto funcionando?
+5. ¿Qué le generó dudas durante la demo: el costo, la instalación, o algo del funcionamiento mismo?
+6. Con lo que vio, ¿pagaría por este sistema hoy? ¿Qué lo haría decidirse o no?
+
 
 ---
 
