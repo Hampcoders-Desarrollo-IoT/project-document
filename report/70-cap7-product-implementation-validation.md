@@ -198,6 +198,7 @@ Mobile: En paralelo, el equipo desarrolló la aplicación móvil, enfocándose e
 ### 6.3. Validation Interviews.
 
 # Entrevistas por Segmento - Plataforma ElectroLink
+
 ## Segmento: Técnicos
 
 1. Al ver el gráfico de la falla (picos de corriente) antes de llegar al lugar, ¿esto realmente le habría cambiado cómo aborda el servicio?
@@ -225,6 +226,8 @@ Mobile: En paralelo, el equipo desarrolló la aplicación móvil, enfocándose e
 
 
 ### 6.3.1. Diseño de Entrevistas.
+
+## Segmento: Técnicos
 
 1. Piero Tenorio Medina 
   \
@@ -271,6 +274,57 @@ Además, sus comentarios demuestran que valora:
 * Una **presentación atractiva (imágenes e información enriquecida)**.
 
 ---
+
+## Segmento: PYMEs
+
+## Segmento: Técnicos
+
+1. Martin Castillo
+  \
+   Enlace: []()
+   Duración: 2:30 min
+   Empieza: 00:00
+   
+*Resumen de la opinión del entrevistado sobre la aplicación Electrolink*
+
+
+1. **Comprensión general de la plataforma**:
+
+   * El entrevistado comprendió rápidamente la propuesta de valor de ElectroLink y destacó que el sistema permite monitorear el consumo eléctrico y el estado de los circuitos desde un único lugar, facilitando la gestión de sus instalaciones.
+
+2. **Experiencia de usuario (UX)**:
+
+   * Consideró que el **dashboard principal es claro, intuitivo y fácil de utilizar**, ya que presenta la información más relevante para la toma de decisiones. Sin embargo, sugirió realizar ligeras mejoras en el diseño visual para hacer la interfaz aún más atractiva y organizada.
+
+3. **Información clave para el usuario**:
+
+   * Comentó que le gustaría contar con una funcionalidad para registrar las propiedades de sus clientes y disponer de un **dashboard adicional** que le permita visualizar quiénes son sus clientes, dónde se encuentran ubicados y el estado de cada instalación.
+
+4. **Funcionalidad destacada**:
+
+   * Valoró especialmente el dashboard de monitoreo, indicando que la visualización del consumo, las alertas y el estado de los dispositivos le brindan mayor confianza para realizar un mantenimiento preventivo y tomar decisiones oportunas.
+
+5. **Sugerencias de mejora**:
+
+   * Mencionó que estaría dispuesto a pagar por el sistema, siempre que los mecanismos de monitoreo, detección y protección alcancen una confiabilidad cercana al **99 %**. Asimismo, indicó que sería importante conversar sobre los diferentes planes de precios, futuras mejoras y nuevas funcionalidades que podrían incorporarse a la plataforma.
+
+---
+
+## Análisis general
+
+El entrevistado refleja el perfil de una **PYME interesada en adoptar soluciones tecnológicas para la gestión y monitoreo eléctrico**. Su retroalimentación valida que:
+
+* El **dashboard principal aporta valor**, ofreciendo información clara sobre el consumo y el estado de los dispositivos.
+* Existe **interés en adoptar la plataforma**, siempre que garantice un alto nivel de confiabilidad en sus mecanismos de monitoreo y protección.
+* Hay oportunidades de ampliar la solución incorporando herramientas para la **gestión de clientes y propiedades**, permitiendo administrar múltiples instalaciones desde un solo lugar.
+
+Además, sus comentarios demuestran que valora:
+
+* La **visualización clara de la información mediante dashboards**.
+* La **confiabilidad del sistema** para proteger los equipos eléctricos.
+* La **escalabilidad de la plataforma**, incorporando nuevos módulos para la gestión de clientes y sedes.
+* Un **modelo de precios acorde al valor ofrecido**, acompañado de mejoras continuas y nuevas funcionalidades.
+
 
 ### 6.3.3. Evaluaciones según heurísticas.
 
