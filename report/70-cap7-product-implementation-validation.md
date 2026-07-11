@@ -197,6 +197,8 @@ Mobile: En paralelo, el equipo desarrolló la aplicación móvil, enfocándose e
 \
 ### 6.3. Validation Interviews.
 
+### 6.3.1. Diseño de Entrevistas.
+
 # Entrevistas por Segmento - Plataforma ElectroLink
 
 ## Segmento: Técnicos
@@ -223,9 +225,6 @@ Mobile: En paralelo, el equipo desarrolló la aplicación móvil, enfocándose e
 
 
 ---
-
-
-### 6.3.1. Diseño de Entrevistas.
 
 ## Segmento: Técnicos
 
@@ -275,13 +274,11 @@ Además, sus comentarios demuestran que valora:
 
 ---
 
-## Segmento: PYMEs
-
 ## Segmento: Técnicos
 
 1. Martin Castillo
   \
-   Enlace: []()
+   Enlace: [https://youtu.be/0A9Il0vBVgI](https://youtu.be/0A9Il0vBVgI)
    Duración: 2:30 min
    Empieza: 00:00
    
